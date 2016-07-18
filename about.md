@@ -4,12 +4,8 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
-
-You can find the source code for the Jekyll new theme at:
-{% include icon-github.html username="jglovier" %} /
-[jekyll-new](https://github.com/jglovier/jekyll-new)
-
-You can find the source code for Jekyll at
-{% include icon-github.html username="jekyll" %} /
-[jekyll](https://github.com/jekyll/jekyll)
+I've been building software since 2001 when it was just a hobby. 
+I graduated from The University of Kansas in 2013 with a B.S. in Mechanical Engineering and a Bio-Mechanical concentration.
+After graduation I went to work in the Automotive Manufacturing Industry where I took up programming full time.
+Now I am now a Full-Stack Engineer building enterprise software for the [Research Institute](https://github.com/Research-Institute/) 
+at Children's Mercy Hospital in Kansas City. 
