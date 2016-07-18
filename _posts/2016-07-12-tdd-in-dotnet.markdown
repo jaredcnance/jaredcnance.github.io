@@ -13,7 +13,7 @@ I made these videos for some of my colleagues at CMH.
 ## A Word About My Relationship with TDD
 
 I am not necessarily an advocate for TDD. I do however, believe testing is very important. 
-I always try to have test coverage on business logic, service boundaries, web controllers, and database constraints.
+I always try to have test coverage on business logic, service boundaries, web controllers, any custom validators, and database constraints.
 
 ## Part 1 
 
