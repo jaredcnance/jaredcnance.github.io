@@ -7,6 +7,7 @@
 
 # Site settings
 title: Jared Nance
+role: Full Stack Software Engineer
 email: jaredcnance@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   A living record of my experiences and challenges as I go through them.
