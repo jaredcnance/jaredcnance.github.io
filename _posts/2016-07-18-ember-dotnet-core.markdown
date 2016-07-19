@@ -99,8 +99,8 @@ public void ConfigureServices(IServiceCollection services)
   ...
   services.AddMvc(options =>
     {
-        options.InputFormatters.Insert(0, new RootNameInputFormatter());
-        options.OutputFormatters.Insert(0, new RootNameOutputFormatter(Assembly.GetEntryAssembly()));
+        options.InputFormatters.Insert(0, new RootNameInputFormatter(Assembly.GetEntryAssembly()));
+        options.OutputFormatters.Insert(0, new RootNameOutputFormatter());
     });
   ...
 }
