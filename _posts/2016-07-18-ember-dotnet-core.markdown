@@ -3,6 +3,7 @@ layout: post
 title:  "Ember and .Net Core"
 date:   2016-07-18 10:30:29 -0500
 categories: dotnet ember
+comments: true
 ---
 
 ## Introduction

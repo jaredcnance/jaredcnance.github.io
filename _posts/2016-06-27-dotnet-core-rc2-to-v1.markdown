@@ -3,6 +3,7 @@ layout: post
 title:  ".Net Core - RC2 to v1.0"
 date:   2016-06-27 19:30:29 -0500
 categories: dotnet core
+comments: true
 ---
 # It's finally here!
 

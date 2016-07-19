@@ -3,6 +3,7 @@ layout: post
 title:  "TDD in .Net"
 date:   2016-07-12 19:30:29 -0500
 categories: dotnet testing
+comments: true
 ---
 
 ## Introduction
