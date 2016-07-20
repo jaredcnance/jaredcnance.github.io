@@ -11,7 +11,7 @@ comments: true
 I really like using EmberJS for large projects and previously, I was using it with Rails and JSONAPI. 
 However, right now there is no good JSONAPI solution for .Net nor .Net Core and sometimes I find the HATEOAS verbosity unnecessary. 
 So, rather than taking on the challenge of writing a JSONAPI Serializer for .Net, I am going to make a serializer that will work with Ember's RestAdapter.
-The difference here is pretty straightforward. Requests to `/api/my-entity/1` currently return:
+The difference here is pretty straightforward. Requests to `/api/myEntities/1` currently return:
 
 {% highlight json %}
 {
