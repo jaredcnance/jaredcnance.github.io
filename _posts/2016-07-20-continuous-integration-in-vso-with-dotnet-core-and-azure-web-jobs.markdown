@@ -42,7 +42,6 @@ So, the first step is to create a new build definition by clicking the green plu
 
 Now we need to add the steps to build the project and get it ready for deployment.
 
-- The first step is to run `dotnet restore` from the command line. Dotnet should already be installed and on the PATH. 
 - **[Command Line](https://www.visualstudio.com/docs/build/steps/utility/command-line)**: restore NuGet packages 
   - Tool: `dotnet`
   - Arguments: `restore`
