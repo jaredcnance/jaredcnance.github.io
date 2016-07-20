@@ -16,8 +16,7 @@ While this may be a simple task, I struggled a bit when I first started playing 
 Continuous integration allows us to automate our deployment with the single push of a button or by simply pushing our code.
 The way I prefer to do this, is through a Pull Request and formal code review with all devs involved.
 Someone submits a PR, the team reviews the request and once everything is looking good, we merge into our master branch.
-If we have set our build process up, we can trigger the build when code is pushed to master.
-This can make our deployment much smoother.  
+If we have set our build process up, we can trigger the build when code is pushed to master, making deployment much simpler.
 
 ## WebJobs
 
@@ -43,33 +42,34 @@ So, the first step is to create a new build definition by clicking the green plu
 
 Now we need to add the steps to build the project and get it ready for deployment.
 
-- The first step is to run `dotnet restore` from the command line. Dotnet should already be installed and on the PATH.
+- The first step is to run `dotnet restore` from the command line. Dotnet should already be installed and on the PATH. 
+- **[Command Line](https://www.visualstudio.com/docs/build/steps/utility/command-line)**: restore NuGet packages 
   - Tool: `dotnet`
   - Arguments: `restore`
-- Next we will go ahead and build the solution by running a "Visual Studio Build" 
+- **[Visual Studio Build](https://www.visualstudio.com/docs/build/steps/build/visual-studio-build)**: build the entire solution 
   - Solution: `**\*.sln`
   - Platform: `$(BuildPlatform)`
   - Configuration: `$(BuildConfiguration)`
-- Run Tests by adding another "Command Line" step:
+- **[Command Line](https://www.visualstudio.com/docs/build/steps/utility/command-line)**: run tests
   - Tool: `dotnet`
   - Arguments: `test`
   - Working Folder: `test/{MY_TEST_DIRECTORY}`
-- Publish your WebJob by adding a "Command Line" step. You will need to do this FOR EACH web job in your solution.
+- **[Command Line](https://www.visualstudio.com/docs/build/steps/utility/command-line)**: publish the webjob and target the parent web app's App_Data directory
   - Tool: `dotnet`
   - Arguments: `publish -c $(BuildConfiguration) -o ../{WEB_APP_DIRECTORY}/wwwroot/App_Data/jobs/continuous/{WEB_JOB_NAME}`
   - Working Folder: `src/{WEB_JOB_DIRECTORY}`
-- Publish the web application by adding a "Command Line":
+- **[Command Line](https://www.visualstudio.com/docs/build/steps/utility/command-line)**: publish the web app
   - Tool: `dotnet`
   - Arguments: `publish -c $(BuildConfiguration)`
   - Working Folder: `src/{WEB_APP_DIRECTORY}`
-- We need to zip the published files by adding an "Archive Files" step. You will need to do this FOR EACH web app in your solution.
+- **[Archive Files](https://www.visualstudio.com/docs/build/steps/utility/archive-files)**: zip our project files to be used by Web Deploy. You will need to do this FOR EACH web app in your solution.
   - Root folder (or file) to archive: `src/{WEB_APP_DIRECTORY}/bin/$(BuildConfiguration)/net451/win7-x64/publish`
   - Archive type: zip
   - Archive file to create: `$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip`
-- Add a "Copy Files" step
+- **[Copy Files](https://www.visualstudio.com/docs/build/steps/utility/copy-files)**: copy the archive files into the artifact staging directory
   - Contents: `**/*.zip`
   - Target Folder: `$(Build.ArtifactStagingDirectory)`
-- Publish Artifact
+- **[Publish Artifact](https://www.visualstudio.com/en-us/docs/build/steps/utility/publish-build-artifacts)**: make the files available for the release 
   - Path to Publish: `$(Build.ArtifactStagingDirectory)`
   - Artifact Name: `drop`
   - Artifact Type: Server
