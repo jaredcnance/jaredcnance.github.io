@@ -99,8 +99,12 @@ public void ConfigureServices(IServiceCollection services)
   ...
   services.AddMvc(options =>
     {
-        options.InputFormatters.Insert(0, new RootNameInputFormatter(Assembly.GetEntryAssembly()));
-        options.OutputFormatters.Insert(0, new RootNameOutputFormatter());
+        options.InputFormatters.Insert(0, new RootNameInputFormatter(o => {
+            o.UseClassNames(Assembly.GetEntryAssembly());
+        }));
+        options.OutputFormatters.Insert(0, new RootNameOutputFormatter(o => {
+            o.UseClassNames();
+        }));
     });
   ...
 }
@@ -112,5 +116,31 @@ I did run into a few hiccups with the IInputFormatter implementation that will n
 
 - I am currently making two trips through deserialization so that I can leverage Json.Net's deserialization to type. I first deserialize to `Dictionary<string,object>`, then I extract object, reserialize and deserialize as the desired type. Not Ideal.  
 - Unless I am missing something, since there is no `AppDomain.CurrentDomain.GetAssemblies()`, there is currently no nice way to get the type for deserialization without passing in the desired assembly.  
+
+**Update**
+
+I realized that it is quite possible that the class name being sent/received may not actually be the model name (MyEntity <=> MyEntityPresenter or MyEntityViewModel).
+Because of this, I have added the ability to define explicit serialization definitions:
+
+```
+var serializationDefinitions = new Dictionary<Type, string> 
+{ 
+    { typeof(TestClass), "testClass" },
+    { typeof(List<TestClass>), "testClasses" }
+}; 
+services.AddMvc(options => 
+{ 
+    options.InputFormatters.Insert(0, new RootNameInputFormatter(o =>
+    {
+        o.UseExplicitDefinition(serializationDefinitions);
+    }));
+    options.OutputFormatters.Insert(0, new RootNameOutputFormatter(o =>
+    {
+        o.UseExplicitDefinition(serializationDefinitions);
+    }));
+}); 
+```
+
+This will also solve any issues you have during pluralization / singularization.
 
 [dotnet-rest-serializer]: https://github.com/Research-Institute/dotnet-rest-serializer
