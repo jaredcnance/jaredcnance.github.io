@@ -17,10 +17,10 @@ The extension here is showing how to deploy your client app (specifically EmberJ
 We will be injecting our ember build into the same build definition discussed in my last post.
 The entire process can be added immediately after the **[Visual Studio Build](https://www.visualstudio.com/docs/build/steps/build/visual-studio-build)** step.  
 
-- **[npm](https://marketplace.visualstudio.com/items?itemName=fknop.vscode-npm)**: install Ember-CLI
+- **[npm](https://www.visualstudio.com/docs/build/steps/package/npm-install)**: install Ember-CLI
   - Command: `install`
   - Arguments: `-g ember-cli`
-- **[npm](https://marketplace.visualstudio.com/items?itemName=fknop.vscode-npm)**: install node packages
+- **[npm](https://www.visualstudio.com/docs/build/steps/package/npm-install)**: install node packages
   - Command: `install`
   - Working Directory: `src/{EMBER_APP_DIRECTORY}`
 - **[bower](https://marketplace.visualstudio.com/items?itemName=donjayamanne.bower)**: install bower packages
