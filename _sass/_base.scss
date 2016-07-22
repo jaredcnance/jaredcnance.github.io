@@ -15,6 +15,7 @@ dl, dd, ol, ul, figure {
  */
 body {
     font: $base-font-weight #{$base-font-size}/#{$base-line-height} $base-font-family;
+    font-size: 1.2rem;
     color: $text-color;
     background-color: $background-color;
     -webkit-text-size-adjust: 100%;
@@ -132,7 +133,7 @@ code {
     font-size: 15px;
     border: 1px solid $grey-color-light;
     border-radius: 3px;
-    background-color: #eef;
+    background-color: lighten($background-color, 20%);
 }
 
 code {
@@ -202,5 +203,15 @@ pre {
         path {
             fill: $grey-color;
         }
+    }
+}
+
+.share-page {
+    padding: 10px;
+    background-color: darken($background-color, 5%);
+    text-align: center;
+    a {
+        padding: 20px;
+        text-decoration: none;
     }
 }

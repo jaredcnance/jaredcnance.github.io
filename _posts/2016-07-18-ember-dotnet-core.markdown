@@ -122,7 +122,7 @@ I did run into a few hiccups with the IInputFormatter implementation that will n
 I realized that it is quite possible that the class name being sent/received may not actually be the model name (MyEntity <=> MyEntityPresenter or MyEntityViewModel).
 Because of this, I have added the ability to define explicit serialization definitions:
 
-```
+{% highlight csharp %}
 var serializationDefinitions = new Dictionary<Type, string> 
 { 
     { typeof(TestClass), "testClass" },
@@ -139,7 +139,7 @@ services.AddMvc(options =>
         o.UseExplicitDefinition(serializationDefinitions);
     }));
 }); 
-```
+{% endhighlight %}
 
 This will also solve any issues you have during pluralization / singularization.
 
