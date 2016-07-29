@@ -30,9 +30,58 @@ The thing to know about Web Job deployment:
 They will always be published (by convention) under the App_Data folder of your web app:
 
 ```
-../{my-app}/wwwroot/App_Data/jobs/continuous/{my-web-job}
-../{my-app}/wwwroot/App_Data/jobs/triggered/{my-web-job}
+/site/wwwroot/App_Data/jobs/continuous/{my-web-job}
+/site/wwwroot/App_Data/jobs/triggered/{my-web-job}
 ```
+
+Note that this should not be confused with the wwwroot of the dotnet core app.
+The Azure app service has a wwwroot directory immediately under the site directory.
+So, when you deploy you should have two wwwroot folders like so:
+
+```
+/site/wwwroot/wwwroot/...
+/site/wwwroot/App_Data/...
+```
+
+## Before Building
+
+- We need to create a file that tells the host system which program to use as the running WebJob. 
+This will help prevent any ambiguity regarding which file will be started by the host system. 
+I have noticed that if there are any `.exe` or `.cmd` dependencies that end up in the publish folder, they may be run instead of the WebJob. 
+This can be a simple cmd file like so:  
+
+```
+cmd /K "%CD%\bin\{my-web-job}.exe"
+```
+
+I keep these files under source control stored in:  
+
+```
+/{my-project}/src/{web-app}/App_Data/jobs/continuous/{job-name}/run.cmd
+```
+
+and then I publish the project to:  
+
+```
+/{my-project}/src/{web-app}/App_Data/jobs/continuous/{job-name}/bin/
+```
+
+
+- We then need to modify `project.json` to include the App_Data folder when we publish:
+{% highlight json %}
+{
+    "publishOptions": {
+        "include": [
+            "wwwroot",
+            "App_Data",
+            "config.json",
+            "web.config"
+        ]
+    }
+}
+{% endhighlight %}
+
+
 
 ## Build
 
@@ -55,7 +104,7 @@ Now we need to add the steps to build the project and get it ready for deploymen
   - Working Folder: `test/{MY_TEST_DIRECTORY}`
 - **[Command Line](https://www.visualstudio.com/docs/build/steps/utility/command-line)**: publish the webjob and target the parent web app's App_Data directory
   - Tool: `dotnet`
-  - Arguments: `publish -c $(BuildConfiguration) -o ../{WEB_APP_DIRECTORY}/wwwroot/App_Data/jobs/continuous/{WEB_JOB_NAME}`
+  - Arguments: `publish -c $(BuildConfiguration) -o ../{WEB_APP_DIRECTORY}/App_Data/jobs/continuous/{WEB_JOB_NAME}/bin`
   - Working Folder: `src/{WEB_JOB_DIRECTORY}`
 - **[Command Line](https://www.visualstudio.com/docs/build/steps/utility/command-line)**: publish the web app
   - Tool: `dotnet`
