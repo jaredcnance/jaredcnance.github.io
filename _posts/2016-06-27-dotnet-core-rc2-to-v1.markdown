@@ -81,6 +81,13 @@ higher version than referenced assembly 'Newtonsoft.Json' with identity 'Newtons
 
 > System.TypeLoadException: Could not load type 'Microsoft.Extensions.DependencyInjection.ServiceProviderExtensions' from assembly 'Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60'. at Microsoft.AspNetCore.Builder.OpenIdConnectServerExtensions.UseOpenIdConnectServer(IApplicationBuilder app, Action1 configuration) at MyAssembly.Startup.Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, RoleManager1 roleManager) in C:\Startup.cs
 
+- If the VS Tooling setup fails and complains about the Visual Studio Update 3 missing, but you're sure you have installed it correctly, you may need to follow the resolution described [here](https://github.com/aspnet/Tooling/issues/687):
+
+```
+$ cd {DOWNLOAD_DIR}
+$ DotNetCore.1.0.0-VS2015Tools.Preview2.exe SKIP_VSU_CHECK=1
+```
+
 ## Conclusion
 
 I'd like to thank all those who beat me to the punch and documented their experiences as well:
