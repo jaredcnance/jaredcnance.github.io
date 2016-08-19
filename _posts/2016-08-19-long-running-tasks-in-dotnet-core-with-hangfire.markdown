@@ -146,6 +146,9 @@ public void ConfigureServices(IServiceCollection services)
     // add our service to the ServiceProvider container
     services.AddSingleton(new TodoItemService(Configuration));
 
+    // add the configuration object
+    services.AddSingleton(Configuration);
+
     services.AddMvc();
 }
 
@@ -162,6 +165,37 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory, ISe
     app.UseMvc();
 }
 {% endhighlight %}
+
+## The Controller
+
+The final piece is to create the endpoint. We want to kick off the job and return a [202 Accepted](https://tools.ietf.org/html/rfc2616#section-10.2.3) response:
+
+> 10.2.3 202 Accepted : 
+>   The request has been accepted for processing, but the processing has not been completed.
+
+{% highlight csharp %}
+// Controllers/TodoItemsController.cs
+[Route("api/[controller]")]
+public class TodoItemsController : Controller
+{
+    private IConfigurationRoot _configuration;
+
+    public TodoItemsController(IConfigurationRoot configuration)
+    {
+        _configuration = configuration;
+    }
+
+    [HttpPost]
+    public IActionResult Post([FromBody] TodoItem todoItem)
+    {
+        // start the job
+        BackgroundJob.Enqueue<TodoItemService>(service => service.CreateTodoItem(todoItem));
+        // return Accepted status code
+        return new StatusCodeResult(202);
+    }
+}
+{% endhighlight %}
+
 
 And that's it. The full source code is on [Github](https://github.com/jaredcnance/hangfire-dot-net-core-example) If you run the app and send a POST to `http://localhost:5000/api/todoitems` you can see the job being created and executed.
 
