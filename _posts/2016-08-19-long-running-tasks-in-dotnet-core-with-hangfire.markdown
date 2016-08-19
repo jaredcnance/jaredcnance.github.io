@@ -12,10 +12,11 @@ Follow along on [Github](https://github.com/jaredcnance/hangfire-dot-net-core-ex
 
 Typically, when we think of an ideal RESTful service, it's one that does very simple CRUD tasks. 
 However, sometimes these tasks aren't so simple and the reasons are out of our control.
-Currently, I am required to build a service that is exposed to a vendor application and am constrained by the rules of the vendor application.
-Because of these constraints, creation of resources is not so simple. Those constraints are:
+Currently, I am required to build a service that is exposed to a vendor application and am constrained by the rules of that application.
+Because of these constraints, creation of resources is a little more complicated. The basic requirements are:
  
- - The vendor POSTs information about the resource, but not the resource itself requiring my service to fetch additional information
+ - Expose an endpoint that the vendor application can use to POST information about a resource, but not the resource itself.
+ - The application needs to then perform additional tasks to get the information necessary to create the resource
  - The vendor client requires a quick HTTP status code response otherwise it will time out. 
 
 ## The Solution: Asynchronous Background Processing With Hangfire
@@ -26,7 +27,7 @@ Hangfire is discussed in detail elsewhere and [Scott Hanselman](http://www.hanse
 
 ## Installation
 
-If you are running an app on netcoreapp or netstandard, you should be able to install it just by running `Install-Package Hangfire` or by adding the following to your project.json dependencies:
+If you are running an app on netcoreapp or netstandard, you should be able to install it just by running `Install-Package Hangfire` in the Package Manager Console or by adding the following to your project.json dependencies and running `dotnet restore`:
 
 ```
 "Hangfire": "1.6.2"
