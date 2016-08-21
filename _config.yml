@@ -20,3 +20,6 @@ github_username:  jaredcnance
 # Build settings
 markdown: kramdown
 future: false
+
+gems:
+  - jekyll-seo-tag
