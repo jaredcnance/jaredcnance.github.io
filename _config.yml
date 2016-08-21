@@ -23,3 +23,8 @@ future: false
 
 gems:
   - jekyll-seo-tag
+
+exclude:
+  - package.json
+  - node_modules
+  - gulpfile.js

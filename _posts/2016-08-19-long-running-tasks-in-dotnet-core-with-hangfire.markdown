@@ -192,4 +192,3 @@ public class TodoItemsController : Controller
 
 
 And that's it. The full source code is on [Github](https://github.com/jaredcnance/hangfire-dot-net-core-example) If you run the app and send a POST to `http://localhost:5000/api/todoitems` you can see the job being created and executed.
-

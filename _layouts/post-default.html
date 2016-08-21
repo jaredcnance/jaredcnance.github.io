@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+  {% include head.html %}
+
+  <body>
+
+    {% include post-header.html %}
+
+    <div class="ui inverted vertical masthead center aligned segment">
+    
+    <a class="ui big left floated inverted basic icon button" href="{{ site.baseurl }}/" style="box-shadow: none !important;">
+        <i class="home icon"></i>
+    </a>
+
+    <div class="ui text container">
+        <h1 class="ui inverted header">
+            {{page.title}}
+        </h1>
+    </div>
+
+    </div>
+    {{ content }}
+     
+
+    {% include footer.html %}
+
+  </body>
+
+</html>
