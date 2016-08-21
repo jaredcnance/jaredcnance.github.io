@@ -7,7 +7,10 @@
     min-height: 56px;
 
     // Positioning context for the mobile navigation icon
-    position: relative;
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    background-color: rgba(255,255,255,0.9);
 }
 
 .site-title {
