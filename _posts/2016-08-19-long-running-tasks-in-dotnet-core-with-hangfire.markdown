@@ -179,13 +179,6 @@ The final piece is to create the endpoint. We want to kick off the job and retur
 [Route("api/[controller]")]
 public class TodoItemsController : Controller
 {
-    private IConfigurationRoot _configuration;
-
-    public TodoItemsController(IConfigurationRoot configuration)
-    {
-        _configuration = configuration;
-    }
-
     [HttpPost]
     public IActionResult Post([FromBody] TodoItem todoItem)
     {
