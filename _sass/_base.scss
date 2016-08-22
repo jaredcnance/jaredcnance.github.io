@@ -207,11 +207,12 @@ pre {
 }
 
 .share-page {
-    padding: 10px;
-    background-color: darken($background-color, 5%);
-    text-align: center;
-    a {
-        padding: 20px;
-        text-decoration: none;
+    .content {
+        text-align: center;
+        a {
+            padding: 20px;
+            text-decoration: none;
+        }
     }
+    
 }
