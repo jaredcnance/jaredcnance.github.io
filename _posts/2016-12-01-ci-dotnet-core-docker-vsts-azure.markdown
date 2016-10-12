@@ -72,7 +72,7 @@ $ kill -9 `lsof -t -i :2375`
 $ export DOCKER_HOST=
 {% endhighlight %}
 
-**Remember DOCKER_HOST is an environment variable and will not be persisted across terminal sessions**
+Remember DOCKER_HOST is an environment variable and will not be persisted across terminal sessions
 
 ### Deploying the Application
 
@@ -80,9 +80,10 @@ $ export DOCKER_HOST=
 If you're using VSTS you'll need to provision a [Linux build agent described here](http://donovanbrown.com/post/2016/06/03/Building-a-Linux-Based-Visual-Studio-Team-Service-Build-Machine-with-Docker-Support).
 
 We'll also want to make sure that we can run docker without sudo. 
-So, [update the docker permissions](https://docs.docker.com/engine/installation/linux/ubuntulinux/#/create-a-docker-group) from the build machine.
+So, [update the docker permissions](https://docs.docker.com/engine/installation/linux/ubuntulinux/#/create-a-docker-group) for the build machine.
 
 {% highlight bash %} 
+$ docker-machine ssh {BUILD_MACHINE}
 $ sudo groupadd docker
 $ sudo usermod -aG docker $USER
 # You may need to reboot
