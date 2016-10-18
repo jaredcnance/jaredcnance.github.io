@@ -1,4 +1,5 @@
 <meta content="{{ site.title }}" property="og:site_name">
+<meta content="website" property="og:type" >
 {% if page.title %}
   <meta content="{{ page.title }}" property="og:title">
 {% else %}
@@ -14,17 +15,14 @@
 {% else %}
   <meta content="{{ site.description }}" property="og:description">
 {% endif %}
-{% if page.url %}
-  <meta content="{{ site.url }}{{ page.url }}" property="og:url">
-{% endif %}
 {% if page.date %}
   <meta content="{{ page.date | date_to_xmlschema }}" property="article:published_time">
   <meta content="{{ site.author }}" property="article:author">
 {% endif %}
 {% if page.image %}
-  <meta content="/assets/{{ page.image }}" property="og:image">
+  <meta content="{{ site.url }}/assets/{{ page.image }}" property="og:image">
 {% else %}
-  <meta content="/assets/open-graph.png" property="og:image">
+  <meta content="{{ site.url }}/assets/logo.png" property="og:image">
 {% endif %}
 {% if page.tags %}
   {% for tag in page.tags %}
