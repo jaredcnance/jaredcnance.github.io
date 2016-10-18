@@ -1,9 +1,14 @@
 ---
 layout: post
-title:  ".Net Core meet JSONAPI"
-date:   2016-08-31 12:00:00 -0500
+title: ".Net Core meet JSONAPI"
+date: 2016-08-31 12:00:00 -0500
 categories: dotnet core emberjs
 comments: true
+description: "Demonstrating a new library for .Net Core that eliminates a significant amount of boiler plate for web apps"
+tags:
+  - dotnet-core
+  - emberjs
+  - jsonapi
 ---
 
 ## What is JSONAPI?
