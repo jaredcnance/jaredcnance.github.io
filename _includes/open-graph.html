@@ -2,8 +2,10 @@
 <meta content="article" property="og:type" >
 {% if page.title %}
   <meta content="{{ page.title }}" property="og:title">
+  <meta name="twitter:title" content="{{ page.title }}">
 {% else %}
   <meta content="{{ site.title }}" property="og:title">
+  <meta name="twitter:title" content="{{ site.title }}">
 {% endif %}
 {% if page.title %}
   <meta content="article" property="og:type">
@@ -12,8 +14,10 @@
 {% endif %}
 {% if page.description %}
   <meta content="{{ page.description }}" property="og:description">
+  <meta name="twitter:description" content="{{ page.description }}">
 {% else %}
   <meta content="{{ site.description }}" property="og:description">
+  <meta name="twitter:description" content="{{ site.description }}">
 {% endif %}
 {% if page.date %}
   <meta content="{{ page.date | date_to_xmlschema }}" property="article:published_time">
@@ -21,11 +25,19 @@
 {% endif %}
 {% if page.image %}
   <meta content="{{ site.url }}/assets/{{ page.image }}" property="og:image">
+  <meta name="twitter:image:src" content="{{ site.url }}/assets/{{ page.image }}">
 {% else %}
   <meta content="{{ site.url }}/assets/logo.png" property="og:image">
+  <meta name="twitter:image:src" content="{{ site.url }}/assets/logo.png">
 {% endif %}
 {% if page.tags %}
   {% for tag in page.tags %}
   <meta content="{{ tag }}" property="article:tag">
   {% endfor %}
 {% endif %}
+
+<!-- Twitter Card data -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@jaredcnance">
+<meta name="twitter:creator" content="@jaredcnance">
+
