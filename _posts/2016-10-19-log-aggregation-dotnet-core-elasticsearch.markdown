@@ -109,7 +109,7 @@ Now we can log something like so:
 
 {% highlight csharp %}
 // Application.cs
-public vid Run ()
+public void Run ()
 {
   _logger.LogInformation("Application started in environment {@Environment}", _env.EnvironmentName, Trace.GetData());
 }
