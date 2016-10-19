@@ -232,7 +232,8 @@ $ kibana
 
 ## What's Next?
 
-There are two major things I'd like to accomplish after writing this post:
+There are two major things I'd like to accomplish after writing this post:  
+
  - Following up with a demonstration of how to use this setup with multiple applications deployed to a Docker Swarm cluster
  - Work on an event tracing framework for distributed systems in .Net core - I haven't found anything that works for me, so if you have any suggestions, please let me know in the comments section
 
