@@ -67,3 +67,9 @@ $on-laptop:        800px;
 p {
     line-height: 1.6em !important;
 }
+
+video {
+    &.wide {
+        width: 100%;
+    }
+}
