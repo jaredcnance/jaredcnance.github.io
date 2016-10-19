@@ -44,7 +44,7 @@ I do not go into extreme detail here, so it would be useful to have some basic u
  - Configure logger factory to use Serilog. In this example I am using Autofac as my IoC Container instead of the default IServiceProvider. 
 The main reason I would use Autofac instead of the default provider is because I can use [Type Interceptors](http://docs.autofac.org/en/latest/advanced/interceptors.html) 
 to handle most of the logging instead of doing it directly inline and breaking the Single Responsiblity Principle. 
-As a side note, you [can't do this in dotnet core yet](http://docs.autofac.org/en/latest/advanced/interceptors.html).
+As a side note, you [can't do this in dotnet core yet](https://github.com/autofac/Autofac.Extras.DynamicProxy/issues/8).
 
 {% highlight csharp %}
 public IServiceProvider ConfigureServices(IServiceCollection services)
@@ -117,7 +117,7 @@ public void Run ()
 
 What I'm doing here is parameterizing the environment name along with some trace object that will be searchable by Elasticsearch.
 Like I mentioned above, I don't like doing this directly inline and would prefer to lean on the DI framework, 
-but I will just have to wait until [this is resolved](http://docs.autofac.org/en/latest/advanced/interceptors.html). 
+but I will just have to wait until [this is resolved](https://github.com/autofac/Autofac.Extras.DynamicProxy/issues/8). 
 If you're interested in implementing this pattern, check out [Erik Heemskerk's blog](https://www.erikheemskerk.nl/inspecting-aspects-interception/). 
 
 ## RabbitMQ
