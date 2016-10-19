@@ -5,6 +5,7 @@ date:   2016-10-19 00:00:00 -0500
 categories: dotnet core logging
 comments: true
 image: ElasticsearchDiagram.png
+description: A quick walkthrough on how you can implement log aggregation across your .Net Core microservice swarm
 ---
 
 ## Introduction
