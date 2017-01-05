@@ -23,7 +23,7 @@ layout: post-default
             // var disqus_developer = 1; // Comment out when the site is live
             var disqus_config = function () {
                 this.page.url = 'https://nance.io';
-                this.page.identifier = location.pathname;
+                this.page.identifier = '{{ page.url }}';
             };
             (function() {  // DON'T EDIT BELOW THIS LINE
                 var d = document, s = d.createElement('script');

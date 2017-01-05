@@ -79,7 +79,9 @@ I decided to split my refactor into three major phases each with a few minor gro
 The first phase was to grab low hanging fruit. During this phase I performed small changes that allowed me to get familiar with the
 code base while still improving it. Here are some simple suggestions to get you started:
 
-- split big methods into smaller methods - each method has a single responsibility
+- split big methods into smaller methods 
+    - each method has a single responsibility
+    - a conditional statement (if/unless) should ideally only be followed by a single line of code calling the handling method
 - simple naming 
     - ensure variable and class name modifiers are meaningful (i.e. `modelInstance` vs. `model`)
     - ensure local scope consistency
@@ -87,10 +89,12 @@ code base while still improving it. Here are some simple suggestions to get you 
 - single class per file
 - create visualizations of the current state and the desired state
 
-## 2. Major Contexts
+## 2. Implement Common Patterns
 
 After I made my "simple" fixes, I had a good enough understanding of the code and its intent to start attacking
-some of the major areas. I identified each of these and for this particular application there were four of these:
+some of the major areas. The next step was to start implementing common design patterns. This particular project 
+leaned on no common design practices or patterns. During the first phase of the refactor I was able
+to identify several large areas of opportunities:
 
 - Logic-View Separation
     - **problem**: most logic was performed by the view
@@ -100,16 +104,23 @@ some of the major areas. I identified each of these and for this particular appl
     - **solution**: identified the core ideas and separated them
 - Data Access
     - **problem**: the data access ocurred directly inline via SQL queries. There was also a known need for the concrete data access method to change in the near future
-    - **solution**: implemented the repository pattern
+    - **solution**: implemented the Repository pattern
 - Class coupling
     - **problem**: classes were very tightly coupled making the solution brittle to change
-    - **solution**: implemented a dependency injection framework and the composition root pattern to rely on interfaces rather than concrete implementations
+    - **solution**: implemented a [Dependency Injection](http://martinfowler.com/articles/injection.html) framework and the composition root pattern to rely on interfaces rather than concrete implementations
+- Switch Statements
+    - **problem**: the code was littered with long switch statements and redundant code
+    - **solution**: implement the Factory pattern where possible
 
-For every application, there will likely be different contexts with different problems and solutions. 
-I have just included some of these as an example. While working on each context, my secondary goal was to get the code 
-relating to that issue into a readable state. You should be able to traverse the paths of execution (without running/debugging the program) 
+I implemented about 10 different patterns throughout the code during this phase. These patterns help to reduce the
+cognitive overhead required to understand and work in a code base. They also greatly help to reduce complex and redundant
+code.
+
+For every application, there will be different problems and therefore different solutions. 
+While working on each area, my secondary goal was to get the code, relating to that issue, into a readable state.
+You should be able to traverse the paths of execution (without running/debugging the program) 
 without getting lost or confused. Consider cloning a duplicate copy of the repository that will remain separate from your working copy. 
-This allows you to debug code in a previous state, while also reviewing the code in the working state
+This allows you to debug code in a previous state, while also reviewing the code in the working state.
 
 ## 3. The Deep Dive
 
@@ -121,10 +132,23 @@ remaining. My philosophy during this phase was to Question Everything! A few maj
 
 - Line-by-Line examination
 - Minimize dependencies on concrete implementations (use interfaces)
-- Added unit testing -- i waited until this phase because I was unsure of the volatility of the overall structure of the program until this point
+- Added unit testing -- I waited until this phase because I was unsure of the volatility of the overall structure of the program until this point
 
 ## Conclusion
 
 Now I am fully aware that I am fortunate to work for someone who understands the need for this kind of work and that the value added
 may not be realized instantaneously (other than the fixed bugs of course) but will be realized over the time that the application is in use
 and the requirements change. Not everyone gets this luxury, so the best thing to do is to simply take pride in your work and write clean code from the start.
+This will likely not be the end of this project for me. We will continue to work on it and I predict the next steps will
+be something like:
+
+- Split the WebForms implementation into a WebAPI and SPA (likely built on EmberJS)
+- Exract the data access into a separate service with a WebAPI
+- Dockerize and host the primary service in the cloud with an on-prem data access component
+
+## Resources
+
+- [Architecture and Patterns in .Net](https://dotnetcodr.com/architecture-and-patterns/) - Andras Nemes
+- [Autofac DI Framework](http://docs.autofac.org/en/latest/getting-started/)
+- [Inspecting aspects and interception in .NET](https://www.erikheemskerk.nl/inspecting-aspects-interception/) - Erik Heemskerk
+- [Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882) - Robert Martin
