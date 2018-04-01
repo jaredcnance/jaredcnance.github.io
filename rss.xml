@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[nance.io]]></title><description><![CDATA[A blog about programming things.]]></description><link>https://gatsbyjs.github.io/gatsby-starter-blog/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 01 Apr 2018 11:22:08 GMT</lastBuildDate><item><title><![CDATA[Building Offline Applications with OrbitJS - Part I]]></title><link>https://gatsbyjs.github.io/gatsby-starter-blog//building-offline-applications/</link><guid isPermaLink="false">https://gatsbyjs.github.io/gatsby-starter-blog//building-offline-applications/</guid><pubDate>Sat, 16 Mar 2019 00:00:00 GMT</pubDate><content:encoded></content:encoded></item><item><title><![CDATA[Leveling Up Your .Net Testing Patterns - Part I]]></title><description><![CDATA[This is a two part blog post in which I’ll describe some techniques you can use to level up your .Net tests.
-In part 1 of this series, I’m…]]></description><link>https://gatsbyjs.github.io/gatsby-starter-blog//leveling-up-your-dotnet-testing/</link><guid isPermaLink="false">https://gatsbyjs.github.io/gatsby-starter-blog//leveling-up-your-dotnet-testing/</guid><pubDate>Sat, 16 Mar 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;This is a two part blog post in which I’ll describe some techniques you can use to level up your .Net tests.
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[nance.io]]></title><description><![CDATA[A blog about programming things.]]></description><link>https://jaredcnance.github.io/</link><generator>RSS for Node</generator><lastBuildDate>Sun, 01 Apr 2018 11:30:56 GMT</lastBuildDate><item><title><![CDATA[Building Offline Applications with OrbitJS - Part I]]></title><link>https://jaredcnance.github.io//building-offline-applications/</link><guid isPermaLink="false">https://jaredcnance.github.io//building-offline-applications/</guid><pubDate>Sat, 16 Mar 2019 00:00:00 GMT</pubDate><content:encoded></content:encoded></item><item><title><![CDATA[Leveling Up Your .Net Testing Patterns - Part I]]></title><description><![CDATA[This is a two part blog post in which I’ll describe some techniques you can use to level up your .Net tests.
+In part 1 of this series, I’m…]]></description><link>https://jaredcnance.github.io//leveling-up-your-dotnet-testing/</link><guid isPermaLink="false">https://jaredcnance.github.io//leveling-up-your-dotnet-testing/</guid><pubDate>Sat, 16 Mar 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;This is a two part blog post in which I’ll describe some techniques you can use to level up your .Net tests.
 In part 1 of this series, I’m going to show you how to use model Factories to generate data and introduce entropy
 into your tests.&lt;/p&gt;
 &lt;h2&gt;Factories&lt;/h2&gt;
@@ -225,8 +225,8 @@ of our tests across multiple runs while also providing the added benefit of maki
 By adding randomness to our tests we can discover issues that may never be discovered through the use of
 static test data.&lt;/p&gt;
 &lt;h2&gt;What’s Next&lt;/h2&gt;
-&lt;p&gt;In my next post on .Net testing, we’ll cover transactional integration testing.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Private Fields in Javascript]]></title><link>https://gatsbyjs.github.io/gatsby-starter-blog//private-fields-in-javascript/</link><guid isPermaLink="false">https://gatsbyjs.github.io/gatsby-starter-blog//private-fields-in-javascript/</guid><pubDate>Sat, 16 Mar 2019 00:00:00 GMT</pubDate><content:encoded></content:encoded></item><item><title><![CDATA[Leveling Up Your .Net Testing Patterns - Part II]]></title><description><![CDATA[In part 1 of this blog, I introduced factories and showed how to generate fake data to
-introduce some randomness to our tests and improve…]]></description><link>https://gatsbyjs.github.io/gatsby-starter-blog//transactional-integration-testing-in-asp-net-core/</link><guid isPermaLink="false">https://gatsbyjs.github.io/gatsby-starter-blog//transactional-integration-testing-in-asp-net-core/</guid><pubDate>Sat, 16 Mar 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;In part 1 of this blog, I introduced factories and showed how to generate fake data to
+&lt;p&gt;In my next post on .Net testing, we’ll cover transactional integration testing.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Private Fields in Javascript]]></title><link>https://jaredcnance.github.io//private-fields-in-javascript/</link><guid isPermaLink="false">https://jaredcnance.github.io//private-fields-in-javascript/</guid><pubDate>Sat, 16 Mar 2019 00:00:00 GMT</pubDate><content:encoded></content:encoded></item><item><title><![CDATA[Leveling Up Your .Net Testing Patterns - Part II]]></title><description><![CDATA[In part 1 of this blog, I introduced factories and showed how to generate fake data to
+introduce some randomness to our tests and improve…]]></description><link>https://jaredcnance.github.io//transactional-integration-testing-in-asp-net-core/</link><guid isPermaLink="false">https://jaredcnance.github.io//transactional-integration-testing-in-asp-net-core/</guid><pubDate>Sat, 16 Mar 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;In part 1 of this blog, I introduced factories and showed how to generate fake data to
 introduce some randomness to our tests and improve the coverage of possible input
 parameters. In part 2, we’ll be moving on to integration testing.&lt;/p&gt;
 &lt;p&gt;If you’re very familiar with OWIN or ASP.Net Core, you’ve probably read about (or written)
@@ -462,7 +462,7 @@ which allows a fixture instance to be shared across tests. The collection defini
 &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Article_Tests&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; TestFixture&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Startup&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;/* ... */&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
-&lt;h2&gt;Summary&lt;/h2&gt;</content:encoded></item><item><title><![CDATA[Introducing JsonApiDotNetCore]]></title><link>https://gatsbyjs.github.io/gatsby-starter-blog//introducing-json-api-dotnet-core/</link><guid isPermaLink="false">https://gatsbyjs.github.io/gatsby-starter-blog//introducing-json-api-dotnet-core/</guid><pubDate>Fri, 16 Mar 2018 00:00:00 GMT</pubDate><content:encoded></content:encoded></item><item><title><![CDATA[A Strategy for the Measurement and Optimization of .NET Application Performance]]></title><description><![CDATA[This is a cross-post from  stackify.com Introduction It’s Friday afternoon, the majority of the development staff has already packed up and…]]></description><link>https://gatsbyjs.github.io/gatsby-starter-blog//dotnet-performance-optimization/</link><guid isPermaLink="false">https://gatsbyjs.github.io/gatsby-starter-blog//dotnet-performance-optimization/</guid><pubDate>Fri, 12 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;blockquote&gt;
+&lt;h2&gt;Summary&lt;/h2&gt;</content:encoded></item><item><title><![CDATA[Introducing JsonApiDotNetCore]]></title><link>https://jaredcnance.github.io//introducing-json-api-dotnet-core/</link><guid isPermaLink="false">https://jaredcnance.github.io//introducing-json-api-dotnet-core/</guid><pubDate>Fri, 16 Mar 2018 00:00:00 GMT</pubDate><content:encoded></content:encoded></item><item><title><![CDATA[A Strategy for the Measurement and Optimization of .NET Application Performance]]></title><description><![CDATA[This is a cross-post from  stackify.com Introduction It’s Friday afternoon, the majority of the development staff has already packed up and…]]></description><link>https://jaredcnance.github.io//dotnet-performance-optimization/</link><guid isPermaLink="false">https://jaredcnance.github.io//dotnet-performance-optimization/</guid><pubDate>Fri, 12 Jan 2018 00:00:00 GMT</pubDate><content:encoded>&lt;blockquote&gt;
 &lt;p&gt;This is a cross-post from &lt;a href=&quot;https://stackify.com/net-application-optimization&quot;&gt;stackify.com&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
@@ -501,7 +501,7 @@ which allows a fixture instance to be shared across tests. The collection defini
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/gatsby-starter-blog/static/prefix-1-ee0b0123bf7bc68f1f091a08d3af3cae-9160a.png&quot;
+    href=&quot;/static/prefix-1-ee0b0123bf7bc68f1f091a08d3af3cae-9160a.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -520,12 +520,12 @@ which allows a fixture instance to be shared across tests. The collection defini
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;prefix 1&quot;
         title=&quot;&quot;
-        src=&quot;/gatsby-starter-blog/static/prefix-1-ee0b0123bf7bc68f1f091a08d3af3cae-fb8a0.png&quot;
-        srcset=&quot;/gatsby-starter-blog/static/prefix-1-ee0b0123bf7bc68f1f091a08d3af3cae-1a291.png 148w,
-/gatsby-starter-blog/static/prefix-1-ee0b0123bf7bc68f1f091a08d3af3cae-2bc4a.png 295w,
-/gatsby-starter-blog/static/prefix-1-ee0b0123bf7bc68f1f091a08d3af3cae-fb8a0.png 590w,
-/gatsby-starter-blog/static/prefix-1-ee0b0123bf7bc68f1f091a08d3af3cae-526de.png 885w,
-/gatsby-starter-blog/static/prefix-1-ee0b0123bf7bc68f1f091a08d3af3cae-9160a.png 1024w&quot;
+        src=&quot;/static/prefix-1-ee0b0123bf7bc68f1f091a08d3af3cae-fb8a0.png&quot;
+        srcset=&quot;/static/prefix-1-ee0b0123bf7bc68f1f091a08d3af3cae-1a291.png 148w,
+/static/prefix-1-ee0b0123bf7bc68f1f091a08d3af3cae-2bc4a.png 295w,
+/static/prefix-1-ee0b0123bf7bc68f1f091a08d3af3cae-fb8a0.png 590w,
+/static/prefix-1-ee0b0123bf7bc68f1f091a08d3af3cae-526de.png 885w,
+/static/prefix-1-ee0b0123bf7bc68f1f091a08d3af3cae-9160a.png 1024w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -543,7 +543,7 @@ which allows a fixture instance to be shared across tests. The collection defini
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/gatsby-starter-blog/static/retrace-1-d4b0428c188c7c15bf03bfbbf142cada-53a6b.png&quot;
+    href=&quot;/static/retrace-1-d4b0428c188c7c15bf03bfbbf142cada-53a6b.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -562,12 +562,12 @@ which allows a fixture instance to be shared across tests. The collection defini
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;retrace 1&quot;
         title=&quot;&quot;
-        src=&quot;/gatsby-starter-blog/static/retrace-1-d4b0428c188c7c15bf03bfbbf142cada-fb8a0.png&quot;
-        srcset=&quot;/gatsby-starter-blog/static/retrace-1-d4b0428c188c7c15bf03bfbbf142cada-1a291.png 148w,
-/gatsby-starter-blog/static/retrace-1-d4b0428c188c7c15bf03bfbbf142cada-2bc4a.png 295w,
-/gatsby-starter-blog/static/retrace-1-d4b0428c188c7c15bf03bfbbf142cada-fb8a0.png 590w,
-/gatsby-starter-blog/static/retrace-1-d4b0428c188c7c15bf03bfbbf142cada-526de.png 885w,
-/gatsby-starter-blog/static/retrace-1-d4b0428c188c7c15bf03bfbbf142cada-53a6b.png 1138w&quot;
+        src=&quot;/static/retrace-1-d4b0428c188c7c15bf03bfbbf142cada-fb8a0.png&quot;
+        srcset=&quot;/static/retrace-1-d4b0428c188c7c15bf03bfbbf142cada-1a291.png 148w,
+/static/retrace-1-d4b0428c188c7c15bf03bfbbf142cada-2bc4a.png 295w,
+/static/retrace-1-d4b0428c188c7c15bf03bfbbf142cada-fb8a0.png 590w,
+/static/retrace-1-d4b0428c188c7c15bf03bfbbf142cada-526de.png 885w,
+/static/retrace-1-d4b0428c188c7c15bf03bfbbf142cada-53a6b.png 1138w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -584,7 +584,7 @@ which allows a fixture instance to be shared across tests. The collection defini
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/gatsby-starter-blog/static/memory-leak-0f3fc71a4e7029e89406e21a65c2d150-95632.png&quot;
+    href=&quot;/static/memory-leak-0f3fc71a4e7029e89406e21a65c2d150-95632.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -603,10 +603,10 @@ which allows a fixture instance to be shared across tests. The collection defini
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;memory leak&quot;
         title=&quot;&quot;
-        src=&quot;/gatsby-starter-blog/static/memory-leak-0f3fc71a4e7029e89406e21a65c2d150-95632.png&quot;
-        srcset=&quot;/gatsby-starter-blog/static/memory-leak-0f3fc71a4e7029e89406e21a65c2d150-9d04d.png 148w,
-/gatsby-starter-blog/static/memory-leak-0f3fc71a4e7029e89406e21a65c2d150-f1dcb.png 295w,
-/gatsby-starter-blog/static/memory-leak-0f3fc71a4e7029e89406e21a65c2d150-95632.png 576w&quot;
+        src=&quot;/static/memory-leak-0f3fc71a4e7029e89406e21a65c2d150-95632.png&quot;
+        srcset=&quot;/static/memory-leak-0f3fc71a4e7029e89406e21a65c2d150-9d04d.png 148w,
+/static/memory-leak-0f3fc71a4e7029e89406e21a65c2d150-f1dcb.png 295w,
+/static/memory-leak-0f3fc71a4e7029e89406e21a65c2d150-95632.png 576w&quot;
         sizes=&quot;(max-width: 576px) 100vw, 576px&quot;
       /&gt;
     &lt;/span&gt;
@@ -619,7 +619,7 @@ which allows a fixture instance to be shared across tests. The collection defini
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/gatsby-starter-blog/static/overworked-service-bffeffc327e2fd44a003353eafc300ff-56a1e.png&quot;
+    href=&quot;/static/overworked-service-bffeffc327e2fd44a003353eafc300ff-56a1e.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -638,10 +638,10 @@ which allows a fixture instance to be shared across tests. The collection defini
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;overworked service&quot;
         title=&quot;&quot;
-        src=&quot;/gatsby-starter-blog/static/overworked-service-bffeffc327e2fd44a003353eafc300ff-56a1e.png&quot;
-        srcset=&quot;/gatsby-starter-blog/static/overworked-service-bffeffc327e2fd44a003353eafc300ff-8869e.png 148w,
-/gatsby-starter-blog/static/overworked-service-bffeffc327e2fd44a003353eafc300ff-87a4d.png 295w,
-/gatsby-starter-blog/static/overworked-service-bffeffc327e2fd44a003353eafc300ff-56a1e.png 578w&quot;
+        src=&quot;/static/overworked-service-bffeffc327e2fd44a003353eafc300ff-56a1e.png&quot;
+        srcset=&quot;/static/overworked-service-bffeffc327e2fd44a003353eafc300ff-8869e.png 148w,
+/static/overworked-service-bffeffc327e2fd44a003353eafc300ff-87a4d.png 295w,
+/static/overworked-service-bffeffc327e2fd44a003353eafc300ff-56a1e.png 578w&quot;
         sizes=&quot;(max-width: 578px) 100vw, 578px&quot;
       /&gt;
     &lt;/span&gt;
@@ -655,7 +655,7 @@ which allows a fixture instance to be shared across tests. The collection defini
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/gatsby-starter-blog/static/profiler-1-29558d2dcf98c3c1fe827c2a106025a5-9160a.png&quot;
+    href=&quot;/static/profiler-1-29558d2dcf98c3c1fe827c2a106025a5-9160a.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -674,12 +674,12 @@ which allows a fixture instance to be shared across tests. The collection defini
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;profiler 1&quot;
         title=&quot;&quot;
-        src=&quot;/gatsby-starter-blog/static/profiler-1-29558d2dcf98c3c1fe827c2a106025a5-fb8a0.png&quot;
-        srcset=&quot;/gatsby-starter-blog/static/profiler-1-29558d2dcf98c3c1fe827c2a106025a5-1a291.png 148w,
-/gatsby-starter-blog/static/profiler-1-29558d2dcf98c3c1fe827c2a106025a5-2bc4a.png 295w,
-/gatsby-starter-blog/static/profiler-1-29558d2dcf98c3c1fe827c2a106025a5-fb8a0.png 590w,
-/gatsby-starter-blog/static/profiler-1-29558d2dcf98c3c1fe827c2a106025a5-526de.png 885w,
-/gatsby-starter-blog/static/profiler-1-29558d2dcf98c3c1fe827c2a106025a5-9160a.png 1024w&quot;
+        src=&quot;/static/profiler-1-29558d2dcf98c3c1fe827c2a106025a5-fb8a0.png&quot;
+        srcset=&quot;/static/profiler-1-29558d2dcf98c3c1fe827c2a106025a5-1a291.png 148w,
+/static/profiler-1-29558d2dcf98c3c1fe827c2a106025a5-2bc4a.png 295w,
+/static/profiler-1-29558d2dcf98c3c1fe827c2a106025a5-fb8a0.png 590w,
+/static/profiler-1-29558d2dcf98c3c1fe827c2a106025a5-526de.png 885w,
+/static/profiler-1-29558d2dcf98c3c1fe827c2a106025a5-9160a.png 1024w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -690,7 +690,7 @@ which allows a fixture instance to be shared across tests. The collection defini
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/gatsby-starter-blog/static/profiler-2-b0bf6ba4e8210f5f30b6fdc4a8db1920-dd3ab.png&quot;
+    href=&quot;/static/profiler-2-b0bf6ba4e8210f5f30b6fdc4a8db1920-dd3ab.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -709,12 +709,12 @@ which allows a fixture instance to be shared across tests. The collection defini
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;profiler 2&quot;
         title=&quot;&quot;
-        src=&quot;/gatsby-starter-blog/static/profiler-2-b0bf6ba4e8210f5f30b6fdc4a8db1920-fb8a0.png&quot;
-        srcset=&quot;/gatsby-starter-blog/static/profiler-2-b0bf6ba4e8210f5f30b6fdc4a8db1920-1a291.png 148w,
-/gatsby-starter-blog/static/profiler-2-b0bf6ba4e8210f5f30b6fdc4a8db1920-2bc4a.png 295w,
-/gatsby-starter-blog/static/profiler-2-b0bf6ba4e8210f5f30b6fdc4a8db1920-fb8a0.png 590w,
-/gatsby-starter-blog/static/profiler-2-b0bf6ba4e8210f5f30b6fdc4a8db1920-526de.png 885w,
-/gatsby-starter-blog/static/profiler-2-b0bf6ba4e8210f5f30b6fdc4a8db1920-dd3ab.png 927w&quot;
+        src=&quot;/static/profiler-2-b0bf6ba4e8210f5f30b6fdc4a8db1920-fb8a0.png&quot;
+        srcset=&quot;/static/profiler-2-b0bf6ba4e8210f5f30b6fdc4a8db1920-1a291.png 148w,
+/static/profiler-2-b0bf6ba4e8210f5f30b6fdc4a8db1920-2bc4a.png 295w,
+/static/profiler-2-b0bf6ba4e8210f5f30b6fdc4a8db1920-fb8a0.png 590w,
+/static/profiler-2-b0bf6ba4e8210f5f30b6fdc4a8db1920-526de.png 885w,
+/static/profiler-2-b0bf6ba4e8210f5f30b6fdc4a8db1920-dd3ab.png 927w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -755,7 +755,7 @@ which allows a fixture instance to be shared across tests. The collection defini
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/gatsby-starter-blog/static/benchmarks-1-7d4893e14a119387491903daefb9a359-3c2f0.png&quot;
+    href=&quot;/static/benchmarks-1-7d4893e14a119387491903daefb9a359-3c2f0.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -774,12 +774,12 @@ which allows a fixture instance to be shared across tests. The collection defini
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;benchmarks 1&quot;
         title=&quot;&quot;
-        src=&quot;/gatsby-starter-blog/static/benchmarks-1-7d4893e14a119387491903daefb9a359-fb8a0.png&quot;
-        srcset=&quot;/gatsby-starter-blog/static/benchmarks-1-7d4893e14a119387491903daefb9a359-1a291.png 148w,
-/gatsby-starter-blog/static/benchmarks-1-7d4893e14a119387491903daefb9a359-2bc4a.png 295w,
-/gatsby-starter-blog/static/benchmarks-1-7d4893e14a119387491903daefb9a359-fb8a0.png 590w,
-/gatsby-starter-blog/static/benchmarks-1-7d4893e14a119387491903daefb9a359-526de.png 885w,
-/gatsby-starter-blog/static/benchmarks-1-7d4893e14a119387491903daefb9a359-3c2f0.png 934w&quot;
+        src=&quot;/static/benchmarks-1-7d4893e14a119387491903daefb9a359-fb8a0.png&quot;
+        srcset=&quot;/static/benchmarks-1-7d4893e14a119387491903daefb9a359-1a291.png 148w,
+/static/benchmarks-1-7d4893e14a119387491903daefb9a359-2bc4a.png 295w,
+/static/benchmarks-1-7d4893e14a119387491903daefb9a359-fb8a0.png 590w,
+/static/benchmarks-1-7d4893e14a119387491903daefb9a359-526de.png 885w,
+/static/benchmarks-1-7d4893e14a119387491903daefb9a359-3c2f0.png 934w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -798,7 +798,7 @@ You can also define compile-time constant parameters as members of the benchmark
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/gatsby-starter-blog/static/benchmarks-2-4536674c748d499867c9ae44ee1547aa-9160a.png&quot;
+    href=&quot;/static/benchmarks-2-4536674c748d499867c9ae44ee1547aa-9160a.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -817,12 +817,12 @@ You can also define compile-time constant parameters as members of the benchmark
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;benchmarks 2&quot;
         title=&quot;&quot;
-        src=&quot;/gatsby-starter-blog/static/benchmarks-2-4536674c748d499867c9ae44ee1547aa-fb8a0.png&quot;
-        srcset=&quot;/gatsby-starter-blog/static/benchmarks-2-4536674c748d499867c9ae44ee1547aa-1a291.png 148w,
-/gatsby-starter-blog/static/benchmarks-2-4536674c748d499867c9ae44ee1547aa-2bc4a.png 295w,
-/gatsby-starter-blog/static/benchmarks-2-4536674c748d499867c9ae44ee1547aa-fb8a0.png 590w,
-/gatsby-starter-blog/static/benchmarks-2-4536674c748d499867c9ae44ee1547aa-526de.png 885w,
-/gatsby-starter-blog/static/benchmarks-2-4536674c748d499867c9ae44ee1547aa-9160a.png 1024w&quot;
+        src=&quot;/static/benchmarks-2-4536674c748d499867c9ae44ee1547aa-fb8a0.png&quot;
+        srcset=&quot;/static/benchmarks-2-4536674c748d499867c9ae44ee1547aa-1a291.png 148w,
+/static/benchmarks-2-4536674c748d499867c9ae44ee1547aa-2bc4a.png 295w,
+/static/benchmarks-2-4536674c748d499867c9ae44ee1547aa-fb8a0.png 590w,
+/static/benchmarks-2-4536674c748d499867c9ae44ee1547aa-526de.png 885w,
+/static/benchmarks-2-4536674c748d499867c9ae44ee1547aa-9160a.png 1024w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -839,7 +839,7 @@ You can also define compile-time constant parameters as members of the benchmark
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/gatsby-starter-blog/static/process-1-9d38b0806d9cb700d0979aa6b7f4576b-e08ca.png&quot;
+    href=&quot;/static/process-1-9d38b0806d9cb700d0979aa6b7f4576b-e08ca.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -858,11 +858,11 @@ You can also define compile-time constant parameters as members of the benchmark
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;process 1&quot;
         title=&quot;&quot;
-        src=&quot;/gatsby-starter-blog/static/process-1-9d38b0806d9cb700d0979aa6b7f4576b-fb8a0.png&quot;
-        srcset=&quot;/gatsby-starter-blog/static/process-1-9d38b0806d9cb700d0979aa6b7f4576b-1a291.png 148w,
-/gatsby-starter-blog/static/process-1-9d38b0806d9cb700d0979aa6b7f4576b-2bc4a.png 295w,
-/gatsby-starter-blog/static/process-1-9d38b0806d9cb700d0979aa6b7f4576b-fb8a0.png 590w,
-/gatsby-starter-blog/static/process-1-9d38b0806d9cb700d0979aa6b7f4576b-e08ca.png 615w&quot;
+        src=&quot;/static/process-1-9d38b0806d9cb700d0979aa6b7f4576b-fb8a0.png&quot;
+        srcset=&quot;/static/process-1-9d38b0806d9cb700d0979aa6b7f4576b-1a291.png 148w,
+/static/process-1-9d38b0806d9cb700d0979aa6b7f4576b-2bc4a.png 295w,
+/static/process-1-9d38b0806d9cb700d0979aa6b7f4576b-fb8a0.png 590w,
+/static/process-1-9d38b0806d9cb700d0979aa6b7f4576b-e08ca.png 615w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -908,7 +908,7 @@ check out &lt;a href=&quot;http://adamsitnik.com/Span/#how-to-use-it-today&quot;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/gatsby-starter-blog/static/benchmarks-3-d67778a610d7eea5e85879405457b2e3-9160a.png&quot;
+    href=&quot;/static/benchmarks-3-d67778a610d7eea5e85879405457b2e3-9160a.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -927,12 +927,12 @@ check out &lt;a href=&quot;http://adamsitnik.com/Span/#how-to-use-it-today&quot;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;benchmarks 3&quot;
         title=&quot;&quot;
-        src=&quot;/gatsby-starter-blog/static/benchmarks-3-d67778a610d7eea5e85879405457b2e3-fb8a0.png&quot;
-        srcset=&quot;/gatsby-starter-blog/static/benchmarks-3-d67778a610d7eea5e85879405457b2e3-1a291.png 148w,
-/gatsby-starter-blog/static/benchmarks-3-d67778a610d7eea5e85879405457b2e3-2bc4a.png 295w,
-/gatsby-starter-blog/static/benchmarks-3-d67778a610d7eea5e85879405457b2e3-fb8a0.png 590w,
-/gatsby-starter-blog/static/benchmarks-3-d67778a610d7eea5e85879405457b2e3-526de.png 885w,
-/gatsby-starter-blog/static/benchmarks-3-d67778a610d7eea5e85879405457b2e3-9160a.png 1024w&quot;
+        src=&quot;/static/benchmarks-3-d67778a610d7eea5e85879405457b2e3-fb8a0.png&quot;
+        srcset=&quot;/static/benchmarks-3-d67778a610d7eea5e85879405457b2e3-1a291.png 148w,
+/static/benchmarks-3-d67778a610d7eea5e85879405457b2e3-2bc4a.png 295w,
+/static/benchmarks-3-d67778a610d7eea5e85879405457b2e3-fb8a0.png 590w,
+/static/benchmarks-3-d67778a610d7eea5e85879405457b2e3-526de.png 885w,
+/static/benchmarks-3-d67778a610d7eea5e85879405457b2e3-9160a.png 1024w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -945,7 +945,7 @@ check out &lt;a href=&quot;http://adamsitnik.com/Span/#how-to-use-it-today&quot;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/gatsby-starter-blog/static/prefix-2-9b144da31f8c0649b3a999749753c179-9160a.png&quot;
+    href=&quot;/static/prefix-2-9b144da31f8c0649b3a999749753c179-9160a.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -964,12 +964,12 @@ check out &lt;a href=&quot;http://adamsitnik.com/Span/#how-to-use-it-today&quot;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;prefix 2&quot;
         title=&quot;&quot;
-        src=&quot;/gatsby-starter-blog/static/prefix-2-9b144da31f8c0649b3a999749753c179-fb8a0.png&quot;
-        srcset=&quot;/gatsby-starter-blog/static/prefix-2-9b144da31f8c0649b3a999749753c179-1a291.png 148w,
-/gatsby-starter-blog/static/prefix-2-9b144da31f8c0649b3a999749753c179-2bc4a.png 295w,
-/gatsby-starter-blog/static/prefix-2-9b144da31f8c0649b3a999749753c179-fb8a0.png 590w,
-/gatsby-starter-blog/static/prefix-2-9b144da31f8c0649b3a999749753c179-526de.png 885w,
-/gatsby-starter-blog/static/prefix-2-9b144da31f8c0649b3a999749753c179-9160a.png 1024w&quot;
+        src=&quot;/static/prefix-2-9b144da31f8c0649b3a999749753c179-fb8a0.png&quot;
+        srcset=&quot;/static/prefix-2-9b144da31f8c0649b3a999749753c179-1a291.png 148w,
+/static/prefix-2-9b144da31f8c0649b3a999749753c179-2bc4a.png 295w,
+/static/prefix-2-9b144da31f8c0649b3a999749753c179-fb8a0.png 590w,
+/static/prefix-2-9b144da31f8c0649b3a999749753c179-526de.png 885w,
+/static/prefix-2-9b144da31f8c0649b3a999749753c179-9160a.png 1024w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -982,7 +982,7 @@ check out &lt;a href=&quot;http://adamsitnik.com/Span/#how-to-use-it-today&quot;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/gatsby-starter-blog/static/profiler-3-edc6feaba303de1b51fa7a80b876a922-9160a.png&quot;
+    href=&quot;/static/profiler-3-edc6feaba303de1b51fa7a80b876a922-9160a.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -1001,12 +1001,12 @@ check out &lt;a href=&quot;http://adamsitnik.com/Span/#how-to-use-it-today&quot;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;profiler 3&quot;
         title=&quot;&quot;
-        src=&quot;/gatsby-starter-blog/static/profiler-3-edc6feaba303de1b51fa7a80b876a922-fb8a0.png&quot;
-        srcset=&quot;/gatsby-starter-blog/static/profiler-3-edc6feaba303de1b51fa7a80b876a922-1a291.png 148w,
-/gatsby-starter-blog/static/profiler-3-edc6feaba303de1b51fa7a80b876a922-2bc4a.png 295w,
-/gatsby-starter-blog/static/profiler-3-edc6feaba303de1b51fa7a80b876a922-fb8a0.png 590w,
-/gatsby-starter-blog/static/profiler-3-edc6feaba303de1b51fa7a80b876a922-526de.png 885w,
-/gatsby-starter-blog/static/profiler-3-edc6feaba303de1b51fa7a80b876a922-9160a.png 1024w&quot;
+        src=&quot;/static/profiler-3-edc6feaba303de1b51fa7a80b876a922-fb8a0.png&quot;
+        srcset=&quot;/static/profiler-3-edc6feaba303de1b51fa7a80b876a922-1a291.png 148w,
+/static/profiler-3-edc6feaba303de1b51fa7a80b876a922-2bc4a.png 295w,
+/static/profiler-3-edc6feaba303de1b51fa7a80b876a922-fb8a0.png 590w,
+/static/profiler-3-edc6feaba303de1b51fa7a80b876a922-526de.png 885w,
+/static/profiler-3-edc6feaba303de1b51fa7a80b876a922-9160a.png 1024w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -1038,7 +1038,7 @@ check out &lt;a href=&quot;http://adamsitnik.com/Span/#how-to-use-it-today&quot;
 &lt;li&gt;&lt;a href=&quot;https://github.com/Microsoft/perfview&quot;&gt;Microsoft PerfView&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://www.writinghighperf.net/buy/&quot;&gt;Writing High-Performance .Net Code&lt;/a&gt; by &lt;a href=&quot;https://twitter.com/benmwatson&quot;&gt;Ben Watson&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://www.ageofascent.com/2017/11/05/perfromance-dotnet-core-2-corestart-conference/&quot;&gt;Corestart 2.0: What’s new for performance in .NET Core 2.0&lt;/a&gt; by &lt;a href=&quot;https://twitter.com/ben_a_adams&quot;&gt;Ben Adams&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[A Guide to Logging in Azure Functions]]></title><description><![CDATA[This is a cross-post from  stackify.com If you are thinking about using Azure Functions, at some point you will be confronted with the…]]></description><link>https://gatsbyjs.github.io/gatsby-starter-blog//logging-in-azure-functions/</link><guid isPermaLink="false">https://gatsbyjs.github.io/gatsby-starter-blog//logging-in-azure-functions/</guid><pubDate>Tue, 05 Dec 2017 00:00:00 GMT</pubDate><content:encoded>&lt;blockquote&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[A Guide to Logging in Azure Functions]]></title><description><![CDATA[This is a cross-post from  stackify.com If you are thinking about using Azure Functions, at some point you will be confronted with the…]]></description><link>https://jaredcnance.github.io//logging-in-azure-functions/</link><guid isPermaLink="false">https://jaredcnance.github.io//logging-in-azure-functions/</guid><pubDate>Tue, 05 Dec 2017 00:00:00 GMT</pubDate><content:encoded>&lt;blockquote&gt;
 &lt;p&gt;This is a cross-post from &lt;a href=&quot;https://stackify.com/logging-azure-functions&quot;&gt;stackify.com&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;If you are thinking about using Azure Functions, at some point you will be confronted with the challenge of figuring out how application logging works.
@@ -1090,7 +1090,7 @@ You can also view these logs in Kudu or as the raw data stored in Table Storage 
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/gatsby-starter-blog/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-9160a.png&quot;
+    href=&quot;/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-9160a.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -1109,12 +1109,12 @@ You can also view these logs in Kudu or as the raw data stored in Table Storage 
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;logs 1&quot;
         title=&quot;&quot;
-        src=&quot;/gatsby-starter-blog/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-fb8a0.png&quot;
-        srcset=&quot;/gatsby-starter-blog/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-1a291.png 148w,
-/gatsby-starter-blog/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-2bc4a.png 295w,
-/gatsby-starter-blog/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-fb8a0.png 590w,
-/gatsby-starter-blog/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-526de.png 885w,
-/gatsby-starter-blog/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-9160a.png 1024w&quot;
+        src=&quot;/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-fb8a0.png&quot;
+        srcset=&quot;/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-1a291.png 148w,
+/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-2bc4a.png 295w,
+/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-fb8a0.png 590w,
+/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-526de.png 885w,
+/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-9160a.png 1024w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -1254,7 +1254,7 @@ from environment variables and pass them to the &lt;a href=&quot;https://github.
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/gatsby-starter-blog/static/settings-1-9a8903f0f3def743b6b0a77a5f370a4b-58f95.png&quot;
+    href=&quot;/static/settings-1-9a8903f0f3def743b6b0a77a5f370a4b-58f95.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -1273,11 +1273,11 @@ from environment variables and pass them to the &lt;a href=&quot;https://github.
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;settings 1&quot;
         title=&quot;&quot;
-        src=&quot;/gatsby-starter-blog/static/settings-1-9a8903f0f3def743b6b0a77a5f370a4b-fb8a0.png&quot;
-        srcset=&quot;/gatsby-starter-blog/static/settings-1-9a8903f0f3def743b6b0a77a5f370a4b-1a291.png 148w,
-/gatsby-starter-blog/static/settings-1-9a8903f0f3def743b6b0a77a5f370a4b-2bc4a.png 295w,
-/gatsby-starter-blog/static/settings-1-9a8903f0f3def743b6b0a77a5f370a4b-fb8a0.png 590w,
-/gatsby-starter-blog/static/settings-1-9a8903f0f3def743b6b0a77a5f370a4b-58f95.png 787w&quot;
+        src=&quot;/static/settings-1-9a8903f0f3def743b6b0a77a5f370a4b-fb8a0.png&quot;
+        srcset=&quot;/static/settings-1-9a8903f0f3def743b6b0a77a5f370a4b-1a291.png 148w,
+/static/settings-1-9a8903f0f3def743b6b0a77a5f370a4b-2bc4a.png 295w,
+/static/settings-1-9a8903f0f3def743b6b0a77a5f370a4b-fb8a0.png 590w,
+/static/settings-1-9a8903f0f3def743b6b0a77a5f370a4b-58f95.png 787w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -1328,7 +1328,7 @@ this means there will be runtime type errors when trying to reference types in t
 &lt;li&gt;&lt;a href=&quot;https://github.com/Azure/azure-webjobs-sdk-script/issues/1579&quot;&gt;Allow custom dependency injection&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/Azure/azure-functions-cli/issues/130&quot;&gt;Logging written to ILogger does not appear in the CLI&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/Azure/azure-webjobs-sdk/issues/1390&quot;&gt;In-memory integration testing of Azure functions&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[.Net Core Dependency Injection]]></title><description><![CDATA[This is a cross-post from  stackify.com What is Dependency Injection? Dependency Injection  (DI) is a pattern that can help developers…]]></description><link>https://gatsbyjs.github.io/gatsby-starter-blog//dotnet-core-dependency-injection/</link><guid isPermaLink="false">https://gatsbyjs.github.io/gatsby-starter-blog//dotnet-core-dependency-injection/</guid><pubDate>Mon, 16 Oct 2017 00:00:00 GMT</pubDate><content:encoded>&lt;blockquote&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[.Net Core Dependency Injection]]></title><description><![CDATA[This is a cross-post from  stackify.com What is Dependency Injection? Dependency Injection  (DI) is a pattern that can help developers…]]></description><link>https://jaredcnance.github.io//dotnet-core-dependency-injection/</link><guid isPermaLink="false">https://jaredcnance.github.io//dotnet-core-dependency-injection/</guid><pubDate>Mon, 16 Oct 2017 00:00:00 GMT</pubDate><content:encoded>&lt;blockquote&gt;
 &lt;p&gt;This is a cross-post from &lt;a href=&quot;https://stackify.com/net-core-dependency-injection&quot;&gt;stackify.com&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2&gt;What is Dependency Injection?&lt;/h2&gt;
@@ -1515,7 +1515,7 @@ Container &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; serviceCol
 &lt;blockquote&gt;
 &lt;p&gt;Note
 All of the source code links used in this article are permalinks to the code on the default repository branches. These links should be used as a reference and not as the current state of the underlying implementations or APIs since these are subject to change at any time&lt;/p&gt;
-&lt;/blockquote&gt;</content:encoded></item><item><title><![CDATA[TypeScript vs JavaScript]]></title><description><![CDATA[This is a cross-post from  stackify.com TypeScript (TS) and JavaScript are two widely known languages in the development world, but what are…]]></description><link>https://gatsbyjs.github.io/gatsby-starter-blog//typescript-vs-javascript/</link><guid isPermaLink="false">https://gatsbyjs.github.io/gatsby-starter-blog//typescript-vs-javascript/</guid><pubDate>Wed, 20 Sep 2017 00:00:00 GMT</pubDate><content:encoded>&lt;blockquote&gt;
+&lt;/blockquote&gt;</content:encoded></item><item><title><![CDATA[TypeScript vs JavaScript]]></title><description><![CDATA[This is a cross-post from  stackify.com TypeScript (TS) and JavaScript are two widely known languages in the development world, but what are…]]></description><link>https://jaredcnance.github.io//typescript-vs-javascript/</link><guid isPermaLink="false">https://jaredcnance.github.io//typescript-vs-javascript/</guid><pubDate>Wed, 20 Sep 2017 00:00:00 GMT</pubDate><content:encoded>&lt;blockquote&gt;
 &lt;p&gt;This is a cross-post from &lt;a href=&quot;https://stackify.com/typescript-vs-javascript-migrate/&quot;&gt;stackify.com&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;TypeScript (TS) and JavaScript are two widely known languages in the development world, but what are the differences and what use cases are better suited for one over the other? In this post, we’ll compare the two languages, how they relate to one another, discuss their primary differences, and outline the benefits of each.&lt;/p&gt;
@@ -1571,7 +1571,7 @@ a &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&qu
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/gatsby-starter-blog/static/intellisense-2694d4a7136938d2c91af2eb13493621-909ad.png&quot;
+    href=&quot;/static/intellisense-2694d4a7136938d2c91af2eb13493621-909ad.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -1590,13 +1590,13 @@ a &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&qu
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;intellisense&quot;
         title=&quot;&quot;
-        src=&quot;/gatsby-starter-blog/static/intellisense-2694d4a7136938d2c91af2eb13493621-fb8a0.png&quot;
-        srcset=&quot;/gatsby-starter-blog/static/intellisense-2694d4a7136938d2c91af2eb13493621-1a291.png 148w,
-/gatsby-starter-blog/static/intellisense-2694d4a7136938d2c91af2eb13493621-2bc4a.png 295w,
-/gatsby-starter-blog/static/intellisense-2694d4a7136938d2c91af2eb13493621-fb8a0.png 590w,
-/gatsby-starter-blog/static/intellisense-2694d4a7136938d2c91af2eb13493621-526de.png 885w,
-/gatsby-starter-blog/static/intellisense-2694d4a7136938d2c91af2eb13493621-fa2eb.png 1180w,
-/gatsby-starter-blog/static/intellisense-2694d4a7136938d2c91af2eb13493621-909ad.png 1328w&quot;
+        src=&quot;/static/intellisense-2694d4a7136938d2c91af2eb13493621-fb8a0.png&quot;
+        srcset=&quot;/static/intellisense-2694d4a7136938d2c91af2eb13493621-1a291.png 148w,
+/static/intellisense-2694d4a7136938d2c91af2eb13493621-2bc4a.png 295w,
+/static/intellisense-2694d4a7136938d2c91af2eb13493621-fb8a0.png 590w,
+/static/intellisense-2694d4a7136938d2c91af2eb13493621-526de.png 885w,
+/static/intellisense-2694d4a7136938d2c91af2eb13493621-fa2eb.png 1180w,
+/static/intellisense-2694d4a7136938d2c91af2eb13493621-909ad.png 1328w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -1771,7 +1771,7 @@ TypeScript makes the most sense when working on large projects or you have sever
 &lt;li&gt;&lt;a href=&quot;http://kangax.github.io/compat-table/es6/&quot;&gt;ES6 Browser Compatibility&lt;/a&gt;
 …&lt;/li&gt;
 &lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Long Running Tasks In .Net Core With Hangfire]]></title><description><![CDATA[Follow along on  Github Why? Typically, when we think of an ideal RESTful service, it’s one that does very simple CRUD tasks.
-However…]]></description><link>https://gatsbyjs.github.io/gatsby-starter-blog//hangfire-tasks-in-dotnet-core/</link><guid isPermaLink="false">https://gatsbyjs.github.io/gatsby-starter-blog//hangfire-tasks-in-dotnet-core/</guid><pubDate>Fri, 19 Aug 2016 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Follow along on &lt;a href=&quot;https://github.com/jaredcnance/hangfire-dot-net-core-example&quot;&gt;Github&lt;/a&gt;&lt;/p&gt;
+However…]]></description><link>https://jaredcnance.github.io//hangfire-tasks-in-dotnet-core/</link><guid isPermaLink="false">https://jaredcnance.github.io//hangfire-tasks-in-dotnet-core/</guid><pubDate>Fri, 19 Aug 2016 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Follow along on &lt;a href=&quot;https://github.com/jaredcnance/hangfire-dot-net-core-example&quot;&gt;Github&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Why?&lt;/h2&gt;
 &lt;p&gt;Typically, when we think of an ideal RESTful service, it’s one that does very simple CRUD tasks.
 However, sometimes these tasks aren’t so simple and the reasons are out of our control.
