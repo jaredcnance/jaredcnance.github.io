@@ -3,9 +3,9 @@ module.exports = {
     title: 'nance.io',
     author: 'Jared Nance',
     description: 'A blog about programming things.',
-    siteUrl: 'https://gatsbyjs.github.io/gatsby-starter-blog/',
+    siteUrl: 'https://jaredcnance.github.io/',
   },
-  pathPrefix: '/gatsby-starter-blog',
+  pathPrefix: '',
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,
