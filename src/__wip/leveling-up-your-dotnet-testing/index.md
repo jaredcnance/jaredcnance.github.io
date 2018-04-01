@@ -60,11 +60,11 @@ public async Task GetPrice_Returns_The_Expected_Item_Price()
     var item = new ShoppingCartItem {
         Name = "Beer",
         UnitCost = 5.00m,
-        Quantity = 5,
+        Count = 5,
         CostType = CostType.Count
     };
 
-    var expectedCost = item.UnitCost * item.Quantity;
+    var expectedCost = item.UnitCost * item.Count;
 
     var itemCostCalculator = new ItemCostCalculator();
 
@@ -84,14 +84,14 @@ our instance:
 var item = new ShoppingCartItem {
     Name = Guid.NewGuid().ToString("N"),
     UnitCost = GetRandomDecimal(),
-    Quantity = GetRandomInteger(),
+    Count = GetRandomInteger(),
     CostType = GetRandomEnum<CostType>()
 };
 ```
 
 This is better because we alter the inputs to our system under test (SUT) on every test run.
-The problem with this is that you will have to write code that performs the generation of these random values
-and you it will not be easily reproducible in the event of a failure
+However, the problem with this is that you will have to write code that performs the generation
+of these random values and it will not be reproducible in the event of a failure
 (i.e. using `Guid` for strings is not going to do be reproducible).
 But, we can do better.
 
@@ -115,7 +115,7 @@ public static class ShoppingCartItemFactory
         => new Faker<ShoppingCartItem>()
             .RuleFor(i => i.Name, f.Commerce.Product())
             .RuleFor(i => i.UnitCost, f => f.Random.Decimal(min: 1))
-            .RuleFor(i => i.Quantity, f => f.Random.Number(min: 1))
+            .RuleFor(i => i.Count, f => f.Random.Number(min: 1))
             .RuleFor(i => i.Weight, f => f.Random.Decimal(min: 1))
             .RuleFor(i => i.CostType, f => f.Random.PickRandom<ItemType>())
             .Generate();
@@ -132,7 +132,7 @@ public async Task GetPrice_Returns_The_Expected_Item_Price()
 
     var units = (item.ItemType == ItemType.Weighed)
         ? item.Weight
-        : item.Quantity;
+        : item.Count;
 
     var expectedCost = units * item.UnitCost;
 
@@ -151,21 +151,22 @@ And our test is a little more pleasant to read.
 But, what kind of scenarios exist that fake data can actually help us catch?
 Consider the following requirement:
 
-> The total cost is the quantity multiplied by the unit cost if the unit is priced by quantity.
-> However if the unit is priced by weight, then the total cost is the quantity multiplied by the
+> The total cost is the unit cost multiplied by the count if the unit is priced by count.
+> However if the unit is priced by weight, then the total cost is the unit cost multiplied by the
 > weight of the unit.
 
-Okay so now consider a faulty `ItemCostCalculator` implementation:
+Okay so now consider a faulty `ItemCostCalculator` implementation that does not take item type
+into consideration and assumes all items are priced by count:
 
 ```csharp
 public class ItemCostCalculator
 {
     public decimal GetTotalPrice(ShoppingCartItem item)
-        => item.Quantity * item.UnitCost;
+        => item.Count * item.UnitCost;
 }
 ```
 
-Our original test would have passed every time because we only ever tested the weighted condition.
+Our original test would have passed every time because we only ever tested the count condition.
 However, we will get intermittent failures of our new test, because we expect the calculator to correctly
 compute cost based on `ItemType`. We can now fix our `ItemCostCalculator` and the test will pass every time.
 

@@ -5,7 +5,7 @@ module.exports = {
     description: 'A blog about programming things.',
     siteUrl: 'https://jaredcnance.github.io/',
   },
-  pathPrefix: '',
+  pathPrefix: '/',
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,
@@ -41,7 +41,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        //trackingId: `ADD YOUR TRACKING ID HERE`,
+        trackingId: `UA-116668380-1`,
       },
     },
     `gatsby-plugin-feed`,

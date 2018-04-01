@@ -22,6 +22,7 @@ class Bio extends React.Component {
           style={{
             marginRight: rhythm(1 / 2),
             marginBottom: 0,
+            marginTop: rhythm(0.9),
             width: rhythm(2),
             height: rhythm(2),
           }}
@@ -29,8 +30,8 @@ class Bio extends React.Component {
         <p>
           My name is <strong>Jared Nance</strong>, I live and work in Kansas
           City. I enjoy building things and sharing what I learn along the way.{' '}
-          You can{' '}
-          <a href="https://twitter.com/jaredcnance">follow me on Twitter</a> or{' '}
+          You can follow me on{' '}
+          <a href="https://twitter.com/jaredcnance">Twitter</a> or{' '}
           <a href="https://github.com/jaredcnance">GitHub</a>
         </p>
       </div>
