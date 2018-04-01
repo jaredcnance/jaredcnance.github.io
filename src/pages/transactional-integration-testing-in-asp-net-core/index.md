@@ -1,6 +1,6 @@
 ---
-title: Leveling Up Your ASP.Net Core Testing - Part II
-date: "2018-03-16T00:00:00.000Z"
+title: Leveling Up Your .Net Testing Patterns - Part II
+date: "2019-03-16T00:00:00.000Z"
 ---
 
 In part 1 of this blog, I introduced factories and showed how to generate fake data to
@@ -12,8 +12,9 @@ integration tests that use an in-memory web server. But, I will very quickly go 
 for anyone who is unfamiliar with the tools that are now available.
 
 ASP.Net Core has a set of APIs that you can use – available in the `Microsoft.AspNetCore.TestHost` package –
-to spin up an in memory web server and issue HTTP requests against. This is a fantastic way
-to write end-to-end application tests. A simple test might look something like:
+to create an in memory web server that you can issue HTTP requests against.
+This is a fantastic way to write end-to-end application tests.
+A simple test might look something like:
 
 ```csharp
 [Fact]
@@ -38,7 +39,8 @@ public async Task async Can_Get_Articles()
 ```
 
 However, the problem with the above test is that it assumes the database is empty.
-If you are sharing a `DbContext` with other tests, this is unlikely to be true.
+If you are sharing a `DbContext` with other tests or even if there are other tests
+which may be concurrently accessing the database, this is unlikely to be true.
 Or at least, there is the possibility that other tests might occasionally invalidate
 that assumption causing the test to act "flaky".
 
@@ -60,8 +62,8 @@ the scope of what is actually being tested. Some of these limitations have been
 
 In addition to these limitations, you may run into issues if your models depend on provider specific
 data types or constraints. For example, a PostgreSQL specific column type, will not be handled by the
-in memory provider and is unlikely to expose data type related issues. As an example, I might
-make the mistake of defining my model like so:
+in memory provider and is unlikely to expose data type related issues.
+As an example, I might make the mistake of defining my model like so:
 
 ```csharp
 [Column(TypeName = "int2")]
@@ -71,18 +73,73 @@ public int Ordinal { get; set; }
 I have defined a column type of `int2` (16 bit integer) but declared the .Net type to be `int` (32 bit integer).
 The in-memory provider will be unable to detect this problem.
 
-TODO: test the example
+# TODO: test the example
 
 The alternative that I would like to propose is transactional testing.
+Transactional tests are tests that get wrapped in a database transaction and are rolled back when the test completes.
+We can run our tests in an isolated [Entity Framework transaction](https://docs.microsoft.com/en-us/ef/core/saving/transactions).
+A simple transaction might look like:
 
-... INSERT DISCUSSION ABOUT TRANSACTIONS ...
+```csharp
+using (var transaction = _dbContext.Database.BeginTransaction())
+{
+    try
+    {
+        // do some work that requires calling SaveChanges multiple times...
 
-This is not a new concept and it comes out-of-the-box in Rails.
+        transaction.Commit();
+    }
+    catch (Exception)
+    {
+        transaction.Rollback();
+    }
+}
+```
+
+The call to [`BeginTransaction`](https://github.com/aspnet/EntityFrameworkCore/blob/1d2178f38d231599b53f899af498107fc1db39d9/src/EFCore.Relational/Storage/RelationalConnection.cs#L246) will begin an [ADO.NET transaction](https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/local-transactions)
+and subsequent calls to `SaveChanges` will use the open transaction. When the `DbContext` is disposed it will rollback the transaction if it has not already been committed.
+
+Wrapping integration tests in transactions is not a new concept and it comes out-of-the-box [in Rails](https://github.com/rails/rails/commit/903ef71b9952f4bfaef798bbd93a972fc25010ad).
 However, since .Net is much less opinionated than rails, it's not reasonable to expect this to be a built-in feature.
 So, how can we achieve this using Entity Framework Core and ASP.Net Core?
 
-The first thing we need to do is define our test fixture. I'm going to be using xUnit, but this should
-be possible with any other major testing framework.
+Let's take a look at the simplest use of transactions in integration tests.
+We're going to test that an `ArticleService` persists data to the database:
+
+```csharp
+public async Task CreateAsync_Persists_Article()
+{
+    using (var transaction = _dbContext.Database.BeginTransaction())
+    {
+        try
+        {
+            // arrange
+            var article = ArticleFactory.Get();
+            var service = new ArticleService(_dbContext);
+
+            // act
+            await service.CreateAsync(article); // will call _dbContext.SaveChanges();
+
+            // assert
+            var dbArticle = await _dbContext.SingleOrDefaultAsync(a => a.UniqueId == article.UniqueId);
+            Assert.NotNull(dbArticle);
+        }
+        catch (Exception)
+        {
+            transaction.Rollback();
+        }
+    }
+}
+```
+
+By using the transaction, we can ensure that the changes to the `DbContext` are rolled back after the change. In addition,
+SQLServer, PostgreSQL and Oracle 11g all use
+[Read Committed isolation](https://www.postgresql.org/docs/9.5/static/transaction-iso.html)
+by default. What this means is that the changes within this transaction will not be visible to other concurrent transactions.
+
+Things get a little more interesting when we decide to run end to end tests with an in memory web server.
+To do this let's define a test fixture to centralize our work.
+I'm going to be using xUnit, but this should be possible with any of the major testing frameworks.
 
 In this case the fixture is simply a shared base class that each test class will inherit.
 Because of this, each test will get a new instance. An example fixture is defined below:
@@ -92,7 +149,7 @@ public class TestFixture<TStartup> : IDisposable where TStartup : class
 {
     private readonly TestServer _server;
     private readonly IServiceProvider _services;
-    private readonly IDbContextTransaction _transaction { get; private set; }
+    private readonly IDbContextTransaction _transaction;
 
     public TestFixture()
     {
@@ -162,7 +219,8 @@ by the test will be different than the instance used by the web server and they 
 share a transaction scope. In other words, the web server will return an empty set because
 it is unaware of the transaction running in the test. So, we can create a new `TestStartup`
 class that registers the `AppDbContext` as a singleton. Remember, that this is not an implementation
-of the singleton pattern, but instead just means that any lookups on the **same container instance**
+of a traditional [singleton pattern in C#](http://csharpindepth.com/Articles/General/Singleton.aspx),
+but instead just means that any lookups on the **same container instance**
 will receive the same **service instance**. This means transaction isolation is preserved between tests
 as long as tests do not share a `TestServer` instance.
 
@@ -193,3 +251,5 @@ public class DatabaseFixture
 [Collection(nameof(DatabaseCollection))]
 public class Article_Tests : TestFixture<Startup> { /* ... */}
 ```
+
+## Summary
