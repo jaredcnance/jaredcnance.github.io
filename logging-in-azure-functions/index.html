@@ -1,0 +1,302 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><link rel="preload" href="/gatsby-starter-blog/component---src-layouts-index-js-c56dd00f07d25fed4a16.js" as="script"/><link rel="preload" href="/gatsby-starter-blog/component---src-templates-blog-post-js-18840ce4d84a05d111a1.js" as="script"/><link rel="preload" href="/gatsby-starter-blog/path---logging-in-azure-functions-e7c19229751d88946313.js" as="script"/><link rel="preload" href="/gatsby-starter-blog/app-dca761cfa7c9545bd6ef.js" as="script"/><link rel="preload" href="/gatsby-starter-blog/commons-052854b14b2d9cebb713.js" as="script"/><link rel="alternate" type="application/rss+xml" href="/gatsby-starter-blog/rss.xml"/><title data-react-helmet="true">A Guide to Logging in Azure Functions | nance.io</title><style id="typography.js">html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}audio:not([controls]){display:none;height:0}progress{vertical-align:baseline}[hidden],template{display:none}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}button,input,optgroup,select,textarea{font:inherit;margin:0}optgroup{font-weight:700}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-input-placeholder{color:inherit;opacity:.54}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}html{font:100%/1.75 'Merriweather','Georgia',serif;box-sizing:border-box;overflow-y:scroll;}*{box-sizing:inherit;}*:before{box-sizing:inherit;}*:after{box-sizing:inherit;}body{color:hsla(0,0%,0%,0.9);font-family:'Merriweather','Georgia',serif;font-weight:400;word-wrap:break-word;font-kerning:normal;-moz-font-feature-settings:"kern", "liga", "clig", "calt";-ms-font-feature-settings:"kern", "liga", "clig", "calt";-webkit-font-feature-settings:"kern", "liga", "clig", "calt";font-feature-settings:"kern", "liga", "clig", "calt";}img{max-width:100%;margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}h1{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:Montserrat,sans-serif;font-weight:900;text-rendering:optimizeLegibility;font-size:2.5rem;line-height:1.1;}h2{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1.73286rem;line-height:1.1;}h3{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1.4427rem;line-height:1.1;}h4{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1rem;line-height:1.1;letter-spacing:0.140625em;text-transform:uppercase;}h5{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:0.83255rem;line-height:1.1;}h6{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:0.75966rem;line-height:1.1;font-style:italic;}hgroup{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}ul{margin-left:1.75rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;list-style-position:outside;list-style-image:none;list-style:disc;}ol{margin-left:1.75rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;list-style-position:outside;list-style-image:none;}dl{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}dd{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}p{margin-left:0;margin-right:0;margin-top:1.2rem;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.2rem;}figure{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}pre{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:0.85rem;line-height:1.75rem;}table{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:1rem;line-height:1.75rem;border-collapse:collapse;width:100%;}fieldset{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}blockquote{margin-left:-1.75rem;margin-right:1.75rem;margin-top:0;padding-bottom:0;padding-left:1.42188rem;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:1.20112rem;line-height:1.75rem;color:hsla(0,0%,0%,0.59);font-style:italic;border-left:0.32813rem solid hsla(0,0%,0%,0.9);}form{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}noscript{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}iframe{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}hr{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:calc(1.75rem - 1px);background:hsla(0,0%,0%,0.2);border:none;height:1px;}address{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}b{font-weight:700;}strong{font-weight:700;}dt{font-weight:700;}th{font-weight:700;}li{margin-bottom:calc(1.75rem / 2);}ol li{padding-left:0;}ul li{padding-left:0;}li > ol{margin-left:1.75rem;margin-bottom:calc(1.75rem / 2);margin-top:calc(1.75rem / 2);}li > ul{margin-left:1.75rem;margin-bottom:calc(1.75rem / 2);margin-top:calc(1.75rem / 2);}blockquote *:last-child{margin-bottom:0;}li *:last-child{margin-bottom:0;}p *:last-child{margin-bottom:0;}li > p{margin-bottom:calc(1.75rem / 2);}code{font-size:0.85rem;line-height:1.75rem;}kbd{font-size:0.85rem;line-height:1.75rem;}samp{font-size:0.85rem;line-height:1.75rem;}abbr{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}acronym{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}abbr[title]{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;text-decoration:none;}thead{text-align:left;}td,th{text-align:left;border-bottom:1px solid hsla(0,0%,0%,0.12);font-feature-settings:"tnum";-moz-font-feature-settings:"tnum";-ms-font-feature-settings:"tnum";-webkit-font-feature-settings:"tnum";padding-left:1.16667rem;padding-right:1.16667rem;padding-top:0.875rem;padding-bottom:calc(0.875rem - 1px);}th:first-child,td:first-child{padding-left:0;}th:last-child,td:last-child{padding-right:0;}blockquote > :last-child{margin-bottom:0;}blockquote cite{font-size:1rem;line-height:1.75rem;color:hsla(0,0%,0%,0.9);font-weight:400;}blockquote cite:before{content:"— ";}ul,ol{margin-left:0;}@media only screen and (max-width:480px){ul,ol{margin-left:1.75rem;}blockquote{margin-left:-1.3125rem;margin-right:0;padding-left:0.98438rem;}}h1,h2,h3,h4,h5,h6{margin-top:3.5rem;}a{box-shadow:0 1px 0 0 currentColor;color:#007acc;text-decoration:none;}a:hover,a:active{box-shadow:none;}mark,ins{background:#007acc;color:white;padding:0.10938rem 0.21875rem;text-decoration:none;}a.gatsby-resp-image-link{box-shadow:none;}</style><style id="gatsby-inlined-css">code[class*=language-],pre[class*=language-]{color:#bfc7d5;background:none;font-family:Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto;background:#292d3e}:not(pre)>code[class*=language-]{color:#292d3e;background-color:rgba(191,199,213,.53333);padding:.1em .3em;border-radius:.3em;white-space:normal}.token.block-comment,.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#697098}.token.class-name,.token.punctuation{color:#82aaff}.token.attr-name,.token.deleted,.token.namespace,.token.tag{color:#ff5572}.token.function-name{color:#6196cc}.token.boolean,.token.function,.token.number{color:#ffcb6b}.token.constant,.token.property,.token.symbol{color:#c3e88d}.token.atrule,.token.builtin,.token.important,.token.keyword,.token.selector{color:#bf79db}.token.attr-value,.token.char,.token.regex,.token.string,.token.variable{color:#c3e88d}.token.entity,.token.operator,.token.url{color:#80cbc4}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}.token.inserted{color:#66d9ef}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:100;src:local("Montserrat Thin "),local("Montserrat-Thin"),url(/gatsby-starter-blog/static/montserrat-latin-100.50d27986.woff2) format("woff2"),url(/gatsby-starter-blog/static/montserrat-latin-100.5e334eff.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:100;src:local("Montserrat Thin italic"),local("Montserrat-Thinitalic"),url(/gatsby-starter-blog/static/montserrat-latin-100italic.8c070533.woff2) format("woff2"),url(/gatsby-starter-blog/static/montserrat-latin-100italic.03e19243.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:200;src:local("Montserrat Extra Light "),local("Montserrat-Extra Light"),url(/gatsby-starter-blog/static/montserrat-latin-200.4343d3d9.woff2) format("woff2"),url(/gatsby-starter-blog/static/montserrat-latin-200.f2022ecd.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:200;src:local("Montserrat Extra Light italic"),local("Montserrat-Extra Lightitalic"),url(/gatsby-starter-blog/static/montserrat-latin-200italic.116c4c4b.woff2) format("woff2"),url(/gatsby-starter-blog/static/montserrat-latin-200italic.89614a60.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:300;src:local("Montserrat Light "),local("Montserrat-Light"),url(/gatsby-starter-blog/static/montserrat-latin-300.d2ad295b.woff2) format("woff2"),url(/gatsby-starter-blog/static/montserrat-latin-300.3a371ee0.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:300;src:local("Montserrat Light italic"),local("Montserrat-Lightitalic"),url(/gatsby-starter-blog/static/montserrat-latin-300italic.f6b6bf24.woff2) format("woff2"),url(/gatsby-starter-blog/static/montserrat-latin-300italic.16521668.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:400;src:local("Montserrat Regular "),local("Montserrat-Regular"),url(/gatsby-starter-blog/static/montserrat-latin-400.240a8444.woff2) format("woff2"),url(/gatsby-starter-blog/static/montserrat-latin-400.b20cc131.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:400;src:local("Montserrat Regular italic"),local("Montserrat-Regularitalic"),url(/gatsby-starter-blog/static/montserrat-latin-400italic.86172bb8.woff2) format("woff2"),url(/gatsby-starter-blog/static/montserrat-latin-400italic.9405e787.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:500;src:local("Montserrat Medium "),local("Montserrat-Medium"),url(/gatsby-starter-blog/static/montserrat-latin-500.fb8d6b71.woff2) format("woff2"),url(/gatsby-starter-blog/static/montserrat-latin-500.50825d47.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:500;src:local("Montserrat Medium italic"),local("Montserrat-Mediumitalic"),url(/gatsby-starter-blog/static/montserrat-latin-500italic.c0a555a4.woff2) format("woff2"),url(/gatsby-starter-blog/static/montserrat-latin-500italic.635de59c.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:600;src:local("Montserrat SemiBold "),local("Montserrat-SemiBold"),url(/gatsby-starter-blog/static/montserrat-latin-600.d5615136.woff2) format("woff2"),url(/gatsby-starter-blog/static/montserrat-latin-600.f300da4f.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:600;src:local("Montserrat SemiBold italic"),local("Montserrat-SemiBolditalic"),url(/gatsby-starter-blog/static/montserrat-latin-600italic.10f29d13.woff2) format("woff2"),url(/gatsby-starter-blog/static/montserrat-latin-600italic.2bc37d86.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:700;src:local("Montserrat Bold "),local("Montserrat-Bold"),url(/gatsby-starter-blog/static/montserrat-latin-700.7d77e1f0.woff2) format("woff2"),url(/gatsby-starter-blog/static/montserrat-latin-700.81826529.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:700;src:local("Montserrat Bold italic"),local("Montserrat-Bolditalic"),url(/gatsby-starter-blog/static/montserrat-latin-700italic.1dd2b53f.woff2) format("woff2"),url(/gatsby-starter-blog/static/montserrat-latin-700italic.c162d257.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:800;src:local("Montserrat ExtraBold "),local("Montserrat-ExtraBold"),url(/gatsby-starter-blog/static/montserrat-latin-800.d4e7bf86.woff2) format("woff2"),url(/gatsby-starter-blog/static/montserrat-latin-800.895aadbf.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:800;src:local("Montserrat ExtraBold italic"),local("Montserrat-ExtraBolditalic"),url(/gatsby-starter-blog/static/montserrat-latin-800italic.fc0cbe44.woff2) format("woff2"),url(/gatsby-starter-blog/static/montserrat-latin-800italic.b3362875.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:900;src:local("Montserrat Black "),local("Montserrat-Black"),url(/gatsby-starter-blog/static/montserrat-latin-900.c8bdd772.woff2) format("woff2"),url(/gatsby-starter-blog/static/montserrat-latin-900.1b99ef78.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:900;src:local("Montserrat Black italic"),local("Montserrat-Blackitalic"),url(/gatsby-starter-blog/static/montserrat-latin-900italic.cb72c1f9.woff2) format("woff2"),url(/gatsby-starter-blog/static/montserrat-latin-900italic.b78bb9f8.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:300;src:local("Merriweather Light "),local("Merriweather-Light"),url(/gatsby-starter-blog/static/merriweather-latin-300.f015f1e9.woff2) format("woff2"),url(/gatsby-starter-blog/static/merriweather-latin-300.92dfe81b.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:300;src:local("Merriweather Light italic"),local("Merriweather-Lightitalic"),url(/gatsby-starter-blog/static/merriweather-latin-300italic.7fd86b32.woff2) format("woff2"),url(/gatsby-starter-blog/static/merriweather-latin-300italic.878b76f5.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:400;src:local("Merriweather Regular "),local("Merriweather-Regular"),url(/gatsby-starter-blog/static/merriweather-latin-400.12dbf4c0.woff2) format("woff2"),url(/gatsby-starter-blog/static/merriweather-latin-400.1fffad22.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:400;src:local("Merriweather Regular italic"),local("Merriweather-Regularitalic"),url(/gatsby-starter-blog/static/merriweather-latin-400italic.1e0d3e81.woff2) format("woff2"),url(/gatsby-starter-blog/static/merriweather-latin-400italic.de18d4c4.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:700;src:local("Merriweather Bold "),local("Merriweather-Bold"),url(/gatsby-starter-blog/static/merriweather-latin-700.dc8fec81.woff2) format("woff2"),url(/gatsby-starter-blog/static/merriweather-latin-700.d7d2ed8e.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:700;src:local("Merriweather Bold italic"),local("Merriweather-Bolditalic"),url(/gatsby-starter-blog/static/merriweather-latin-700italic.b7b7e5da.woff2) format("woff2"),url(/gatsby-starter-blog/static/merriweather-latin-700italic.6210a5fc.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:900;src:local("Merriweather Black "),local("Merriweather-Black"),url(/gatsby-starter-blog/static/merriweather-latin-900.43f870d5.woff2) format("woff2"),url(/gatsby-starter-blog/static/merriweather-latin-900.8f3806df.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:900;src:local("Merriweather Black italic"),local("Merriweather-Blackitalic"),url(/gatsby-starter-blog/static/merriweather-latin-900italic.168c1ab2.woff2) format("woff2"),url(/gatsby-starter-blog/static/merriweather-latin-900italic.ae7778f0.woff) format("woff")}</style></head><body><div id="___gatsby"><div style="max-width:42rem;margin-left:auto;margin-right:auto;padding:2.625rem 1.3125rem;" data-reactroot="" data-reactid="1" data-react-checksum="965315007"><h3 style="font-family:Montserrat, sans-serif;margin-top:0;margin-bottom:-1.75rem;" data-reactid="2"><a style="box-shadow:none;text-decoration:none;color:inherit;" href="/gatsby-starter-blog/" data-reactid="3">nance.io</a></h3><div data-reactid="4"><!-- react-empty: 5 --><h1 data-reactid="6">A Guide to Logging in Azure Functions</h1><p style="font-size:0.83255rem;line-height:1.75rem;display:block;margin-bottom:1.75rem;margin-top:-1.75rem;" data-reactid="7">December 05, 2017</p><div data-reactid="8"><blockquote>
+<p>This is a cross-post from <a href="https://stackify.com/logging-azure-functions">stackify.com</a></p>
+</blockquote>
+<p>If you are thinking about using Azure Functions, at some point you will be confronted with the challenge of figuring out how application logging works.
+Logging in Azure Functions has some unique challenges due to the stateless nature of the serverless execution model.
+In this article, we will cover some basics about Azure Functions and provide instruction on how to write application logs.</p>
+<p>You can check out the final solution <a href="https://github.com/jaredcnance/AzureFunctionsLogging">here</a>.</p>
+<h2>Serverless 101</h2>
+<p>Azure Functions is one implementation of the serverless execution model.
+Serverless compute platforms such as Azure Functions, AWS Lambda and Google Cloud Functions represent possibly the most significant change in how
+application code is managed and executed since the rise of web applications.</p>
+<p>The idea is that we deploy our application code to a platform.
+This platform bundles together the infrastructure and runtime framework responsible for hosting and invoking our application.
+Technologies have existed that provide some of these features for web applications already (Azure App Service, Heroku, etc.).</p>
+<p>The main difference here is a common pattern for application development that is agnostic to how the application is invoked (HTTP request, timer, queue message, etc.).
+Azure Functions supports many different types of triggers, not just HTTP requests.</p>
+<h3>Infinite scale</h3>
+<p>Possibly the primary highlight of serverless is the ability to quickly scale up and down based on the demand.
+We are no longer paying for a set of VMs constantly running whether they are being fully utilized or not.
+This allows us to improve our utilization efficiency, paying only for what is used.</p>
+<h3>Stateless</h3>
+<p>Serverless applications are</p>
+<blockquote>
+<p>run in stateless compute containers that are event-triggered, ephemeral
+(may only last for one invocation), and fully managed by a 3rd party”
+<a href="https://martinfowler.com/articles/serverless.html">Fowler</a>.</p>
+</blockquote>
+<p>Note that .Net Azure Functions are only semi-stateless.
+For performance reasons, there is no app domain isolation between functions within the same function app.
+This means statics are persisted across invocations until the app domain is unloaded.</p>
+<h3>Ultimate simplicity (sometimes)</h3>
+<p>Serverless solutions such as Azure Functions are growing in popularity because of their promised simplicity.
+You can just write all your code in your browser, right?
+I’m being facetious here — this strategy is unlikely to scale well for applications of even moderate complexity.
+However, while more things have been built into the framework and we can be concerned with less, this technology
+is very young and concerns that have been historically trivial with “first-class” applications require a bit more work.
+A good example of this is application logging.</p>
+<h2>History of Logging in Azure Functions</h2>
+<p>The first logging mechanism available in Functions was through the <code class="language-text">TraceWriter</code> class. You can accept a <code class="language-text">TraceWriter</code> instance as a parameter in your function method.</p>
+<div class="gatsby-highlight">
+      <pre class="language-csharp"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">Run</span><span class="token punctuation">(</span>Message message<span class="token punctuation">,</span> TraceWriter log<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  log<span class="token punctuation">.</span><span class="token function">Info</span><span class="token punctuation">(</span><span class="token string">"Function invoked."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+      </div>
+<p>The <code class="language-text">TraceWriter</code> will make logs available through the “Invocation log” in the portal and the command line when debugging with <a href="https://github.com/Azure/azure-functions-cli">func.exe</a>.
+You can also view these logs in Kudu or as the raw data stored in Table Storage under the storage account configured using the <code class="language-text">AzureWebJobsStorage</code> setting.</p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/gatsby-starter-blog/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-9160a.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 66.2109375%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAACPElEQVQ4y3VSaY/aQAzN//8x/Y4q7YdKuw1HEnJOAiEcIVxLAwuEhBy8esxuuqu2lp5GY3ve2M9WzFmKrKiwPxU4ZjeUVYOyfuBW1ZC2SjOEmxPO+SOvKGtU7zmcT5B2v9+hfFMjrFcJxDiCF4Qoilsb/Eh04iOe9BC73ZZI7qibhuMSzac8JpzvL2iaGlciyvOCgvR7c28rkHbMSmwPGaqq4juFifTOubKLkjt5fKAcDik221dk1yuykpwUquuKq5AfyQfpOQepgtutxCJeYr3Z4Vea4l+meP4Inh9gOptjtoixJfJlskE4iWA7HoLRGCadh+MbVxgnK7ydTti97rHdvba4XDLkRQFF+D4Gmo7eQOPTEwLjyYTIHGi6gaFpwTCGmM0X3FKe54x4mcAVAcJoRh3uGKv1hir0PGiaBp3IhvQwCHxEUQhXEtInpmnCIOJkuWQZZNvSrkxc0P2GglCWD7/yIibo6C46moPvQwF1kkBb7vHj3f9kj9AxPPjbFDW1fD5fHoTXnHWXxFl2bbdD8cYTaLbL0B0Bl+7BdAbbH5PPg+EKRkItSQ2lTs2ntWnXh3x1XUOxbBvdbo/R7w8ghEe6jGGRdqraxYDa1kiOzXrd7tr/IEkV23HRJaJub4A+PRQ0cTlhy7LZr5Ouclgxacg72PxZ4s/WEsq1kJM0LQuy2tEoxDSa87Sl33FdPuP4b8IPfCGUyc8/VYZKbbue4AqN4RDPLyr61LL0LxYLfih1anjpv0L6JX4DVNvM3oM/C74AAAAASUVORK5CYII='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="logs 1"
+        title=""
+        src="/gatsby-starter-blog/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-fb8a0.png"
+        srcset="/gatsby-starter-blog/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-1a291.png 148w,
+/gatsby-starter-blog/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-2bc4a.png 295w,
+/gatsby-starter-blog/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-fb8a0.png 590w,
+/gatsby-starter-blog/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-526de.png 885w,
+/gatsby-starter-blog/static/logs-1-f2c4d09bba377dab87d072e34f8d171e-9160a.png 1024w"
+        sizes="(max-width: 590px) 100vw, 590px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<h2>Current State</h2>
+<p>The problem with <code class="language-text">TraceWriter</code> is that it is only useful for applications being executed by the Azure Functions runtime.
+So we don’t want all of the classes in our application to be tightly coupled to <code class="language-text">TraceWriter</code>.
+We want to have the ability to reuse the classes in other applications such as web or console apps.</p>
+<p>The best that we get is a minor abstraction of <code class="language-text">TraceWriter</code> in the form of the <code class="language-text">ILogger</code> interface.
+You may recognize this as the interface introduced in ASP.NET Core through the Microsoft.Extensions.Logging.Abstractions package.
+An example function using the ILogger interface looks like:</p>
+<div class="gatsby-highlight">
+      <pre class="language-csharp"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">Run</span><span class="token punctuation">(</span>Message message<span class="token punctuation">,</span> ILogger log<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  log<span class="token punctuation">.</span><span class="token function">LogInformation</span><span class="token punctuation">(</span><span class="token string">"Function invoked."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+      </div>
+<p>Unfortunately, <a href="https://social.msdn.microsoft.com/Forums/en-US/10f139b2-8964-4487-b11f-6c74c891eeb5/using-custom-ilogger-in-azure-functions?forum=AzureFunctions">we are not provided any mechanism</a>
+to access the <code class="language-text">ILoggerFactory</code> instance that creates the loggers.
+This means we need to create an implementation of the <a href="https://dotnetcodr.com/2013/04/25/design-patterns-and-practices-in-net-the-adapter-pattern/">Adapter pattern</a>
+so that our service code does not depend on the concrete <code class="language-text">TraceWriter</code> type.</p>
+<h2>log4net</h2>
+<p>See the full example implementation here. Some of the code below has been simplified to improve readability.</p>
+<p>Azure Functions does not load configuration from an app.config or web.config file. So the only way that we have to
+specify our log4net configuration is through a <a href="https://logging.apache.org/log4net/release/manual/configuration.html#dot-config">separate config file</a>,
+as shown by an example in the <a href="https://github.com/jaredcnance/AzureFunctionsLogging/blob/master/AzureFunctionsLogging/Log4net/Log4Net.config">repository</a>.
+Now you can load the configuration file:</p>
+<div class="gatsby-highlight">
+      <pre class="language-csharp"><code class="language-csharp"><span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">string</span> _functionDirectory<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">async</span> Task<span class="token operator">&lt;</span>HttpResponseMessage<span class="token operator">></span> <span class="token function">Run</span><span class="token punctuation">(</span>HttpRequestMessage req<span class="token punctuation">,</span> TraceWriter log<span class="token punctuation">,</span> ExecutionContext context<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">string</span><span class="token punctuation">.</span><span class="token function">IsNullOrEmpty</span><span class="token punctuation">(</span>_functionDirectory<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+    _functionDirectory <span class="token operator">=</span> context<span class="token punctuation">.</span>FunctionDirectory<span class="token punctuation">;</span>
+    <span class="token keyword">var</span> finfo <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileInfo</span><span class="token punctuation">(</span>$<span class="token string">"{_functionDirectory}\\Log4Net.config"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    log4net<span class="token punctuation">.</span>Config<span class="token punctuation">.</span>XmlConfigurator<span class="token punctuation">.</span><span class="token function">ConfigureAndWatch</span><span class="token punctuation">(</span>finfo<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+      </div>
+<p>We first get the function directory from the <code class="language-text">ExecutionContext</code> and then we load the configuration from our file.
+As discussed above, functions are only semi-stateless so once we have loaded the configuration, there is no need to re-read the file until the app domain gets reloaded.</p>
+<p>Now create an adapter for the logging interface of our choice.
+The adapter interface can be Microsoft’s ILogger, or log4net’s ILog, or whatever interface you have chosen for the rest of your stack.
+An example implementation using the log4net ILog interface <a href="https://github.com/jaredcnance/AzureFunctionsLogging/blob/master/AzureFunctionsLogging/Log4net/ILogTraceWriterAdapter.cs">is here</a>.</p>
+<p>You may notice that we need to have a type definition to create our logger.
+The logging adapter needs to know the type that will be receiving the adapter instance.
+In exceptionally simple functions, you can keep it simple and manually construct your dependency graph on invocation:</p>
+<div class="gatsby-highlight">
+      <pre class="language-csharp"><code class="language-csharp"><span class="token keyword">var</span> logger <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ILogTraceWriterAdapter</span><span class="token punctuation">(</span><span class="token keyword">typeof</span><span class="token punctuation">(</span>Function<span class="token punctuation">)</span><span class="token punctuation">,</span> log<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> processor <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FunctionProcessor</span><span class="token punctuation">(</span>logger<span class="token punctuation">)</span><span class="token punctuation">;</span>
+processor<span class="token punctuation">.</span><span class="token function">Process</span><span class="token punctuation">(</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+      </div>
+<h3>Injecting the Logger</h3>
+<p>However, for more complex applications, you can use <a href="http://stackify.com/net-core-dependency-injection/">dependency injection</a> (DI) to handle injection of your logger.
+Since the Azure Functions runtime <a href="https://github.com/Azure/azure-webjobs-sdk-script/blob/bac0a62e9a4f844c95dd2ffbbd5702cd5cab30d0/src/WebJobs.Script.WebHost/WebJobs.Script.WebHost.csproj#L35">ships with Autofac</a>
+included, it makes sense for us to use that as the DI framework.
+Autofac provides dynamic component resolution hooks so that we can provide the type definition to the consuming logger.
+<a href="https://github.com/jaredcnance/AzureFunctionsLogging/blob/master/AzureFunctionsLogging/Log4net/TraceWriterLoggingModule.cs">In the example</a>, I do the following:</p>
+<div class="gatsby-highlight">
+      <pre class="language-csharp"><code class="language-csharp"><span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">OnComponentPreparing</span><span class="token punctuation">(</span><span class="token keyword">object</span> sender<span class="token punctuation">,</span> PreparingEventArgs e<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  e<span class="token punctuation">.</span>Parameters <span class="token operator">=</span> e<span class="token punctuation">.</span>Parameters<span class="token punctuation">.</span><span class="token function">Union</span><span class="token punctuation">(</span><span class="token keyword">new</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
+    <span class="token keyword">new</span> <span class="token class-name">ResolvedParameter</span><span class="token punctuation">(</span>
+      <span class="token punctuation">(</span>p<span class="token punctuation">,</span> i<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> p<span class="token punctuation">.</span>ParameterType <span class="token operator">==</span> <span class="token keyword">typeof</span><span class="token punctuation">(</span>ILog<span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token punctuation">(</span>p<span class="token punctuation">,</span> i<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">new</span> <span class="token class-name">ILogTraceWriterAdapter</span><span class="token punctuation">(</span>p<span class="token punctuation">.</span>Member<span class="token punctuation">.</span>DeclaringType<span class="token punctuation">,</span> e<span class="token punctuation">.</span>Context<span class="token punctuation">.</span><span class="token generic-method function">Resolve<span class="token punctuation">&lt;</span>TraceWriter<span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+      </div>
+<p>Any service that is resolved from the Autofac container and requires an implementation of <code class="language-text">ILog</code> will receive an instance of <code class="language-text">ILogTraceWriterAdapter</code>.
+Autofac constructs the adapter using the requesting type and registered <code class="language-text">TraceWriter</code> instance.
+We also need to create a container and register our instances to that container:</p>
+<div class="gatsby-highlight">
+      <pre class="language-csharp"><code class="language-csharp"><span class="token keyword">var</span> builder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ContainerBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+builder<span class="token punctuation">.</span><span class="token generic-method function">RegisterModule<span class="token punctuation">&lt;</span>TraceWriterLoggingModule<span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+builder<span class="token punctuation">.</span><span class="token generic-method function">RegisterType<span class="token punctuation">&lt;</span>FunctionProcessor<span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> container <span class="token operator">=</span> builder<span class="token punctuation">.</span><span class="token function">Build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+      </div>
+<p>Now add the <code class="language-text">TraceWriter</code> to the container by <a href="https://github.com/jaredcnance/AzureFunctionsLogging/blob/master/AzureFunctionsLogging/Log4net/Function.cs#L23-L27">creating a scope</a>:</p>
+<div class="gatsby-highlight">
+      <pre class="language-csharp"><code class="language-csharp"><span class="token keyword">using</span> <span class="token punctuation">(</span><span class="token keyword">var</span> scope <span class="token operator">=</span> _serviceProvider<span class="token punctuation">.</span><span class="token function">BeginLifetimeScope</span><span class="token punctuation">(</span>b <span class="token operator">=</span><span class="token operator">></span> b<span class="token punctuation">.</span><span class="token function">RegisterInstance</span><span class="token punctuation">(</span>log<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">var</span> processor <span class="token operator">=</span> scope<span class="token punctuation">.</span><span class="token generic-method function">Resolve<span class="token punctuation">&lt;</span>FunctionProcessor<span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  processor<span class="token punctuation">.</span><span class="token function">Process</span><span class="token punctuation">(</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+      </div>
+<h2>Serilog</h2>
+<p>Luckily, in the case of Serilog, there is already a sink
+(<a href="https://github.com/StarRez/Serilog.Sinks.AzureWebJobsTraceWriter">Serilog.Sinks.AzureWebJobsTraceWriter</a>) built exactly for this purpose.</p>
+<div class="gatsby-highlight">
+      <pre class="language-csharp"><code class="language-csharp"><span class="token keyword">using</span> Serilog<span class="token punctuation">.</span>Sinks<span class="token punctuation">.</span>AzureWebJobsTraceWriter<span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> log <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LoggerConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ <span class="token punctuation">.</span>WriteTo<span class="token punctuation">.</span><span class="token function">TraceWriter</span><span class="token punctuation">(</span>traceWriter<span class="token punctuation">)</span>
+ <span class="token punctuation">.</span><span class="token function">CreateLogger</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+log<span class="token punctuation">.</span><span class="token function">Warning</span><span class="token punctuation">(</span><span class="token string">"This will be written to the TraceWriter"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+      </div>
+<p>You can then inject the log instance into the scope in the same way that I demonstrated above with log4net.</p>
+<h2>Other Providers</h2>
+<p>While there are many other logging providers that are not covered here,
+I believe that I have equipped you with the tools that you will need to implement logging for the other providers.</p>
+<h2>Stackify</h2>
+<p>If you would like to ship your Azure Functions logs to Stackify (and we hope you do!), we recommend using one of our extensions to the major logging frameworks.
+Also, the <a href="https://github.com/jaredcnance/AzureFunctionsLogging/blob/dee58c441216778a2ed205d1aebcaeb9334708bd/AzureFunctionsLogging/">demo repository</a>
+provides examples for shipping log4net and Serilog logs to Stackify.</p>
+<blockquote>
+<p>Tip: When you are hacking around with a new app and trying to send logs to Stackify, try
+filtering down to the function app and use the log tailing feature so you can see the logs as they are processed by Stackify.</p>
+</blockquote>
+<h3>Configuration</h3>
+<p>I used the <a href="https://github.com/jaredcnance/AzureFunctionsLogging/blob/dee58c441216778a2ed205d1aebcaeb9334708bd/AzureFunctionsLogging/AzureFunctionsLogging.csproj#L12-L13">Microsoft.Extenstions.Configuration</a>
+packages to <a href="https://github.com/jaredcnance/AzureFunctionsLogging/blob/dee58c441216778a2ed205d1aebcaeb9334708bd/AzureFunctionsLogging/Log4net/ServiceProvider.cs#L10-L16">load configuration</a>
+from environment variables and pass them to the <a href="https://github.com/stackify/stackify-api-dotnet">Stackify library</a>:</p>
+<div class="gatsby-highlight">
+      <pre class="language-csharp"><code class="language-csharp"><span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">readonly</span> IConfigurationRoot _config <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConfigurationBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">AddEnvironmentVariables</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">static</span> <span class="token function">Function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  _config<span class="token punctuation">.</span><span class="token function">ConfigureStackify</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+      </div>
+<p>Configuration from <code class="language-text">local.settings.json</code> will be available during development. For deployed functions, you can apply settings through the portal:</p>
+<p>Configuration from local.settings.json will be available during development. For deployed functions, you can apply settings through the portal.</p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/gatsby-starter-blog/static/settings-1-9a8903f0f3def743b6b0a77a5f370a4b-58f95.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 56.16264294790343%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsSAAALEgHS3X78AAAA90lEQVQoz52T246EIBBE/f8/1MQXZ3WNIncYb1AD7brzqpIcoE0oiupYtG2LqqpQ1zWa5pVoUJYluq5DHjHGWxScc/R9j2maIIQghmGg+hS8M4pzs4dAhJBvAkKatn2nOtD3axR5UkpjnDgmLgjOJViq3/NMDkk0XiM5jLDWHUJCQipFq3XucPrn+iqFkwukNNDGQOm8Wnj/xrwsX3d3BMfGYhwEVBIUUsEkt2cz7oqRIPtxYIMkQZmyzM/9ZhceOHxZsFH9C0pl4Lw/Ov7kyfzXgzOZstOpORbO2ZSlxrpuzzLMh7Rbwc0C4zcwNcPPO+UYbv4lmQ8f8F6BWxRh0wAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="settings 1"
+        title=""
+        src="/gatsby-starter-blog/static/settings-1-9a8903f0f3def743b6b0a77a5f370a4b-fb8a0.png"
+        srcset="/gatsby-starter-blog/static/settings-1-9a8903f0f3def743b6b0a77a5f370a4b-1a291.png 148w,
+/gatsby-starter-blog/static/settings-1-9a8903f0f3def743b6b0a77a5f370a4b-2bc4a.png 295w,
+/gatsby-starter-blog/static/settings-1-9a8903f0f3def743b6b0a77a5f370a4b-fb8a0.png 590w,
+/gatsby-starter-blog/static/settings-1-9a8903f0f3def743b6b0a77a5f370a4b-58f95.png 787w"
+        sizes="(max-width: 590px) 100vw, 590px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<h2>Future</h2>
+<p>Whatever solution that you choose (at this time) will contain some temporary stopgap measure(s) until there is a formalized solution for dependency injection.
+This may involve some effort to reuse prior art introduced in ASP.NET Core. Until then, we’ll be tracking the progress at
+<a href="https://github.com/Azure/azure-webjobs-sdk-script/issues/1579">Azure/azure-webjobs-sdk-script#1579</a>.</p>
+<p>The best advice that I can give at this point is to ensure that your service code is dependent on the <code class="language-text">ILogger</code> interface or some other abstraction that you may define,
+but not <code class="language-text">TraceWriter</code> . Eventually we should be able to pull back the adapters introduced above and use a proper DI-based logging solution.</p>
+<h2>Possible Issues</h2>
+<ul>
+<li>
+<p>“Exception while executing function: Functions.log4net -> Exception binding parameter ‘log’ -> No value was provided for parameter ‘log’.”</p>
+</li>
+<li>
+<p>This can be caused by a version mismatch.
+The function runtime is bringing in Microsoft.Extensions.Logging at v1.1.1
+and you may be referencing a different version.</p>
+</li>
+<li>
+<p>You may run into an issue accepting ILogger as a function method parameter
+that causes log messages to not be displayed in the console when running the
+function locally using func.exe. As of the writing of this post, there has yet
+to be any resolution <a href="https://github.com/Azure/azure-functions-cli/issues/130">from the Azure Functions team</a>.</p>
+</li>
+<li>
+<p>Depending on which version of func.exe you are running,
+you may run into issues trying to use the pre-release (3.0.0-<em>)
+Microsoft.Azure.WebJobs.</em> packages.
+For example, I’m running Azure Functions Core Tools (1.0.4)
+and Function Runtime Version: 1.0.11232.0, which references
+Microsoft.Azure.WebJobs 2.1.0. Since <a href="https://github.com/Azure/azure-webjobs-sdk-script/issues/992">binding redirects are still unsupported</a>,
+this means there will be runtime type errors when trying to reference types in the pre-release version.</p>
+</li>
+</ul>
+<h2>Resources</h2>
+<ul>
+<li><a href="https://github.com/Azure/azure-webjobs-sdk-script/wiki/Precompiled-functions">Pre-compiled Azure functions</a></li>
+<li><a href="http://stackify.com/net-core-dependency-injection/">Dependency injection</a></li>
+</ul>
+<h2>GitHub Issues To Watch</h2>
+<ul>
+<li><a href="https://github.com/Azure/azure-webjobs-sdk-script/issues/992">Binding redirect support</a></li>
+<li><a href="https://github.com/Azure/azure-webjobs-sdk-script/issues/1579">Allow custom dependency injection</a></li>
+<li><a href="https://github.com/Azure/azure-functions-cli/issues/130">Logging written to ILogger does not appear in the CLI</a></li>
+<li><a href="https://github.com/Azure/azure-webjobs-sdk/issues/1390">In-memory integration testing of Azure functions</a></li>
+</ul></div><hr style="margin-bottom:1.75rem;" data-reactid="9"/><div style="display:flex;margin-bottom:4.375rem;" data-reactid="10"><img src="/gatsby-starter-blog/static/profile-pic.4eeca420.png" alt="jaredcnance" style="margin-right:0.875rem;margin-bottom:0;width:3.5rem;height:3.5rem;" data-reactid="11"/><p data-reactid="12"><!-- react-text: 13 -->My name is <!-- /react-text --><strong data-reactid="14">Jared Nance</strong><!-- react-text: 15 -->, I live and work in Kansas City. I enjoy building things and sharing what I learn along the way.<!-- /react-text --><!-- react-text: 16 --> <!-- /react-text --><!-- react-text: 17 -->You can<!-- /react-text --><!-- react-text: 18 --> <!-- /react-text --><a href="https://twitter.com/jaredcnance" data-reactid="19">follow me on Twitter</a><!-- react-text: 20 --> or<!-- /react-text --><!-- react-text: 21 --> <!-- /react-text --><a href="https://github.com/jaredcnance" data-reactid="22">GitHub</a></p></div><ul style="display:flex;flex-wrap:wrap;justify-content:space-between;list-style:none;padding:0;" data-reactid="23"><li data-reactid="24"><a rel="prev" href="/gatsby-starter-blog/dotnet-core-dependency-injection/" data-reactid="25"><!-- react-text: 26 -->← <!-- /react-text --><!-- react-text: 27 -->.Net Core Dependency Injection<!-- /react-text --></a></li><li data-reactid="28"><a rel="next" href="/gatsby-starter-blog/dotnet-performance-optimization/" data-reactid="29"><!-- react-text: 30 -->A Strategy for the Measurement and Optimization of .NET Application Performance<!-- /react-text --><!-- react-text: 31 --> →<!-- /react-text --></a></li></ul></div><span style="display:block;clear:both;" data-reactid="32"> </span></div></div><script id="webpack-manifest">/*<![CDATA[*/window.webpackManifest={"231608221292675":"app-dca761cfa7c9545bd6ef.js","99219681209289":"component---node-modules-gatsby-plugin-offline-app-shell-js-5c4c5a0f7af9dc69d6d7.js","107818501498521":"component---src-templates-blog-post-js-18840ce4d84a05d111a1.js","162898551421021":"component---src-pages-404-js-4503918ea3a16cfcdb75.js","35783957827783":"component---src-pages-index-js-09af5612e46c81e9a36b.js","60335399758886":"path----557518bd178906f8d58a.js","210333531512890":"path---offline-plugin-app-shell-fallback-a0e39f21c11f6a62c5ab.js","229573138474980":"path---building-offline-applications-2e6755144f40874c46dd.js","163616910017581":"path---leveling-up-your-dotnet-testing-4fc04dcfb4e8dbde8faa.js","160778678365461":"path---private-fields-in-javascript-255792cf29f967d60676.js","46469095858347":"path---transactional-integration-testing-in-asp-net-core-9828cd44f6598a87b11e.js","87771961145102":"path---introducing-json-api-dotnet-core-d601dc002ca0ba6c051c.js","130323105709194":"path---dotnet-performance-optimization-a421e5fb4112ab5d2d39.js","106575918426696":"path---logging-in-azure-functions-e7c19229751d88946313.js","68384136547871":"path---dotnet-core-dependency-injection-4afa01cdc240060498f3.js","180578961852115":"path---typescript-vs-javascript-0d89f9d5222fbeea6381.js","47572940128521":"path---hangfire-tasks-in-dotnet-core-1a9079460424abfdc46e.js","254022195166212":"path---404-a0e39f21c11f6a62c5ab.js","142629428675168":"path---index-58d39392780592e9870e.js","178698757827068":"path---404-html-a0e39f21c11f6a62c5ab.js","114276838955818":"component---src-layouts-index-js-c56dd00f07d25fed4a16.js"}/*]]>*/</script><script>
+  
+  if(true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  }
+  if (typeof ga === "function") {
+    ga('create', 'undefined', 'auto');
+      }
+      </script><script>/*<![CDATA[*/!function(e,t,r){function n(){for(;d[0]&&"loaded"==d[0][f];)c=d.shift(),c[o]=!i.parentNode.insertBefore(c,i)}for(var s,a,c,d=[],i=e.scripts[0],o="onreadystatechange",f="readyState";s=r.shift();)a=e.createElement(t),"async"in i?(a.async=!1,e.head.appendChild(a)):i[f]?(d.push(a),a[o]=n):e.write("<"+t+' src="'+s+'" defer></'+t+">"),a.src=s}(document,"script",["/gatsby-starter-blog/commons-052854b14b2d9cebb713.js","/gatsby-starter-blog/app-dca761cfa7c9545bd6ef.js","/gatsby-starter-blog/path---logging-in-azure-functions-e7c19229751d88946313.js","/gatsby-starter-blog/component---src-templates-blog-post-js-18840ce4d84a05d111a1.js","/gatsby-starter-blog/component---src-layouts-index-js-c56dd00f07d25fed4a16.js"])/*]]>*/</script></body></html>
