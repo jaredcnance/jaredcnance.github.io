@@ -3,14 +3,103 @@ title: Leveling Up Your .Net Testing Patterns - Part I
 date: "2019-03-16T00:00:00.000Z"
 ---
 
-This is a two part blog post in which I'll describe some techniques you can use to level up your .Net tests.
-In part 1 of this series, I'm going to show you how to use model Factories to generate data and introduce entropy
-into your tests.
+This is a two part blog post in which I'll describe some techniques you can use to improve your .Net tests.
+I'm going to provide some guidelines, opinions and tools for testing.
+I will first introduce a proposed project structure, then I will talk about the importance of
+idempotentence and finally I'll show you how to use model factories to generate fake data for your tests.
+
+I am generally a fan of frameworks that reduce decision making by providing well thought out, sane default recommendations or opinions
+about how things should be done. However, .Net—and most libraries—are predominantly un-opinionated which is good and bad.
+The good part about it is that it provides you with extreme flexibility. The bad part is that it provides little to no guidance
+around a good path for doing things.
+
+I would like to point out that ASP.Net Core is much more opinionated than most .Net frameworks and does a really excellent job of driving
+adoption of things like Dependency Injection, Role/Policy based authentication, etc.
+
+## Project Structure
+
+The first is a proposal for project structure. Here is a sample directory tree that I use for all new projects.
+The `src` directory represents the actual application and library projects that make up the Systems Under Test (SUT).
+The `test` directory contains all of the test projects that will validate the `src` projects.
+
+```
+Solution/
+├── src/
+│   └── Project1/
+│       ├── ...
+│       └── Project1.csproj
+└── tests/
+    └── Project1Tests/
+        ├── Acceptance/
+        ├── Factories/
+        ├── Integration/
+        ├── Stubs/
+        ├── Unit/
+        ├── Utilities/
+        ├── ...
+        └── Project1Tests.csproj
+```
+
+### Project : TestProject Ratio
+
+I recommend a 1:1 relationship between `src` projects and `tests` projects.
+This makes it very clear where tests should live for a specific piece of functionality.
+It also mitigates the risk that a test project could be running different assemblies than what the application actually runs.
+If a test project references several different application projects, and those projects reference a common dependency at different
+versions it will have to generate
+[assembly redirects](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/redirect-assembly-versions)
+to a compatible dependency version.
+
+### Test Project Structure
+
+Within each test project, tests can be divided into 3 categories:
+
+* **Unit**: Tests that target individual class functionality in isolation
+* **Integration**: Tests that target multiple application layers
+* **Acceptance**: End-to-end tests, commonly using the ASP.Net Core TestServer
+
+Tests generally require additional functionality to construct the scenarios to be tested.
+These fall into 3 categories as well:
+
+* **Factories**: Classes to generate fake data
+* **Stubs**: When mocks aren't enough you may need to stub functionality. However, mocks should meet most requirements.
+* **Utilities**: Classes that provide common functionality for debugging, setup, or validation.
+
+## Tests Should be Idempotent
+
+You should strive to make your tests idempotent, that is they should be able to run and pass anytime.
+This means you should avoid using test framework decorators that prevent tests from running such as NUnit's
+`[Explicit]` and xUnit's `[Fact(Skip="...")]`.
+
+Often times developers will write tests to verify the functionality of a module at a particular time but fail to
+write the test in such a way that it can be run consistently in the future. There are three main reasons for this:
+
+1.  **The test depends on some external state that is difficult to construct**
+
+In some cases these challenges associated are very real. But I encourage you to apply the initial investment
+so that your tests can protect you against future changes. In my experience, once these test are excluded from the
+test runs, they are rarely revisited.
+
+2.  **The test has external side effects**
+
+Generally, with a little effort and some clean up code—in xUnit this is done via `Dispose()`—this can be easily handled.
+In part 2 of this blog post, I'll demonstrate how to make your tests transactional so that you don't even have to think
+about this issue.
+
+3.  **The test is flaky**
+
+Flaky tests are usually a sign that something else is going on and it may actually be a bug in your application or library.
+Often times a test that fails intermittently is a sign that there is some boundary condition the test creates that is not
+properly handled by the application. It could also mean that the test is not correctly testing the piece of functionality it
+was intended to test and should be re-evaluated. Later on in this post I'll demonstrate one way to deal with intermittently
+failing tests caused by test data.
 
 ## Factories
 
+Factories are an excellent way to reduce the boilerplate for individual tests.
 If you're not familiar with factories, they are a simple [creational pattern](https://en.wikipedia.org/wiki/Creational_pattern)
-that abstract the instantiation process of a type. The simplest form a factory can take is:
+that abstract the instantiation process of a type.
+The simplest form a factory can take is:
 
 ```csharp
 public class BeerFactory
@@ -102,7 +191,7 @@ Luckily, others have already done this kind of work for us. Some great projects 
 * [Faker.Net](https://github.com/jonwingfield/Faker.Net)
 * [NBuilder](https://github.com/nbuilder/nbuilder)
 
-In this post, I'll be using Bogus, but you can do the same kinds of things with any of the above packages.
+I'll be using Bogus, but you can do the same kinds of things with any of the above packages.
 
 So, to begin let's see an example of how we can create a factory for our `ShoppingCartItem`:
 
@@ -174,7 +263,7 @@ I would like to quickly point out that in this example you **should** write
 multiple tests that test both conditions separately. However, the regular
 use of fake data generation in tests helps us to catch mistakes like this one.
 
-## Reproducing Flaky Tests
+### Reproducing Flaky Tests
 
 One challenge with using generated data is that it can be difficult to reproduce failures locally.
 So, the tests may fail during CI, but if you can't reproduce them consistently then it can be difficult to
