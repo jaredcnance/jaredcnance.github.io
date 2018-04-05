@@ -3,23 +3,26 @@ title: Leveling Up Your .Net Testing Patterns - Part I
 date: "2019-03-16T00:00:00.000Z"
 ---
 
-This is a two part blog post in which I'll describe some techniques you can use to improve your .Net tests.
-I'm going to provide some guidelines, opinions and tools for testing.
-I will first introduce a proposed project structure, then I will talk about the importance of
-idempotentence and finally I'll show you how to use model factories to generate fake data for your tests.
+This is a two part blog post in which I will provide guidelines, opinions and tools that you can use to improve your .Net testing experience.
+In part 1, I will first introduce a proposed solution structure, then I will talk about the importance and challenges of making your tests
+idempotent and finally I'll show you how to use model factories to generate fake data for your tests.
 
 I am generally a fan of frameworks that reduce decision making by providing well thought out, sane default recommendations or opinions
-about how things should be done. However, .Net—and most libraries—are predominantly un-opinionated which is good and bad.
+about how things should be done. However, most .Net frameworks and libraries are predominantly un-opinionated which is good and bad.
 The good part about it is that it provides you with extreme flexibility. The bad part is that it provides little to no guidance
 around a good path for doing things.
 
-I would like to point out that ASP.Net Core is much more opinionated than most .Net frameworks and does a really excellent job of driving
-adoption of things like Dependency Injection, Role/Policy based authentication, etc.
+I would like to point out that ASP.Net Core is much more opinionated than most .Net frameworks and does a really excellent job of
+providing out-of-the-box tools like
+[Dependency Injection](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection),
+[Configuration](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options),
+[Environment loading](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/environments) and
+[Identity Management](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity).
 
 ## Project Structure
 
 The first is a proposal for project structure. Here is a sample directory tree that I use for all new projects.
-The `src` directory represents the actual application and library projects that make up the Systems Under Test (SUT).
+The `src` directory represents the actual application or class library projects that make up the Systems Under Test (SUT).
 The `test` directory contains all of the test projects that will validate the `src` projects.
 
 ```
@@ -44,7 +47,7 @@ Solution/
 
 I recommend a 1:1 relationship between `src` projects and `tests` projects.
 This makes it very clear where tests should live for a specific piece of functionality.
-It also mitigates the risk that a test project could be running different assemblies than what the application actually runs.
+It also mitigates the risk that a test project could be running different assembly versions than what the application actually runs.
 If a test project references several different application projects, and those projects reference a common dependency at different
 versions it will have to generate
 [assembly redirects](https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/redirect-assembly-versions)
@@ -54,9 +57,9 @@ to a compatible dependency version.
 
 Within each test project, tests can be divided into 3 categories:
 
-* **Unit**: Tests that target individual class functionality in isolation
+* **Unit**: Tests that target individual method functionality in isolation
 * **Integration**: Tests that target multiple application layers
-* **Acceptance**: End-to-end tests, commonly using the ASP.Net Core TestServer
+* **Acceptance**: End-to-end tests, commonly using the ASP.Net Core `TestServer` class
 
 Tests generally require additional functionality to construct the scenarios to be tested.
 These fall into 3 categories as well:
@@ -72,17 +75,20 @@ This means you should avoid using test framework decorators that prevent tests f
 `[Explicit]` and xUnit's `[Fact(Skip="...")]`.
 
 Often times developers will write tests to verify the functionality of a module at a particular time but fail to
-write the test in such a way that it can be run consistently in the future. There are three main reasons for this:
+write the test in such a way that it can be run consistently in the future.
+I have observed three main causes of this:
 
 1.  **The test depends on some external state that is difficult to construct**
 
-In some cases these challenges associated are very real. But I encourage you to apply the initial investment
+In some cases these challenges are very real. But I encourage you to apply the initial investment
 so that your tests can protect you against future changes. In my experience, once these test are excluded from the
-test runs, they are rarely revisited.
+test runs, they are rarely revisited. This means that all of the value gained from that test is realized during the
+micro-development cycle in which it was written and afterwards provides no value to the project. With some extra
+effort you will continue to reap benefits from that test for as long as that functionality exists.
 
 2.  **The test has external side effects**
 
-Generally, with a little effort and some clean up code—in xUnit this is done via `Dispose()`—this can be easily handled.
+Generally, with a little effort and some clean up code—in xUnit this is done via `Dispose()`—this can be easily handled in most cases.
 In part 2 of this blog post, I'll demonstrate how to make your tests transactional so that you don't even have to think
 about this issue.
 
@@ -97,7 +103,7 @@ failing tests caused by test data.
 ## Factories
 
 Factories are an excellent way to reduce the boilerplate for individual tests.
-If you're not familiar with factories, they are a simple [creational pattern](https://en.wikipedia.org/wiki/Creational_pattern)
+If you're not familiar with factories, they are a [creational pattern](https://en.wikipedia.org/wiki/Creational_pattern)
 that abstract the instantiation process of a type.
 The simplest form a factory can take is:
 
@@ -267,13 +273,22 @@ use of fake data generation in tests helps us to catch mistakes like this one.
 
 One challenge with using generated data is that it can be difficult to reproduce failures locally.
 So, the tests may fail during CI, but if you can't reproduce them consistently then it can be difficult to
-track down root cause. I was recently working with [Ryan Tablada](https://twitter.com/RyanTablada) on this
-exact issue and the solution he proposed was to use the same random seed for all tests and log that seed
-at the beginning of the test.
-He then allowed the random seed to be set by an environment variable when the test starts.
+track down root cause. I was recently working with [Ryan Tablada](https://github.com/rtablada) on this
+exact issue and the solution he proposed was to use the same seed for all data generation tests and log that seed
+at the beginning of the test. This seed can be overridden by an environment variable, allowing us to re-run the
+tests with the same fake data.
 
-Each test can inherit from a base test fixture that sets the seed in its static constructor.
-This will only be called once in a single test run so all tests will use the same seed.
+Each test can inherit from a base test fixture that sets the seed in its
+[static constructor](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/static-constructors).
+The CLR ensures that static constructors are only called once per process making this operation thread safe.
+Since it is only called once, all tests will use the same seed and you will only log the seed once at the beginning
+of the run.
+
+Prior to .Net Core static constructors would be invoked per AppDomain rather than per process.
+However, the AppDomain no longer exists so this is a non-issue for .Net Core users.
+If you're using an older testing framework (e.g. [NUnit](http://nunit.org/docs/2.6.3/assemblyIsolation.html))
+that provides AppDomain isolation between individual tests, this exact solution will probably not work for you.
+However, most testing frameworks provide a way to share state across all tests, so using their built-in APIs should work.
 
 ```csharp
 public class ItemCostCalculator_Tests : TestFixture { /*...*/ }
@@ -336,8 +351,8 @@ Bash:
 export TEST_SEED=73202934
 ```
 
-And then when we re-run the test the model factories will use the same seeds and should generate
-the exact same fake data and cause the test to fail again.
+Now, when we re-run the test, the model factories will use the same seeds and generate
+the same fake data causing the test to fail again.
 
 ## Summary
 
@@ -348,4 +363,5 @@ static test data.
 
 ## What's Next
 
-In my next post on .Net testing, we'll cover transactional integration testing.
+In my next post on .Net testing, I will show some ways we can make tests with side-effects idempotent via
+test cleanup methods and transactional integration testing.

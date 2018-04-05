@@ -3,6 +3,12 @@ title: Leveling Up Your .Net Testing Patterns - Part II
 date: "2019-03-16T00:00:00.000Z"
 ---
 
+# THINGS TO DO:
+
+* Demo transactional testing using ADO.Net directly
+* Discuss general test cleanup (using IDisposable)
+* Consider providing another example (e.g. Service Bus)
+
 In part 1 of this blog, I introduced factories and showed how to generate fake data to
 introduce some randomness to our tests and improve the coverage of possible input
 parameters. In part 2, we'll be moving on to integration testing.
