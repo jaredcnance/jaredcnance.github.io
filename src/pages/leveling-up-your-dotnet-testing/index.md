@@ -231,7 +231,7 @@ public static class ShoppingCartItemFactory
             .RuleFor(i => i.Count, f => f.Random.Number(min: 1))
             .RuleFor(i => i.Weight, f => f.Random.Decimal(min: 1))
             .RuleFor(i => i.CostType, f => f.Random.PickRandom<ItemType>())
-            .Generate();
+            .Generate(count);
 }
 ```
 
@@ -241,7 +241,7 @@ Then in our tests we can use our factory:
 public async Task GetPrice_Returns_The_Expected_Item_Price()
 {
     // arrange
-    var item = ShoppingCartItemFactory.Get()[0];
+    var item = ShoppingCartItemFactory.Get().First();
 
     var units = (item.ItemType == ItemType.Weighed)
         ? item.Weight
