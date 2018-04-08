@@ -76,7 +76,7 @@ This means you should avoid using test framework decorators that prevent tests f
 
 Often times developers will write tests to verify the functionality of a module at a particular time but fail to
 write the test in such a way that it can be run consistently in the future.
-I have observed three main causes of this:
+I have observed four main causes of this:
 
 1.  **The test depends on some external state that is difficult to construct**
 
