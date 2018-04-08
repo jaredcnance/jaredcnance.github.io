@@ -105,8 +105,9 @@ using (var transaction = _dbContext.Database.BeginTransaction())
 The call to [`BeginTransaction`](https://github.com/aspnet/EntityFrameworkCore/blob/1d2178f38d231599b53f899af498107fc1db39d9/src/EFCore.Relational/Storage/RelationalConnection.cs#L246) will begin an [ADO.NET transaction](https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/local-transactions)
 and subsequent calls to `SaveChanges` will use the open transaction. When the `DbContext` is disposed it will rollback the transaction if it has not already been committed.
 
-Wrapping integration tests in transactions is not a new concept and it comes out-of-the-box [in Rails](https://github.com/rails/rails/commit/903ef71b9952f4bfaef798bbd93a972fc25010ad).
-However, since .Net is much less opinionated than rails, it's not reasonable to expect this to be a built-in feature.
+Wrapping integration tests in transactions is not a new concept and it comes out-of-the-box [in Rails](https://github.com/rails/rails/commit/903ef71b9952f4bfaef798bbd93a972fc25010ad) and
+[Phoenix](https://hexdocs.pm/phoenix/testing.html).
+However, since .Net is much less opinionated than these frameworks, it's not reasonable to expect this to be a built-in feature.
 So, how can we achieve this using Entity Framework Core and ASP.Net Core?
 
 Let's take a look at the simplest use of transactions in integration tests.

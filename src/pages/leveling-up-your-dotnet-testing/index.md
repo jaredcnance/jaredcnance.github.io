@@ -1,6 +1,6 @@
 ---
 title: Leveling Up Your .Net Testing Patterns - Part I
-date: "2019-03-16T00:00:00.000Z"
+date: "2018-04-08T00:00:00.000Z"
 ---
 
 This is a two part blog post in which I will provide guidelines, opinions and tools that you can use to improve your .Net testing experience.
@@ -94,11 +94,30 @@ about this issue.
 
 3.  **The test is flaky**
 
+A flaky test is one that fails intermittently making the source of the error difficult to track down or reproduce.
 Flaky tests are usually a sign that something else is going on and it may actually be a bug in your application or library.
 Often times a test that fails intermittently is a sign that there is some boundary condition the test creates that is not
 properly handled by the application. It could also mean that the test is not correctly testing the piece of functionality it
 was intended to test and should be re-evaluated. Later on in this post I'll demonstrate one way to deal with intermittently
-failing tests caused by test data.
+failing tests caused by input data.
+
+4.  **The test is long running**
+
+Long running tests can be a pain because you don't want to run them every time locally if you don't expect the behavior to
+be affected. However, there are alternatives to labelling them as explicit. You can also decorate your xUnit tests with
+`Trait`s and then filter by those. For example, if you want to skip long running tests you can label them as
+`[Trait("Exclude","Local")]`. Then you can run all tests that haven't been excluded locally.
+
+```
+dotnet test --filter Exclude!=Local
+```
+
+You can also filter your tests by the domain you're working on. By default the test runner will filter by the FullyQualifiedName.
+So, if you're working on several layers of your stack that are all namespaced under `Articles`, you can just:
+
+```
+dotnet test --filter Articles
+```
 
 ## Factories
 
@@ -187,8 +206,7 @@ var item = new ShoppingCartItem {
 This is better because we alter the inputs to our system under test (SUT) on every test run.
 However, the problem with this is that you will have to write code that performs the generation
 of these random values and it will not be reproducible in the event of a failure
-(i.e. using `Guid` for strings is not going to do be reproducible).
-But, we can do better.
+(i.e. using `Guid` for strings is not going to be reproducible).
 
 Luckily, others have already done this kind of work for us. Some great projects for .Net are:
 
