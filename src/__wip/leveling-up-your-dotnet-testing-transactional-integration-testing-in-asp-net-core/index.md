@@ -3,7 +3,7 @@ title: Leveling Up Your .Net Testing Patterns - Part II Transactional Integratio
 date: "2018-04-10T00:00:00.000Z"
 ---
 
-In [part 1](http://nance.io/leveling-up-your-dotnet-testing/) of this blog, I introduced a few testing testing patterns.
+In [part 1](http://nance.io/leveling-up-your-dotnet-testing/) of this blog post, I introduced a few testing testing patterns.
 Specifically I showed how you can use factories to generate fake data and create randomness in our tests.
 This can improve the coverage of possible input parameters and possibly expose unexpected application bugs.
 
