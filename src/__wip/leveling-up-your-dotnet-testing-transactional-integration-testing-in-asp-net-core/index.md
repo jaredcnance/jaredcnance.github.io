@@ -3,9 +3,8 @@ title: Leveling Up Your .Net Testing Patterns - Part II Transactional Integratio
 date: "2018-04-10T00:00:00.000Z"
 ---
 
-In [part 1](http://nance.io/leveling-up-your-dotnet-testing/) of this blog,
-I introduced a few testing testing patterns. Specifically I showed how you can use
-factories to generate fake data and create randomness in our tests.
+In [part 1](http://nance.io/leveling-up-your-dotnet-testing/) of this blog, I introduced a few testing testing patterns.
+Specifically I showed how you can use factories to generate fake data and create randomness in our tests.
 This can improve the coverage of possible input parameters and possibly expose unexpected application bugs.
 
 In this post we'll be moving on to integration testing.
@@ -15,11 +14,11 @@ At the end I'll quickly show how the same principles can be applied using any da
 `IDbTransaction` capabilities, such as [Dapper](https://github.com/StackExchange/Dapper).
 
 I'll be using [xUnit](https://xunit.github.io/) for the testing framework.
-However, you should be able to do these same things with other testing using their APIs for sharing state.
+However, you should be able to do these same things with other frameworks by using the APIs they provide to share test between tests.
 
 <center><a href="https://github.com/jaredcnance/TransactionalTests" target="_blank">Skip to the example repo</a></center>
 
-An integration test is one that tests multiple layers of our application, possibly extending all the way to the data persistence layer.
+An integration test is one that tests multiple layers of our application, often times extending all the way to the data persistence layer.
 The following is an example of an integration test that verifies an `ArticleService` can fetch all articles from the database.
 To do this, we need to first create some articles to query.
 
@@ -67,9 +66,8 @@ the scope of what is actually being tested. Some of these limitations have been
 >
 > * If you use DefaultValueSql(string) for a property in your model, this is a relational database API and will have no effect when running against InMemory.
 
-In addition to these limitations, you may run into issues if your models depend on provider specific
-data types or constraints. For example, a PostgreSQL specific column type, will not be handled by the
-in memory provider and is unlikely to expose data type related issues.
+In addition to these limitations, you may run into issues if your models depend on provider specific data types or constraints.
+For example, a PostgreSQL specific column type, will not be handled by the in memory provider and is unlikely to expose data type related issues.
 As an example, I might make the mistake of defining my model like so:
 
 ```csharp
@@ -78,7 +76,15 @@ public int Ordinal { get; set; }
 ```
 
 I have defined a column type of `int2` (16 bit integer) but declared the .Net type to be `int` (32 bit integer).
-The in-memory provider will be unable to detect truncation problems that may arise in production.
+The in-memory provider will be unable to detect truncation issues.
+So, your tests may pass, but you are at risk for hitting errors such as this one in production:
+
+```
+ Microsoft.EntityFrameworkCore.DbUpdateException : An error occurred while updating the entries. See the inner exception for details.
+---- System.OverflowException : Value was either too large or too small for an Int16.
+```
+
+Other limitations include the lack of support for relational APIs such as migrations and transactions.
 
 ## Option 3: Transactional Testing
 
@@ -107,9 +113,9 @@ will begin an [ADO.NET transaction](https://docs.microsoft.com/en-us/dotnet/fram
 and subsequent calls to `SaveChanges` will use the open transaction.
 When the `DbContext` is disposed it will rollback the transaction if it has not already been committed.
 
-Wrapping integration tests in transactions is not a new concept and it comes out-of-the-box [in Rails](https://github.com/rails/rails/commit/903ef71b9952f4bfaef798bbd93a972fc25010ad) and
-[Phoenix](https://hexdocs.pm/phoenix/testing.html).
-However, since .Net is much less opinionated than these frameworks, it's not reasonable to expect this to be a built-in feature.
+Wrapping integration tests in transactions is not a new concept and it comes out-of-the-box [in Rails](https://github.com/rails/rails/commit/903ef71b9952f4bfaef798bbd93a972fc25010ad),
+[Phoenix](https://hexdocs.pm/phoenix/testing.html) and I'm sure other frameworks as well.
+However, since .Net is much less opinionated than these frameworks, it's not reasonable to expect this to be a built-in feature (yet :fingers_crossed:).
 
 Let's take a look at the simplest use of transactions in integration tests.
 We're going to test that an `ArticleService` persists data to the database:
@@ -129,7 +135,7 @@ public async Task CreateAsync_Persists_Article()
             await service.CreateAsync(article); // will call _dbContext.SaveChanges();
 
             // assert
-            var dbArticle = await _dbContext.SingleOrDefaultAsync(a => a.UniqueId == article.UniqueId);
+            var dbArticle = await _dbContext.Articles.Single();
             Assert.NotNull(dbArticle);
         }
         finally
@@ -166,7 +172,7 @@ public class DbContextFixture : IDisposable
     {
         // configure our database
         var options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseNpgsql(Configuration["DbConnection"])
+            .UseNpgsql(/* ... */)
             .Options;
 
         DbContext = new AppDbContext(options);
@@ -194,7 +200,8 @@ When our test gets disposed, the transaction will be rolled back.
 
 Things get a little more interesting when we decide to run end-to-end tests.
 ASP.Net Core has a set of APIs that you can use – available in the `Microsoft.AspNetCore.TestHost` package –
-to create an in memory web server that you can issue HTTP requests against.
+to create an in memory web server.
+This allows you to validate your entire web application (serializers, routing, controllers, services, etc.) in your tests.
 This is a fantastic way to write E2E application tests.
 
 An example fixture for web services might look like:
@@ -267,8 +274,7 @@ However, we're going to have a problem because if you have properly defined the
 by the test will be different than the instance used by the web server and they will not
 share a transaction scope.
 
-In other words, the web server will return an empty set because it is unaware of the `Article`s created
-in the currently uncommitted test transaction.
+In other words, the web server will return an empty set because it is unaware of the `Article`s created in the currently uncommitted test transaction.
 To handle this, we can create a new `TestStartup` class that registers the `AppDbContext` as a singleton.
 Remember, that this is not an implementation of a traditional [singleton pattern in C#](http://csharpindepth.com/Articles/General/Singleton.aspx).
 In this context the term "singleton" just means that any lookups on the **same container instance** will receive the same **service instance**.

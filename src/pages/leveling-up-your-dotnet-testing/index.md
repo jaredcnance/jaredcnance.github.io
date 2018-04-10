@@ -35,6 +35,7 @@ Solution/
     └── Project1Tests/
         ├── Acceptance/
         ├── Factories/
+        ├── Fixtures/
         ├── Integration/
         ├── Stubs/
         ├── Unit/
@@ -62,9 +63,10 @@ Within each test project, tests can be divided into 3 categories:
 * **Acceptance**: End-to-end tests, commonly using the ASP.Net Core `TestServer` class
 
 Tests generally require additional functionality to construct the scenarios to be tested.
-These fall into 3 categories as well:
+These fall into 4 common categories:
 
 * **Factories**: Classes to generate fake data
+* **Fixtures**: Classes that are used to share boilerplate or state between tests
 * **Stubs**: When mocks aren't enough you may need to stub functionality. However, mocks should meet most requirements.
 * **Utilities**: Classes that provide common functionality for debugging, setup, or validation.
 
