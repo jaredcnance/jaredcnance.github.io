@@ -316,10 +316,12 @@ public class TestFixture
     private static int Seed;
     static TestFixture()
     {
-        var currentSeed = Bogus.Randomizer.Seed;
-        var seedOverride = Environment.GetEnvironmentVariable("TEST_SEED");
-        Seed = (seedOverride != null) ? int.Parse(seedOverride) : currentSeed;
-        Console.WriteLine($"Using test seed: {Seed}");
+        var randTick = DateTime.Now.Ticks & 0x0000FFFF;
+        Seed = int.TryParse(Environment.GetEnvironmentVariable("TEST_SEED"), out var seedOverride)
+                ? seedOverride
+                : (int)randTick;
+
+        Console.WriteLine($"Using test seed: {_seed}");
     }
 }
 ```
@@ -333,9 +335,11 @@ public class TestFixture
     private static int Seed;
     static TestFixture()
     {
-        var currentSeed = Bogus.Randomizer.Seed;
-        var seedOverride = Environment.GetEnvironmentVariable("TEST_SEED");
-        Seed = (seedOverride != null) ? int.Parse(seedOverride) : currentSeed;
+        var randTick = DateTime.Now.Ticks & 0x0000FFFF;
+        Seed = int.TryParse(Environment.GetEnvironmentVariable("TEST_SEED"), out var seedOverride)
+                ? seedOverride
+                : (int)randTick;
+
         Console.WriteLine($"Using test seed: {Seed}");
     }
 
