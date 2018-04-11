@@ -5,6 +5,7 @@ import get from 'lodash/get'
 
 import Bio from '../components/Bio'
 import { rhythm, scale } from '../utils/typography'
+import fallback from './fallback.jpg'
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -14,7 +15,11 @@ class BlogPostTemplate extends React.Component {
 
     return (
       <div>
-        <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} />
+        <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} >
+          <meta property="og:title" content={`${post.frontmatter.title} | ${siteTitle}`} />
+          <meta property="og:type" content="article" />
+          <meta property="og:image" content={fallback} />
+        </Helmet>
         <h1>{post.frontmatter.title}</h1>
         <p
           style={{
