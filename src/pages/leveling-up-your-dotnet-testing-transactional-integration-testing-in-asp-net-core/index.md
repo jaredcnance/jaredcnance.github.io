@@ -3,12 +3,12 @@ title: Leveling Up Your .Net Testing Patterns - Part II Transactional Integratio
 date: "2018-04-10T00:00:00.000Z"
 ---
 
-In [part 1](http://nance.io/leveling-up-your-dotnet-testing/) of this blog post, I introduced a few testing testing patterns.
+In [part 1](http://nance.io/leveling-up-your-dotnet-testing/) of this blog post, I introduced a few testing patterns.
 Specifically I showed how you can use factories to generate fake data and create randomness in our tests.
 This can improve the coverage of possible input parameters and possibly expose unexpected application bugs.
 
 In this post we'll be moving on to integration testing.
-I'll show a few options for making our integration test idempotent even in the face of concurrent execution.
+I'll show a few options for making our integration tests idempotent even in the face of concurrent execution.
 Almost all of the examples below will be using [Entity Framework Core](https://github.com/aspnet/EntityFrameworkCore).
 At the end I'll quickly show how the same principles can be applied using any data access layer that provides
 `IDbTransaction` capabilities, such as [Dapper](https://github.com/StackExchange/Dapper).
@@ -68,7 +68,7 @@ the scope of what is actually being tested. Some of these limitations have been
 
 In addition to these limitations, you may run into issues if your models depend on provider specific data types or constraints.
 For example, a PostgreSQL specific column type, will not be handled by the in memory provider and is unlikely to expose data type related issues.
-As an example, I might make the mistake of defining my model like so:
+Consider the following model property:
 
 ```csharp
 [Column(TypeName = "int2")]
@@ -76,7 +76,7 @@ public int Ordinal { get; set; }
 ```
 
 I have defined a column type of `int2` (16 bit integer) but declared the .Net type to be `int` (32 bit integer).
-The in-memory provider will be unable to detect truncation issues.
+The in-memory provider will be unable to detect truncation issues since it has no way to determine what `int2` means.
 So, your tests may pass, but you are at risk for hitting errors such as this one in production:
 
 ```
@@ -160,7 +160,7 @@ However, it would be pretty annoying if we had to wrap all our tests in this tra
 
 We can use fixtures to get the boilerplate out of the way.
 In xUnit, fixtures can be created through inheritance since each test is run using a new instance of the test class.
-Here is an example where we create a transaction in a inherited fixture that implements `IDisposable`.
+Here is an example where we create a transaction in an inherited fixture that implements `IDisposable`.
 
 ```csharp
 public class DbContextFixture : IDisposable
@@ -221,10 +221,14 @@ public class WebFixture<TStartup> : IDisposable where TStartup : class
         var builder = WebHost.CreateDefaultBuilder()
             .UseStartup<TStartup>();
 
+        // construct the test server and client we'll use to
+        // send requests
         _server = new TestServer(builder);
+        Client = _server.CreateClient();
         _services = _server.Host.Services;
 
-        Client = _server.CreateClient();
+        // resolve a DbContext instance from the container
+        // and begin a transaction on the context.
         DbContext = GetService<AppDbContext>();
         _transaction = DbContext.Database.BeginTransaction();
     }
@@ -262,8 +266,20 @@ public class Articles_Tests : WebFixture<TestStartup>
         var response = await Client.GetAsync(route);
 
         // assert
+
+        // Generally, I prefer checking the status code first,
+        // since an error response may result in an exception during/after
+        // de-serialization. Knowing the returned status code is more helpful
+        // than an ambiguous exception thrown after failed de-serialization
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        // ...
+
+        // I like to move de-serialization into the fixture since the process
+        // doesn't change much and is just boilerplate.
+        // DeserializeAsync<T> might look like:
+        //
+        // var json = await response.Content.ReadAsStringAsync();
+        // return JsonConvert.DeserializeObject<T>(json);
+        var deserializedArticles = await DeserializeAsync<List<Article>>(result);
         Assert.Equal(expectedArticles, deserializedArticles.Count);
     }
 }
@@ -274,7 +290,7 @@ However, we're going to have a problem because if you have properly defined the
 by the test will be different than the instance used by the web server and they will not
 share a transaction scope.
 
-In other words, the web server will return an empty set because it is unaware of the `Article`s created in the currently uncommitted test transaction.
+In other words, the web server will return an empty set because it is unaware of the `Articles` created in the currently uncommitted test transaction.
 To handle this, we can create a new `TestStartup` class that registers the `AppDbContext` as a singleton.
 Remember, that this is not an implementation of a traditional [singleton pattern in C#](http://csharpindepth.com/Articles/General/Singleton.aspx).
 In this context the term "singleton" just means that any lookups on the **same container instance** will receive the same **service instance**.
@@ -354,9 +370,34 @@ public class DapperFixture : Fixture, IDisposable
 }
 ```
 
+This requires your application to be structured in such a way that you can substitute an `IDbConnection`.
+If you're using the repository pattern, an example might look like:
+
+```csharp
+public class ArticleRepository
+{
+    private readonly IDbConnection _dbConnection;
+
+    public ArticleRepository(IDbConnection dbConnection)
+    {
+        _dbConnection = dbConnection;
+    }
+
+    public async Task<List<Article>> GetArticlesAsync()
+        => (await _dbConnection.GetAllAsync<Article>()).ToList();
+}
+```
+
+In this case, you'd be able to test the `ArticleRepository` directly by constructing it with an instance
+of `DapperFixture.Connection` which will be wrapped in a transaction.
+
+## Summary
+
+With the solutions provided above, you'll be able to write transactional integration tests that run in isolation
+and reduce the amount of cleanup code you'll be required to write.
+There is also a huge performance benefit if you've been dropping and re-creating your databases between test runs
+since the database only has to be created once.
 I've provided a full example that uses [Entity Framework](https://github.com/jaredcnance/TransactionalTests/blob/master/test/WebAppTests/AcceptanceTests/Articles_Tests.cs)
 and also one that uses
 [Dapper](https://github.com/jaredcnance/TransactionalTests/blob/master/test/WebAppTests/IntegrationTests/ArticleRepository_Tests.cs) in the
 [corresponding GitHub repository](https://github.com/jaredcnance/TransactionalTests).
-
-## Summary
