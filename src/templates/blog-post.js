@@ -4,6 +4,7 @@ import Link from 'gatsby-link'
 import get from 'lodash/get'
 
 import Bio from '../components/Bio'
+import ScrollUp from '../components/ScrollUp'
 import { rhythm, scale } from '../utils/typography'
 import fallback from './fallback.jpg'
 
@@ -70,6 +71,7 @@ class BlogPostTemplate extends React.Component {
             </li>
           )}
         </ul>
+        <ScrollUp />
       </div>
     )
   }
