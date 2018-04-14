@@ -19,6 +19,7 @@ class BlogPostTemplate extends React.Component {
           <meta property="og:title" content={`${post.frontmatter.title} | ${siteTitle}`} />
           <meta property="og:type" content="article" />
           <meta property="og:image" content={fallback} />
+          <meta property="og:description" content={post.frontmatter.description} />
           <meta name="twitter:card" content="summary" />
           <meta name="twitter:site" content="@jaredcnance" />
           <meta name="twitter:title" content={`${post.frontmatter.title} | ${siteTitle}`} />
