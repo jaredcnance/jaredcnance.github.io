@@ -1,6 +1,7 @@
 ---
 title: Leveling Up Your .Net Testing Patterns - Part II Transactional Integration Testing
 date: "2018-04-10T00:00:00.000Z"
+description: Increase performance, reduce boilerplate, and improve DX through transactional integration testing. Working examples included.
 ---
 
 In [part 1](http://nance.io/leveling-up-your-dotnet-testing/) of this blog post, I introduced a few testing patterns.
