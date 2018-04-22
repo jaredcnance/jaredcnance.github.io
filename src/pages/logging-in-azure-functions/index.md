@@ -103,20 +103,14 @@ Now you can load the configuration file:
 ```csharp
 private static string _functionDirectory;
 
-public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceWriter log, ExecutionContext context)
+public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceWriter log)
 {
-  if (string.IsNullOrEmpty(_functionDirectory))
-  {
-    _functionDirectory = context.FunctionDirectory;
-    var finfo = new FileInfo($"{_functionDirectory}\\Log4Net.config");
-    log4net.Config.XmlConfigurator.ConfigureAndWatch(finfo);
-  }
+  var stackifyAppender = new StackifyAppender();
+  stackifyAppender.ActivateOptions();
+  log4net.Config.BasicConfigurator.Configure(stackifyAppender);
   // ...
 }
 ```
-
-We first get the function directory from the `ExecutionContext` and then we load the configuration from our file.
-As discussed above, functions are only semi-stateless so once we have loaded the configuration, there is no need to re-read the file until the app domain gets reloaded.
 
 Now create an adapter for the logging interface of our choice.
 The adapter interface can be Microsoft’s ILogger, or log4net’s ILog, or whatever interface you have chosen for the rest of your stack.
