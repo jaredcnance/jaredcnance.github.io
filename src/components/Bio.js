@@ -23,8 +23,9 @@ class Bio extends React.Component {
             marginRight: rhythm(1 / 2),
             marginBottom: 0,
             marginTop: rhythm(0.9),
-            width: rhythm(2),
-            height: rhythm(2),
+            width: rhythm(5),
+            height: rhythm(5),
+            borderRadius: '50%',
           }}
         />
         <p>
