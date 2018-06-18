@@ -1,8 +1,8 @@
 {
   "assetsByChunkName": {
     "component---src-pages-index-js": [
-      "component---src-pages-index-js-60fad39aa6d61a87ce0f.js",
-      "component---src-pages-index-js-60fad39aa6d61a87ce0f.js.map"
+      "component---src-pages-index-js-b1ce93d4aa75cb02a849.js",
+      "component---src-pages-index-js-b1ce93d4aa75cb02a849.js.map"
     ],
     "path---hangfire-tasks-in-dotnet-core": [
       "path---hangfire-tasks-in-dotnet-core-499b654f768ca73494d8.js",
@@ -29,8 +29,8 @@
       "path---logging-in-azure-functions-60b1df906f5c1c431e56.js.map"
     ],
     "component---src-templates-blog-post-js": [
-      "component---src-templates-blog-post-js-1fb7c305b0a3157f0559.js",
-      "component---src-templates-blog-post-js-1fb7c305b0a3157f0559.js.map"
+      "component---src-templates-blog-post-js-76bafce86241285acfb8.js",
+      "component---src-templates-blog-post-js-76bafce86241285acfb8.js.map"
     ],
     "component---src-layouts-index-js": [
       "component---src-layouts-index-js-c56dd00f07d25fed4a16.js",
