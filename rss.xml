@@ -1,4 +1,379 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[nance.io]]></title><description><![CDATA[A blog about programming things.]]></description><link>https://jaredcnance.github.io/</link><generator>RSS for Node</generator><lastBuildDate>Mon, 18 Jun 2018 15:39:37 GMT</lastBuildDate><item><title><![CDATA[Leveling Up Your .Net Testing Patterns - Part II Transactional Integration Testing]]></title><description><![CDATA[In  part 1  of this blog post, I introduced a few testing patterns.
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[nance.io]]></title><description><![CDATA[A blog about programming things.]]></description><link>https://jaredcnance.github.io/</link><generator>RSS for Node</generator><lastBuildDate>Thu, 05 Jul 2018 17:42:22 GMT</lastBuildDate><item><title><![CDATA[A Better Story for Asp.Net Core Integration Testing]]></title><description><![CDATA[tl;dr I’ve built a library to improve the ergonomics and performance of your ASP.Net Core
+integration tests. It allows you to write simple…]]></description><link>https://jaredcnance.github.io//a-better-story-for-asp-net-core-integration-testing/</link><guid isPermaLink="false">https://jaredcnance.github.io//a-better-story-for-asp-net-core-integration-testing/</guid><pubDate>Fri, 29 Jun 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;tl;dr&lt;/h1&gt;
+&lt;p&gt;I’ve built a library to improve the ergonomics and performance of your ASP.Net Core
+integration tests. It allows you to write simple, elegant tests that run against an actual
+database but don’t need to worry about side-effects. An example test might look like:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-csharp&quot;&gt;&lt;code class=&quot;language-csharp&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;Fact&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;async&lt;/span&gt; Task &lt;span class=&quot;token function&quot;&gt;Can_Get_All_Articles&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// arrange&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; article &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Article&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;await&lt;/span&gt; DbContext&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Articles&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;AddAsync&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;article&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;await&lt;/span&gt; DbContext&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;SaveChangesAsync&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token comment&quot;&gt;// act&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; articles &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;token generic-method function&quot;&gt;GetAllAsync&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;Article&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;articles&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token comment&quot;&gt;// assert&lt;/span&gt;
+    Assert&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;Single&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;articles&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;The test runs inside a transaction that gets rolled back when the test completes.
+This allows other tests to assume the database is empty.
+Management of the &lt;code class=&quot;language-text&quot;&gt;DbContext&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;TestServer&lt;/code&gt; is handled for you by the library.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/jaredcnance/DotnetTestAbstractions&quot;&gt;Source Code&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.nuget.org/packages/DotnetTestAbstractions&quot;&gt;NuGet Package&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;Intro&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://nance.io/leveling-up-your-dotnet-testing-transactional-integration-testing-in-asp-net-core/&quot;&gt;In my last post&lt;/a&gt;
+I showed an approach to using transactions in your ASP.Net Core integration tests.
+This allows you to write tests that depend on database state, but do not require you to clean up the
+database when you’re done.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;I recommend reading &lt;a href=&quot;(https://nance.io/leveling-up-your-dotnet-testing-transactional-integration-testing-in-asp-net-core/)&quot;&gt;my previous post&lt;/a&gt; for reasons you would use this approach instead of the in-memory database.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;I included an example of a &lt;code class=&quot;language-text&quot;&gt;WebFixture&lt;/code&gt; that sets up the &lt;code class=&quot;language-text&quot;&gt;TestServer&lt;/code&gt;,
+registers services and creates the &lt;code class=&quot;language-text&quot;&gt;IDbContextTransaction&lt;/code&gt; for each test.
+However, we found the performance of this approach became unbearable for a few
+hundred tests after upgrading to dotnet core 2 (this included upgrading all the Microsoft.* packages).&lt;/p&gt;
+&lt;p&gt;I spent a few weeks trying to understand the problem and improve the performance of our tests after the upgrade.
+In this post I outline my process and the solution that &lt;strong&gt;reduced test execution time by 93%&lt;/strong&gt;.&lt;/p&gt;
+&lt;h2&gt;Investigating the Problem&lt;/h2&gt;
+&lt;p&gt;My first step was to profile the application and see what was consuming so much time.
+I generally do all my work on my MBP, but there aren’t any good profilers that I’ve been able to find for OSX yet.
+So, I booted up a &lt;a href=&quot;https://developer.microsoft.com/en-us/windows/downloads/virtual-machines&quot;&gt;Windows 10 development VM&lt;/a&gt;
+using VMWare and then used Visual Studio Community 2017 15.7.2 to start profiling the tests while they ran.&lt;/p&gt;
+&lt;p&gt;Unfortunately, my initial CPU sampling approach didn’t yield much for me to work on.
+However, I did notice the test process memory continuing to grow unabated.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/profile-1-96f44dd484a18e9eeae05152db767979-26ba6.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 49.20127795527157%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsSAAALEgHS3X78AAACBElEQVQoz42SzW7TQBSF8668AM8AEkikNBS1TQupBDRNqFCFBOJvwYYNYglKaZrWdex44tjjv9jjsRMnPtwZCuoOrjSSx/fMp3PuTOPW7Xto7vZw//EhWnvH2D54jfbzN9h6eoLN/WNstF/iwU4fW50TtJ68Im2XtC9w9+EB7jQ76Dzbx9t3XXz41Mf7jz00HrV7KKUA9znCMITIMizKEmVRIJ3P4QURhMgxTxJac/oXIwy47mVZjp9DAzxM4Ew5RF6i0dw+RBJHMAwTlmXDnkzgujOEUYQ0zSCLUgMTgklZgPNQ7x2HkdbF4HSEi+F3OONzFGSk0SKHRZ7Btm0SOWCMISJYVVWo6xqq6nqN1Wqlv6WUWK/XBPbhzjgsgjrsDANjgFIBN3ePUFBk256AB4GG5XmuAQqqarFYaLECxXFMvTUCzjHzOEYmwzdjhi9DRv36N1CkCUzT1A4diqziZDTL5XKpgUII7Uztfd/XzpVD3w8wHLv4fGbh6wVDRSY0UIpUz0/F9TxPu1CulEt1uKALUvNTjgNKoZwqh2zq48epAZtxnF8ymNYMjY2dLg1pRcIQEYHUQQXLc3kds9aA6hq+XFY6snIbJSmuxoxGFYPxlIxk9Gz2+jrWzUv4V/3RyWIBczyhpxXjyi8wnQQ3gau/4v9ZqjIhMbq0MPViWO6cRhbiFzdy3x+Ml7UTAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Profile results sorted by inclusive bytes&quot;
+        title=&quot;&quot;
+        src=&quot;/static/profile-1-96f44dd484a18e9eeae05152db767979-fb8a0.png&quot;
+        srcset=&quot;/static/profile-1-96f44dd484a18e9eeae05152db767979-1a291.png 148w,
+/static/profile-1-96f44dd484a18e9eeae05152db767979-2bc4a.png 295w,
+/static/profile-1-96f44dd484a18e9eeae05152db767979-fb8a0.png 590w,
+/static/profile-1-96f44dd484a18e9eeae05152db767979-526de.png 885w,
+/static/profile-1-96f44dd484a18e9eeae05152db767979-fa2eb.png 1180w,
+/static/profile-1-96f44dd484a18e9eeae05152db767979-08f6a.png 1770w,
+/static/profile-1-96f44dd484a18e9eeae05152db767979-26ba6.png 2504w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;What was happening was very similar to the issue described &lt;a href=&quot;https://github.com/aspnet/EntityFrameworkCore/issues/10535&quot;&gt;here&lt;/a&gt;.
+EntityFramework’s &lt;code class=&quot;language-text&quot;&gt;ServiceProviderCache&lt;/code&gt; was continuing to grow, creating a new &lt;code class=&quot;language-text&quot;&gt;ServiceProvider&lt;/code&gt; per test.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/profile-2-a933a08d2951642cd1abe633c4242fd3-36c4a.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 54.91731940818103%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsSAAALEgHS3X78AAABkUlEQVQoz5WSzUsbURTF3x8sSCmiC0txIe4shJoWiqJIEi36J7irFRQ3bXHhR8b5yMtkkswkmY+8mXlvTu+8ZCALIXHgxzn3Lu479zLs8OQrzn9+Q7NVx8Xldxz8qOPj5xo2dmpY397H1u4BUceHT1+wtrm3FPb3yUAS+gh8D8NBd6bDPvqeiySJ8d6PHV/9w+nvNlp3Do6uX9G442jc2jj6ZaBxY+Dsvosm0dK4S2EPzyaeDAteECLJgVGSwY+miLICJu+RFwhThYmQK8Hahgnu2EjiSEculESepdoP+h5kls2XKVaCPbdNODQwDGcD8zyHEAJFUcDzPKRpSh5QqoAqlsNeKKFtmYiitwdm84RlvQrs8cUGd3sYTyaQUtFASakynWg0HkNQwqq/FEk3vP/zCId74JzDdV34foAgGBEzFSLFlBKXiDmLtfbTuSdlls318W3bRqfTgWVZerDjOJpy5fIMpVaUddVb9EopMO4OIKlRJprQ2mNaMwxD7cu7xnFMP3hCr0+1Vr6qF72klf8DEvAwGp9KbsUAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;ServiceProvider instances owned by the ServiceProviderCache&quot;
+        title=&quot;&quot;
+        src=&quot;/static/profile-2-a933a08d2951642cd1abe633c4242fd3-fb8a0.png&quot;
+        srcset=&quot;/static/profile-2-a933a08d2951642cd1abe633c4242fd3-1a291.png 148w,
+/static/profile-2-a933a08d2951642cd1abe633c4242fd3-2bc4a.png 295w,
+/static/profile-2-a933a08d2951642cd1abe633c4242fd3-fb8a0.png 590w,
+/static/profile-2-a933a08d2951642cd1abe633c4242fd3-526de.png 885w,
+/static/profile-2-a933a08d2951642cd1abe633c4242fd3-fa2eb.png 1180w,
+/static/profile-2-a933a08d2951642cd1abe633c4242fd3-08f6a.png 1770w,
+/static/profile-2-a933a08d2951642cd1abe633c4242fd3-36c4a.png 2298w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;Each &lt;code class=&quot;language-text&quot;&gt;ServiceProvider&lt;/code&gt; gets added to the static &lt;a href=&quot;https://github.com/aspnet/EntityFrameworkCore/blob/e300fdfe4ac314cc9e65520a15b9b7609a6c6a21/src/EFCore/Internal/ServiceProviderCache.cs#L21-L22&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;ServiceProviderCache._configurations&lt;/code&gt;&lt;/a&gt;
+which is persisted across test runs since they all run in the same process (AppDomains do not exist in .Net Core).
+So, this &lt;code class=&quot;language-text&quot;&gt;ConcurrentDictionary&lt;/code&gt; continued to grow:&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/profile-3-bbca9efff58870ac09624d413fcdb786-7615a.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 39.651162790697676%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAAAsSAAALEgHS3X78AAABeklEQVQoz41SyW7bMBDV1/eWOE567Xf0kDRBkBgBei/QLG5cS6RIiqQkihS12H4ZEz3kUiQEHmbBzJuFk61FDSlKMM6R5zmKogBjLIGTr2AFlFJwrsNnXsaVRr7dwhgLrU0i1VqjrmuUpUgFOC/Rtg4hBHjvCeG/yHzXpQ6MMSmhI9sn6dE6lzqTUqWCIfQIfZ/kMfkY/95OhNbSyKYBtxHcRFTtgGmaMRKmf5h3+2T3cYCjQiFEDMNEZJEKExERDuOEGEci1AqP61dsWQkhBEGiUhK6UgmWxldSorEW0xDR1haxDxhJd00D71qwIqcYgXkckH37KXD6Y42z6xcsrteEPzi5fEr6ydULvnz/ja+3G5zf5Vjcl7h4qLBYKSzvGS5WHMsHjdObDRbEsVwJZN24h7Adnv8yPL7m+PW8QaEsVOOTX7sIWTuwqoHuBtgwoY47lNbRilzSVRuQSwPjaeTjVx92cxonBtqPP57H4eP7OOyB/e6dOae8N13RWM//8s3LAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;ServiceProviderCache Static Member Referencing ServiceProviders&quot;
+        title=&quot;&quot;
+        src=&quot;/static/profile-3-bbca9efff58870ac09624d413fcdb786-fb8a0.png&quot;
+        srcset=&quot;/static/profile-3-bbca9efff58870ac09624d413fcdb786-1a291.png 148w,
+/static/profile-3-bbca9efff58870ac09624d413fcdb786-2bc4a.png 295w,
+/static/profile-3-bbca9efff58870ac09624d413fcdb786-fb8a0.png 590w,
+/static/profile-3-bbca9efff58870ac09624d413fcdb786-526de.png 885w,
+/static/profile-3-bbca9efff58870ac09624d413fcdb786-fa2eb.png 1180w,
+/static/profile-3-bbca9efff58870ac09624d413fcdb786-7615a.png 1720w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;According to &lt;a href=&quot;https://github.com/aspnet/EntityFrameworkCore/issues/12440#issuecomment-399158858&quot;&gt;ajvickers&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;When AddDbContext is called it ensures certain services used by EF are added to the service provider.
+For example, ILoggerFactory. Since this is done for every context instance, it’s equivalent to what is described in #10211.
+Registering the context as a singleton is generally not a good idea even in tests since it should never be registered as singleton in any real app.
+Assuming that you want to keep it this way, probably the best way to tackle this is to take over management of the internal service provider in your tests.
+This will stop EF from building and caching the internal service provider for you.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Okay, so that helps a lot and I now have a much better understanding of what’s going on.
+From this response I gathered a few things:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;We don’t want to call &lt;code class=&quot;language-text&quot;&gt;AdDbContext&lt;/code&gt; multiple times in the same process for the same &lt;code class=&quot;language-text&quot;&gt;DbContext&lt;/code&gt; implementation.&lt;/li&gt;
+&lt;li&gt;Registering the &lt;code class=&quot;language-text&quot;&gt;DbContext&lt;/code&gt; as a singleton is not ideal.&lt;/li&gt;
+&lt;li&gt;There will be performance consequences if we try to hijack EF’s internal service provider.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Caching Test Servers&lt;/h2&gt;
+&lt;p&gt;So, the very first problem was our fixture was creating a new &lt;code class=&quot;language-text&quot;&gt;TestServer&lt;/code&gt; instance
+and calling &lt;code class=&quot;language-text&quot;&gt;AddDbContext&lt;/code&gt; for every test. Based on the information discovered above,
+this is a bad idea.&lt;/p&gt;
+&lt;p&gt;Depending on what version of EF Core you’re running, you may even get a nice build warning that
+points out the issue:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;warn: Microsoft.EntityFrameworkCore.Infrastructure[10402]
+More than twenty &amp;#39;IServiceProvider&amp;#39; instances have been created for internal use by Entity Framework.
+This is commonly caused by injection of a new singleton service instance into every DbContext instance.
+For example, calling UseLoggerFactory passing in a new instance each time--see https://go.microsoft.com/fwlink/?linkid=869049 for more details.
+Consider reviewing calls on &amp;#39;DbContextOptionsBuilder&amp;#39; that may require new service providers to be built.&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;So, the first and most obvious step was to cache our &lt;code class=&quot;language-text&quot;&gt;TestServer&lt;/code&gt; instances.
+We wouldn’t restart our production web app after each request, so why should we do it in our tests?
+The implementation is pretty straightforward, so I’ll direct you over to the GitHub repo so you can see it yourself.
+I define a &lt;a href=&quot;https://github.com/jaredcnance/DotnetTestAbstractions/blob/27851f18f83c234512e492ca5122fcf5b4d54035/src/DotnetTestAbstractions/Fixtures/TestServerCache.cs#L10&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;TestServerCache&lt;/code&gt;&lt;/a&gt;
+that creates and configures the server and then the fixture &lt;a href=&quot;https://github.com/jaredcnance/DotnetTestAbstractions/blob/27851f18f83c234512e492ca5122fcf5b4d54035/src/DotnetTestAbstractions/Fixtures/TestServerFixture.cs#L43&quot;&gt;can just fetch it from the cache&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Sharing Ambient Scope&lt;/h2&gt;
+&lt;p&gt;Now that we’re re-using &lt;code class=&quot;language-text&quot;&gt;TestServer&lt;/code&gt; instances, we still need a way to share &lt;code class=&quot;language-text&quot;&gt;DbContext&lt;/code&gt; instances.
+And since our previous approach relied on a singleton DI registration, this would mean that every single test would get the same &lt;code class=&quot;language-text&quot;&gt;DbContext&lt;/code&gt; instance which isn’t what we want.
+The reason we couldn’t register it as a scoped service is because the scope is created and disposed during the lifetime of the request.
+We need access to the scope before and after the request.&lt;/p&gt;
+&lt;p&gt;Instead, we have two options:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Share the database connection&lt;/li&gt;
+&lt;li&gt;Share the DI request scope&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Option 1 would require changing application code to support tests.
+It is also a very minimal solution that supports a single use case.
+Option 2 would allow us to inspect the state of any scoped service the same way the application code would.
+In order to maximize the number of covered use cases and not be required to change application code, I decided to go with #2.&lt;/p&gt;
+&lt;p&gt;There is an &lt;a href=&quot;https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.iservicescopefactory?view=aspnetcore-2.1&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;IServiceScopeFactory&lt;/code&gt;&lt;/a&gt;
+interface we can implement to define our our scope for dependency injection. Whenever a service attempts to access the &lt;code class=&quot;language-text&quot;&gt;RequestServices&lt;/code&gt;, the &lt;code class=&quot;language-text&quot;&gt;RequestServicesFeature&lt;/code&gt;
+&lt;a href=&quot;https://github.com/aspnet/Hosting/blob/a8c0970cde72242c40534c6c56a99f1d2ee6827a/src/Microsoft.AspNetCore.Hosting/Internal/RequestServicesFeature.cs#L29-L39&quot;&gt;ensures that an &lt;code class=&quot;language-text&quot;&gt;IServiceScope&lt;/code&gt; exists&lt;/a&gt;
+by calling &lt;code class=&quot;language-text&quot;&gt;IServiceScopeFactory.CreateScope()&lt;/code&gt;. Since this was written against an injected interface, we can override the implementation and inject our own &lt;code class=&quot;language-text&quot;&gt;IServiceScopeFactory&lt;/code&gt;.
+This would let us create the scope outside of the web request and return the existing scope when the middleware tries to create it.&lt;/p&gt;
+&lt;p&gt;There are a few requirements of this approach that should be mentioned:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Our test should create an “ambient scope” that is available to the test and also to the web request.&lt;/li&gt;
+&lt;li&gt;The &lt;code class=&quot;language-text&quot;&gt;IServiceScopeFactory&lt;/code&gt; has to be added to the application container.&lt;/li&gt;
+&lt;li&gt;Multiple tests should not share an &lt;code class=&quot;language-text&quot;&gt;IServiceScope&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;When the middleware tries to dispose the scope, it should be a no-op. This allows us to continue using the scope after the request has ended.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In order to satisfy these requirements, I decided to store the scopes in an
+&lt;a href=&quot;https://msdn.microsoft.com/en-us/library/dn906268(v=vs.110).aspx&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;AsyncLocal&lt;/code&gt;&lt;/a&gt; member on the factory.
+From the docs:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;AsyncLocal&lt;T&gt; Class&lt;/strong&gt;
+Represents ambient data that is local to a given asynchronous control flow, such as an asynchronous method.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;An example implementation might look like:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-csharp&quot;&gt;&lt;code class=&quot;language-csharp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;AsyncLocalServiceScopeFactory&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; IServiceScopeFactory
+&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; AsyncLocal&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;IServiceScope&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; _asyncLocalScope &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;AsyncLocal&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;IServiceScope&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; IServiceScope &lt;span class=&quot;token function&quot;&gt;CreateScope&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;_asyncLocalScope&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Value &lt;span class=&quot;token operator&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;token operator&quot;&gt;?&lt;/span&gt; _asyncLocalScope&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Value
+            &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;CreateAmbientScope&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; IServiceScope &lt;span class=&quot;token function&quot;&gt;CreateAmbientScope&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;// what now...?&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;This would allow us to create the scope ourselves, outside of the web request:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-csharp&quot;&gt;&lt;code class=&quot;language-csharp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; scope &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; AsyncLocalServiceScopeFactory&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;CreateAmbientScope&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;However, we still need to prevent the ASP.Net middleware from disposing our scope.
+We can do this by making &lt;code class=&quot;language-text&quot;&gt;IDisposable.Dipose()&lt;/code&gt; a no-op and exposing an &lt;code class=&quot;language-text&quot;&gt;ActuallyDispose()&lt;/code&gt;
+method to the test.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-csharp&quot;&gt;&lt;code class=&quot;language-csharp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ServiceScope&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; IServiceScope
+&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; IServiceProvider ServiceProvider &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;Dispose&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;/* Do nothing 😬 */&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;ActuallyDispose&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;/* Dispose of our scope */&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h3&gt;Okay, but where does the service lifecycle management take place?&lt;/h3&gt;
+&lt;p&gt;So far we haven’t actually resolved any services from this scope and we haven’t wired it
+up to an actual container so it’s pretty much useless right now.
+Component/service lifecycle management is not something that I really wanted to roll myself and the
+existing types in Microsoft.Extensions.DependencyInjection seem pretty limited.&lt;/p&gt;
+&lt;p&gt;So, I turned to &lt;a href=&quot;https://github.com/autofac/Autofac&quot;&gt;Autofac&lt;/a&gt; — a very mature IoC container solution
+that provides full support for scopes and nested scopes (something I’ll dive into shortly).&lt;/p&gt;
+&lt;p&gt;Using Autofac, our &lt;code class=&quot;language-text&quot;&gt;AsyncLocalServiceScopeFactory&lt;/code&gt; class becomes:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-csharp&quot;&gt;&lt;code class=&quot;language-csharp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;AsyncLocalServiceScopeFactory&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; IServiceScopeFactory
+&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; AsyncLocal&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;ServiceScope&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; _asyncLocalScope &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;AsyncLocal&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;ServiceScope&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;readonly&lt;/span&gt; IContainer _container&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; IServiceScope &lt;span class=&quot;token function&quot;&gt;CreateScope&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;/* unchanged */&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; IServiceScope &lt;span class=&quot;token function&quot;&gt;CreateAmbientScope&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; lifetimeScope &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; _container&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;BeginLifetimeScope&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; scope &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ServiceScope&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;lifetimeScope&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        _asyncLocalScope&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Value &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; scope&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; scope&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;I’ve also passed the Autofac &lt;code class=&quot;language-text&quot;&gt;ILifetimeScope&lt;/code&gt; to the &lt;code class=&quot;language-text&quot;&gt;ServiceScope&lt;/code&gt; implementation which will
+resolve services from the scope itself.
+It will also dispose the scope when our test calls &lt;code class=&quot;language-text&quot;&gt;ActuallyDispose&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-csharp&quot;&gt;&lt;code class=&quot;language-csharp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ServiceScope&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; IServiceScope&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; IServiceProvider
+&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;readonly&lt;/span&gt; ILifetimeScope _lifetimeScope&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;ServiceScope&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;ILifetimeScope lifetimeScope&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        _lifetimeScope &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; lifetimeScope&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        ServiceProvider &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; IServiceProvider ServiceProvider &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;GetService&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Type serviceType&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; _lifetimeScope&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;Resolve&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;serviceType&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;Dispose&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;/* Do nothing 😬 */&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;ActuallyDispose&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; _lifetimeScope&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;Dispose&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;At this point the test and the web request share the exact same scope.
+This is definitely a step in the right direction and should handle most cases.
+However, there are a few cases where this falls short.
+For example, the Asp.Net Core Identity &lt;code class=&quot;language-text&quot;&gt;UserStore&lt;/code&gt; &lt;a href=&quot;https://github.com/aspnet/Identity/issues/1068&quot;&gt;caches entities in the scope&lt;/a&gt;.
+This would prevent the following test from passing:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-csharp&quot;&gt;&lt;code class=&quot;language-csharp&quot;&gt;user&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Password &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;myNewPassword&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// send a request to update the user&apos;s password&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;PatchUserAsync&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;user&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// send a request to login&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;PostLoginAsync&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;user&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;The reason this fails is because we are deviating a bit from the way ASP.Net Core request scopes should be handled by the application.
+In order to better approximate the behavior of an actual web app,
+we should give each web request its own scope but still provide access to services registered against the ambient scope.
+The below illustration shows the different possibilities.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/request-scope-illustrations-6f736aedd3940799e499127e6bcbc41f-ec9c6.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 142.85714285714286%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAdCAYAAACqhkzFAAAACXBIWXMAAAsSAAALEgHS3X78AAAFD0lEQVRIx3VVaXfaRhT1//8dXU7b5LhtHG9xYhtcNkloX9CCJCSEEJLYwY6d3D4NDsVx+uGeN4yYO2/m3fvmaLNZoML2OTKsK8xfYL2aYbWc7rGu8DxXxW84KrIhikmCLEtQjUsal/kIRZ5iWuxQFmNaWO4WVeQHGxySMUJON8BZHppWH0Kvj67dR9sOwNkhJDeAE4bomSpGyYAynaFIA0wn8YuMXxCaxRbWAujNvsCcfSXgGV+gTZ+QbJ6QjiIijLCcjlGMfORDD4tpxjJ9RaiM5lCyDdTJhuIayngNebSGmm1h5iv05/cI4wGRDmjBFHnSRzke7IleEUrpEu87Gt61ZBbft1S8ueHw5x2PuhnAWz4hGkYYE+H9donVotwv/uEdWuMZPsgeTonsUrRx2XVwJbu0gQIuKtGbf4UVjZClEVPCi0r/KEN/MoU+fYRePEDPH3eoxuw3oXyCFY8xGccvCP83w2FeYDhfwyk3jMDId0RGUY3vqTCPUOKMMoyZHpeL1xkeEh/FUR9J7MMP+/CCPlzfg913YXsOegTDdWC6NhEVeLhfsSzvtzvhHx7/G+nROB2SJGK69Bij4YDIQ4oRi3HoIx74SKIQQ6p0hWS4k1Al/P1RD4R+xNHlf7xo4vTdNc5ObnF13tjFiwa4Jom+ZYInCG2LQeRs9ltTNNzfLzErRkzo+wwVquy74xv89ssJ/j7+iJO/rvH293M2Fto2XCtDT08IIwaboEkDKJLOjp76OkHDvKwynuNI7pqQeI8W9yC0dugSuAbNcw50KYQmBhQDNjbVGEo3gCSolOGCWbESe3XHLMOK0JBj8BR1J4DZ86CYHjTyt2CSv00fSo/IaN5yXNrcJELyeVdjGa6+v0NFtKAIPlRawEcZ2v0UTQIf5RCTKbphCjlM4C0+I16uIQo6/T+ELO6O/L2MGKFaHUGz8LbG4Y9rDj+f13FcF3B8J+CiLaFFG5jlA8IZ+Vw0GaEiGbsMv2mwImWEUkXoQzQcstoEEkEZJOAoM96LoEQp2e8ztHwDq1xDov9r4gCqbO4JV8sDpwjkYZn30WmrkFUbkmiw4/B0NLGro8NpaDRlNOl7s6OiRVISOx4RGj8mDPrkEKeCB6dnw7HIIWYVbdgE167gwO09g8YOzVUNd7uZv3ZK1eMWVPKqxS+pNS3mBZPAfJ5jRk10NptgXmE+oW/5f99nBft/pb0XVTY0A+fvazg9uaZ4i8uzOi5Ob3H7qYPmHRWE0G4o6DRUdJoajXUIHQt16pmVZdfLAmUW/Zdhz3TRrGv4RJa7OvsHn8iGZ+SWRk2BbaQwFHJFl+6MoQ+NYNIc37KYt8vUx8hTMMsTlumRqfdIrA541YXsDCH1qLLuCJZL4uV1tKhobZrvOjFkL4boRFD7EWXYpgyH9LZQ842oG9F17B4pIuRbBlSSxx0RtYIMt0RqlFuqOlmRKn2t+bhSfFxKtPFwgf7iEbWbFnUlarrVs3DwJBChTf41YJD23tzy+Om8hg+SCyXfglccdIXde/PrxzZqXgZx8kAv5GfUah2kSfyi0rs3hQQtUDtykgx6toQ6nCBYPcFeA13dJ8/qMJICMgm+l05hpjNCiRvafDxK9oT7DC06cuuOHqQ2jy4vQ+Cosk0etaaIO7Jesy5RgQQCj8Zth6FZpxeRLJqlyf6d2Qs7n4yoWiEG1J19z2UIfBcDQhh4iKhjR4PgIAaIowo+0+T3j9W/MPA7jgIgSU0AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Iterations of the design&quot;
+        title=&quot;&quot;
+        src=&quot;/static/request-scope-illustrations-6f736aedd3940799e499127e6bcbc41f-fb8a0.png&quot;
+        srcset=&quot;/static/request-scope-illustrations-6f736aedd3940799e499127e6bcbc41f-1a291.png 148w,
+/static/request-scope-illustrations-6f736aedd3940799e499127e6bcbc41f-2bc4a.png 295w,
+/static/request-scope-illustrations-6f736aedd3940799e499127e6bcbc41f-fb8a0.png 590w,
+/static/request-scope-illustrations-6f736aedd3940799e499127e6bcbc41f-ec9c6.png 707w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;We have currently implemented scenario 1 and I am in the process of finishing support for scenarios 1-2.&lt;/p&gt;
+&lt;h2&gt;So, Where’s The Abstraction?&lt;/h2&gt;
+&lt;p&gt;I would love to see this officially supported by Microsoft.
+But until then, I have provided a library you can use so you don’t need to worry about the details.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/jaredcnance/DotnetTestAbstractions&quot;&gt;Source Code&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.nuget.org/packages/DotnetTestAbstractions&quot;&gt;NuGet Package&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you have any questions or are interested in supporting this project, feel free to reach out to me
+on Twitter &lt;a href=&quot;https://twitter.com/jaredcnance&quot;&gt;@jaredcnance&lt;/a&gt;.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Leveling Up Your .Net Testing Patterns - Part II Transactional Integration Testing]]></title><description><![CDATA[In  part 1  of this blog post, I introduced a few testing patterns.
 Specifically I showed how you can use factories to generate fake data…]]></description><link>https://jaredcnance.github.io//leveling-up-your-dotnet-testing-transactional-integration-testing-in-asp-net-core/</link><guid isPermaLink="false">https://jaredcnance.github.io//leveling-up-your-dotnet-testing-transactional-integration-testing-in-asp-net-core/</guid><pubDate>Sat, 14 Apr 2018 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;In &lt;a href=&quot;http://nance.io/leveling-up-your-dotnet-testing/&quot;&gt;part 1&lt;/a&gt; of this blog post, I introduced a few testing patterns.
 Specifically I showed how you can use factories to generate fake data and create randomness in our tests.
 This can improve the coverage of possible input parameters and possibly expose unexpected application bugs.&lt;/p&gt;
