@@ -263,6 +263,12 @@ The below illustration shows the different possibilities.
 ![Iterations of the design](request-scope-illustrations.png)
 
 We have currently implemented scenario 1 and I am in the process of finishing support for scenarios 1-2.
+To do this we need to create child scopes (one of the reason I chose AutoFac earlier) that have access to the ambient
+scope. One of the challenges here is that if I register a `DbContext` in the ambient scope and in the child scope
+(say via a `Startup` class), the child scoped instance would be resolved instead of the ambient instance.
+
+This is one of the challenges I'm currently working on, but for now the current solution should be satisfactory for
+at least 95% of use cases.
 
 ## So, Where's The Abstraction?
 
