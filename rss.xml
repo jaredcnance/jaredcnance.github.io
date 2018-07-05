@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[nance.io]]></title><description><![CDATA[A blog about programming things.]]></description><link>https://jaredcnance.github.io/</link><generator>RSS for Node</generator><lastBuildDate>Thu, 05 Jul 2018 17:43:51 GMT</lastBuildDate><item><title><![CDATA[A Better Story for Asp.Net Core Integration Testing]]></title><description><![CDATA[tl;dr I’ve built a library to improve the ergonomics and performance of your ASP.Net Core
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[nance.io]]></title><description><![CDATA[A blog about programming things.]]></description><link>https://jaredcnance.github.io/</link><generator>RSS for Node</generator><lastBuildDate>Thu, 05 Jul 2018 17:50:02 GMT</lastBuildDate><item><title><![CDATA[A Better Story for Asp.Net Core Integration Testing]]></title><description><![CDATA[tl;dr I’ve built a library to improve the ergonomics and performance of your ASP.Net Core
 integration tests. It allows you to write simple…]]></description><link>https://jaredcnance.github.io//a-better-story-for-asp-net-core-integration-testing/</link><guid isPermaLink="false">https://jaredcnance.github.io//a-better-story-for-asp-net-core-integration-testing/</guid><pubDate>Thu, 05 Jul 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;tl;dr&lt;/h1&gt;
 &lt;p&gt;I’ve built a library to improve the ergonomics and performance of your ASP.Net Core
 integration tests. It allows you to write simple, elegant tests that run against an actual
@@ -364,7 +364,12 @@ The below illustration shows the different possibilities.&lt;/p&gt;
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;p&gt;We have currently implemented scenario 1 and I am in the process of finishing support for scenarios 1-2.&lt;/p&gt;
+&lt;p&gt;We have currently implemented scenario 1 and I am in the process of finishing support for scenarios 1-2.
+To do this we need to create child scopes (one of the reason I chose AutoFac earlier) that have access to the ambient
+scope. One of the challenges here is that if I register a &lt;code class=&quot;language-text&quot;&gt;DbContext&lt;/code&gt; in the ambient scope and in the child scope
+(say via a &lt;code class=&quot;language-text&quot;&gt;Startup&lt;/code&gt; class), the child scoped instance would be resolved instead of the ambient instance.&lt;/p&gt;
+&lt;p&gt;This is one of the challenges I’m currently working on, but for now the current solution should be satisfactory for
+at least 95% of use cases.&lt;/p&gt;
 &lt;h2&gt;So, Where’s The Abstraction?&lt;/h2&gt;
 &lt;p&gt;I would love to see this officially supported by Microsoft.
 But until then, I have provided a library you can use so you don’t need to worry about the details.&lt;/p&gt;
