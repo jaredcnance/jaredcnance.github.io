@@ -27,14 +27,14 @@ class Bio extends React.Component {
             height: rhythm(5),
             borderRadius: '50%',
           }}
-        />
+        />{' '}
         <p>
-          My name is <strong>Jared Nance</strong>, I live and work in Kansas
-          City. I enjoy building things and sharing what I learn along the way.{' '}
+          My name is <strong> Jared Nance </strong>, I live and work in Kansas
+          City.I enjoy building things and sharing what I learn along the way.{' '}
           You can follow me on{' '}
-          <a href="https://twitter.com/jaredcnance">Twitter</a> or{' '}
-          <a href="https://github.com/jaredcnance">GitHub</a>
-        </p>
+          <a href="https://twitter.com/jaredcnance"> Twitter </a> or{' '}
+          <a href="https://github.com/jaredcnance"> GitHub </a>{' '}
+        </p>{' '}
       </div>
     )
   }
