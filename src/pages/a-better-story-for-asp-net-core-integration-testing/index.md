@@ -1,6 +1,7 @@
 ---
 title: A Better Story for Asp.Net Core Integration Testing
 date: "2018-07-05T00:00:00.000Z"
+description: Improving the ergonomics and performance of ASP.Net Core and Entity Framework Core integration tests
 ---
 
 # tl;dr
